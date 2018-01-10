@@ -1,40 +1,59 @@
 <template>
-  <div id="carousel">
-    <swipe class="my-swipe">
-      <swipe-item class="slide1">
-        <img src="../../resource/img/ad01.png" alt="">
-      </swipe-item>
-      <swipe-item class="slide2">
-        <img src="../../resource/img/ad02.png" alt="">
-      </swipe-item>
-    </swipe>
-  </div>
+  <swiper :options="swiperOption" style="height: auto">
+    <swiper-slide v-for="(item,index) in slideList" :key="index" >
+      <img :src="item.img_src" :alt="item.title">
+    </swiper-slide>
+    <!--<swiper-slide>-->
+      <!--<img src="/static/img/ad01.png" alt="">-->
+    <!--</swiper-slide>-->
+    <!--<swiper-slide>-->
+      <!--<img src="/static/img/ad02.png" alt="">-->
+    <!--</swiper-slide>-->
+    <div class="swiper-pagination" slot="pagination"></div>
+  </swiper>
+
 </template>
 
 <script>
-  import {Swipe, SwipeItem} from 'vue-swipe'
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
   export default {
-    name: "h-carousel",
+    created(){
+      this.get_conf();
+    },
+    data() {
+      return {
+        swiperOption: {
+          autoHeight: true, //enable auto height
+          spaceBetween: 20,
+          loop: true,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          },
+          slideList:""
+        }
+      }
+    },
+    methods:{
+      get_conf(){
+        this.slideList = this.$confJson.index.banner;
+      }
+    },
     components: {
-      swipe: Swipe,
-      swipeItem: SwipeItem
+      swiper,
+      swiperSlide
     }
   }
 </script>
 
 <style scoped>
-  .my-swipe {
-    height: 200px;
-    width: 100vw;
-    color: #fff;
-    font-size: 30px;
-    text-align: center;
+  .swiper-container .swiper-slide img {
+    width: 100% !important;
   }
-
-  .slide1 img, .slide2 img {
-    width: 100vw;
-  }
-
 
 </style>

@@ -1,0 +1,171 @@
+{
+  "global_conf": {
+    "version": 1.0,
+    "login_mode": 1,
+    "open_register": 1,
+    "open_trial": 1,
+    "open_google_check": 1,
+    "min_pay_money": 10.11,
+    "max_pay_money": 9999
+  },
+  "index": {
+    "banner": [
+      {
+        "title": "标题",
+        "img_src": "/static/img/ad01.png",
+        "spec": "图片规格 1920*1080"
+      },
+      {
+        "title": "标题",
+        "img_src": "/static/img/ad02.png",
+        "spec": "图片规格 1920*1080"
+      }
+    ],
+    "lobby": {
+      "game": {
+        "lottery": {
+          "title": "斗地主",
+          "img_src": "/static/img/ico01.png",
+          "online": "3.6",
+          "state": "是否显示",
+          "sort": 1,
+          "list": []
+        },
+        "casino": [
+          {
+            "title": "欢乐麻将",
+            "img_src": "/static/img/ico02.png",
+            "online": "3.6",
+            "state": "是否显示",
+            "sort": 1,
+            "list": []
+          },
+          {
+            "title": "皇家赢三张",
+            "img_src": "/static/img/ico03.png",
+            "online": "3.2",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "战机1942",
+            "img_src": "/static/img/ico04.png",
+            "online": "1.1",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "输三张",
+            "img_src": "/static/img/ico05.png",
+            "online": "2.2",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "美女捕鱼",
+            "img_src": "/static/img/ico06.png",
+            "online": "1.6",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "比鸡",
+            "img_src": "/static/img/ico07.png",
+            "online": "2.6",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "跑得快",
+            "img_src": "/static/img/ico08.png",
+            "online": "3.1",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "疯狂炸翻天",
+            "img_src": "/static/img/ico09.png",
+            "online": "4.6",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "欢乐麻将11",
+            "img_src": "/static/img/ico02.png",
+            "online": "3.6",
+            "state": "是否显示",
+            "sort": 1,
+            "list": []
+          },
+          {
+            "title": "皇家赢三张11",
+            "img_src": "/static/img/ico03.png",
+            "online": "3.2",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "战机194211",
+            "img_src": "/static/img/ico04.png",
+            "online": "1.1",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "输三张11",
+            "img_src": "/static/img/ico05.png",
+            "online": "2.2",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "美女捕鱼11",
+            "img_src": "/static/img/ico06.png",
+            "online": "1.6",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "比鸡11",
+            "img_src": "/static/img/ico07.png",
+            "online": "2.6",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "跑得快11",
+            "img_src": "/static/img/ico08.png",
+            "online": "3.1",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          },
+          {
+            "title": "疯狂炸翻天11",
+            "img_src": "/static/img/ico09.png",
+            "online": "4.6",
+            "state": "是否显示",
+            "sort": 2,
+            "list": []
+          }
+        ]
+      }
+    }
+  },
+  "game_conf": {
+    "mode": 1,
+    "cut_mode": {}
+  }
+}
