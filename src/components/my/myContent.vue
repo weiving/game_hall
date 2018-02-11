@@ -4,30 +4,70 @@
       <div class="assets-title">总资产 <span>(元)</span>
         <span class="close-ico" v-bind:class="{'open-ico':isShowAssets==1}"
               @click="toggle"></span>
-        <!--<span v-bind:class="{'open-ico':isShowAssets==1,'close-ico':!isShowAssets}"-->
-        <!--@click="toggle"></span>-->
-        <!--<span class="open-ico" @click="toggle" v-if="isShowAssets==1"></span>-->
-        <!--<span class="close-ico" @click="toggle" v-else></span>-->
       </div>
       <div class="assets-num" v-if="isShowAssets==1"><span class="amount">16734.5</span>元</div>
       <div class="assets-num" v-else>******</div>
-      <div class="recharge-btn">充值</div>
+      <div class="withdrawal-btn" @click="toComponent('withdrawal')">提现</div>
+      <div class="recharge-btn" @click="toComponent('recharge')">充值</div>
     </div>
     <div class="my-detail">
       <div class="detail-line">
         <div class="item">
-          <img src="/static/img/Edition.png" alt="资产明细">
-          <div class="item-info">
-            <div class="title">资金明细</div>
-            <div class="des">我的充值记录明细</div>
+          <div @click="toComponent('reportRecord')">
+            <img src="/static/img/Edition.png" alt="报表查询">
+            <div class="item-info">
+              <div class="title">报表查询</div>
+              <div class="des">分为游戏报表</div>
+            </div>
           </div>
         </div>
         <div class="item last-item">
-          <router-link to="/loginRecord">
-            <img src="/static/img/IP.png" alt="登陆记录">
+          <div @click="toComponent('record')">
+            <img src="/static/img/IP.png" alt="记录查询">
             <div class="item-info">
-              <div class="title">登陆记录</div>
-              <div class="des">{{login_ip}}</div>
+              <div class="title">记录查询</div>
+              <div class="des">分为游戏记录</div>
+            </div>
+          </div>
+        </div>
+        <div class="line"></div>
+      </div>
+      <div class="detail-line">
+        <div class="item">
+          <div @click="toComponent('capitalRecord')">
+            <img src="/static/img/Record.png" alt="充提转记录">
+            <div class="item-info">
+              <div class="title">充提转记录</div>
+              <div class="des">分为充提转记录</div>
+            </div>
+          </div>
+        </div>
+        <!--<div class="item last-item">-->
+        <!--<img src="/static/img/share.png" alt="分享游戏大厅">-->
+        <!--<div class="item-info">-->
+        <!--<div class="title">分享游戏大厅</div>-->
+        <!--<div class="des">可获0.05分收益</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="agent-manege" v-if="user_type==2">
+      <div class="detail-line">
+        <div class="item">
+          <img src="/static/img/Statistics.png" alt="团队统计">
+          <div class="item-info">
+            <div class="title">团队统计</div>
+            <div class="des">查看最新的数据</div>
+          </div>
+        </div>
+        <div class="item last-item">
+          <router-link to="/">
+            <img src="/static/img/Management.png" alt="下级管理">
+            <div class="item-info">
+              <div class="title">下级管理</div>
+              <div class="des">分为下级管理</div>
             </div>
           </router-link>
         </div>
@@ -35,22 +75,40 @@
       </div>
       <div class="detail-line">
         <div class="item">
-          <img src="/static/img/share.png" alt="分享游戏大厅">
+          <img src="/static/img/accounts.png" alt="开户中心">
           <div class="item-info">
-            <div class="title">分享游戏大厅</div>
-            <div class="des">可获0.05分收益</div>
+            <div class="title">开户中心</div>
+            <div class="des">分为添加下级</div>
           </div>
         </div>
         <div class="item last-item">
-          <img src="/static/img/Record.png" alt="当前版本">
+          <img src="/static/img/Bag.png" alt="红包管理">
           <div class="item-info">
-            <div class="title">当前版本</div>
-            <div class="des">2.3.1</div>
+            <div class="title">红包管理</div>
+            <div class="des">给下级发送红包</div>
+          </div>
+        </div>
+        <div class="line"></div>
+      </div>
+      <div class="detail-line">
+        <div class="item">
+          <img src="/static/img/Record.png" alt="下级分红">
+          <div class="item-info">
+            <div class="title">下级分红</div>
+            <div class="des">通过条件查询</div>
+          </div>
+        </div>
+        <div class="item last-item">
+          <img src="/static/img/Wages.png" alt="下级日工资">
+          <div class="item-info">
+            <div class="title">下级日工资</div>
+            <div class="des">通过条件查询</div>
           </div>
         </div>
         <div class="line"></div>
       </div>
     </div>
+
     <div class="my-games">
       <div class="title">
         <img src="/static/img/line.png" alt="">
@@ -85,11 +143,11 @@
 </template>
 
 <script>
-  import {setLocalStornage, getLocalStornage} from "../../../static/js/util";
+  import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "my-content",
-    props: ['login_ip'],
+    props: ['user_type'],
     created() {
       this.getState();
     },
@@ -104,172 +162,29 @@
     },
     methods: {
       getState: function () {
-        this.isShowAssets = getLocalStornage("showAssets");
+        this.isShowAssets = getLocalStorage("showAssets");
       },
       toggle: function () {
-        var showstate = getLocalStornage("showAssets");
+        var showstate = getLocalStorage("showAssets");
         if (showstate != 1) {
           this.isShowAssets = 1;
-          setLocalStornage("showAssets", this.isShowAssets);
+          setLocalStorage("showAssets", this.isShowAssets);
         } else {
           this.isShowAssets = 0;
-          setLocalStornage("showAssets", this.isShowAssets);
+          setLocalStorage("showAssets", this.isShowAssets);
         }
-      }
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component);
+        if (component == 'recharge') {
+          this.$root.Bus.$emit('footerStatus', 'recharge')
+        }
+      },
     }
   }
 </script>
 
 <style scoped lang="less">
-  .assets {
-    width: 100%;
-    height: 75px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 12px 15px;
-    position: relative;
-    box-shadow: 0 0 3px 3px #F0F8FF;
-    margin-bottom: 15px;
-    .assets-title {
-      font-size: 14px;
-      margin-bottom: 15px;
-      span {
-        margin-left: 5px;
-      }
-      .close-ico {
-        display: inline-block;
-        width: 17px;
-        height: 12px;
-        background-image: url('/static/img/ico_ice_up_2.png');
-        background-size: cover;
-      }
-      .close-ico.open-ico {
-        background-image: url('/static/img/ico_ice_down_2.png');
-        background-size: cover;
-      }
-    }
 
-    .assets-num {
-      font-size: 20px;
-      color: #FF991D;
-    }
-
-    .recharge-btn {
-      width: 58px;
-      height: 30px;
-      line-height: 30px;
-      background: #FF991D;
-      color: #fff;
-      text-align: center;
-      border-radius: 4px;
-      position: absolute;
-      top: 23px;
-      right: 12px;
-    }
-  }
-
-  .my-detail {
-    width: 100%;
-    height: 120px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 16px 13px;
-    margin-bottom: 18px;
-
-    .detail-line {
-      width: 100%;
-      height: 47px;
-      margin-bottom: 11px;
-      border-bottom: 1px solid #EBEBEB;
-      position: relative;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      .item {
-        width: 50%;
-        float: left;
-        a {
-          color: #000;
-        }
-        img {
-          width: 17px;
-          height: 18px;
-          float: left;
-        }
-
-        .item-info {
-          float: left;
-          margin-left: 14px;
-          margin-top: 2px;
-
-          .title {
-            margin-bottom: 8px;
-          }
-
-          .des {
-            color: #B9B9B9;
-          }
-        }
-      }
-
-      .last-item {
-        padding-left: 20px;
-      }
-
-      .line {
-        position: absolute;
-        top: 2px;
-        left: 50%;
-        width: 1px;
-        height: 30px;
-        background: #EBEBEB;
-      }
-
-    }
-
-  }
-
-  .my-games {
-    width: 100%;
-    height: 170px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 17px 8px;
-
-    .title {
-      position: relative;
-      img {
-        width: 19px;
-        height: 13px;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      .my-play {
-        margin-left: 30px;
-        padding-bottom: 13px;
-        font-size: 14px;
-        border-bottom: 1px solid #EBEBEB;
-      }
-    }
-
-    .online-games {
-      padding-left: 30px;
-      padding-top: 17px;
-      .swiper-slide {
-        text-align: center;
-      }
-      img {
-        width: 64px;
-        height: 64px;
-      }
-      .game-name {
-        margin-top: 10px;
-      }
-    }
-  }
 
 </style>

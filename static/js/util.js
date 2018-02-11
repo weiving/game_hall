@@ -23,16 +23,16 @@ export function delCookie(name) {
         document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 };
 
-// 获取 LocalStornag
-export function getLocalStornage(name) {
+// 获取 LocalStorage
+export function getLocalStorage(name) {
     return window.localStorage.getItem(name);
 }
-// 设置 LocalStornag
-export function setLocalStornage(name, value) {
+// 设置 LocalStorage
+export function setLocalStorage(name, value) {
     return window.localStorage.setItem(name, value);
 }
 
-// 删除 LocalStornag
-export function removeLocalStornage(name) {
+// 删除 LocalStorage
+export function removeLocalStorage(name) {
     return window.localStorage.removeItem(name);
 }

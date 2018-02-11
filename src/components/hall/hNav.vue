@@ -3,9 +3,9 @@
     <div class="navbar-wrap">
       <div class="game-item">
         <i class="icon game-icon"></i>
-        <span class="nav-title">游戏礼包</span>
+        <span class="nav-title">游戏活动</span>
       </div>
-      <div class="ranking-item">
+      <div class="ranking-item" @click="toComponent('ranking')">
         <i class="icon ranking-icon"></i>
         <span class="nav-title">人气排行</span>
       </div>
@@ -20,7 +20,12 @@
 <script>
   export default {
     name: "h-nav",
-    props: ['onlineNum']
+    props: ['onlineNum'],
+    methods:{
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
+    }
   }
 </script>
 
@@ -68,6 +73,7 @@
     border-right: 1px solid #eeeeee;
     margin-top: 17px;
     margin-bottom: 17px;
+    color: #000;
   }
 
   .navbar-wrap .ranking-item .ranking-icon {

@@ -53,7 +53,8 @@
 
 <script>
   // import {setCookie} from "/static/js/util";
-  import {setCookie} from "../../../static/js/util";
+  import {setLocalStorage} from "../../../static/js/util";
+
 
   export default {
     name: "login",
@@ -106,7 +107,11 @@
             .then(res => {
               if (res.data.success == 1) {
                 // localStorage.session = res.data.session;
-                setCookie("session", res.data.session, 1);
+                console.log('login', res)
+                setLocalStorage("session", res.data.session);
+                setLocalStorage("user_id", res.data.user_id);
+                setLocalStorage("user_type", res.data.user_type);
+
                 this.$router.push({path: '/'})
               } else {
                 this.isShow_login_msg = true;
@@ -146,6 +151,7 @@
     background-size: cover;
     letter-spacing: 1px;
     position: relative;
+    z-index: 65;
   }
 
   #login .mask {

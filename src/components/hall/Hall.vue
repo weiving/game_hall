@@ -3,7 +3,7 @@
     <hCarousel></hCarousel>
     <hNav :onlineNum="onlineNum"></hNav>
     <hContent></hContent>
-    <iFooter v-bind:isHome="true"></iFooter>
+    <!--<iFooter v-bind:isHome="true"></iFooter>-->
   </div>
 </template>
 
@@ -11,7 +11,7 @@
   import hCarousel from '@/components/hall/hCarousel'
   import hNav from '@/components/hall/hNav'
   import hContent from '@/components/hall/hContent'
-  import iFooter from '@/components/footer/iFooter'
+  // import iFooter from '@/components/footer/iFooter'
 
   export default {
     name: "hall",
@@ -27,16 +27,16 @@
     methods: {
       getOnlineNum: function () {
         this.$http
-          .post(`${this.$api}/user/get_concurrent`)
+          .post(`${this.$api}/pubsub/online`)
           .then(res => {
             if (res.data.success == 1) {
-              this.onlineNum = res.data.concurrent
+              this.onlineNum = res.data.concurrent;
             } else {
-              console.log(res.data.message)
+              console.log('concurrent.message', res.data.message)
             }
           })
           .catch(err => {
-            console.log(err.message)
+            console.log('concurrent.err.message', err.message)
           })
       }
     },
@@ -44,7 +44,7 @@
       'hCarousel': hCarousel,
       'hNav': hNav,
       'hContent': hContent,
-      'iFooter': iFooter
+      // 'iFooter': iFooter
     }
   }
 </script>

@@ -25,7 +25,10 @@
       </div>
       <div class="hall-body" :style="{height:h_val+'px'}">
         <div class="item-game" v-for="(item,index) in itemList" :key="index">
-          <a href="http://192.168.0.25/football/">
+          <!--<a href="http://192.168.0.25/football/">-->
+          <!--<img :src="item.img_src" :alt="item.title">-->
+          <!--</a>-->
+          <a href="javaScripts:(0)" @click="toComponent('gameFrame')">
             <img :src="item.img_src" :alt="item.title">
           </a>
           <div class="play-online"><span class="text-orange">{{item.online}}万人</span>在玩</div>
@@ -149,24 +152,26 @@
     },
     methods: {
       get_conf() {
-        this.itemHead = this.$confJson.index.lobby.game.lottery;
-        this.itemList = this.$confJson.index.lobby.game.casino.slice(0, 8);
+        this.itemHead = this.$confJson.index.lobby.landlords;
+        this.itemList = this.$confJson.index.lobby.chess.slice(0, 8);
         // console.log(this.itemHead)
         // console.log(this.itemList)
       },
       get_more() {
-        var length = this.$confJson.index.lobby.game.casino.length;
+        var length = this.$confJson.index.lobby.chess.length;
         if (length > 8 + this.click_times * 4) {
           this.click_times++;
           var n = 8 + this.click_times * 4;
-          this.itemList = this.$confJson.index.lobby.game.casino.slice(0, n);
+          this.itemList = this.$confJson.index.lobby.chess.slice(0, n);
           this.h_val = 240 + 120 * this.click_times;
         } else {
           this.text = "已经到底部了~"
         }
 
-
-      }
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
     }
   }
 </script>
@@ -238,6 +243,7 @@
     color: #278CF5;
     border-radius: 4px;
     font-size: 16px;
+    padding: 1px 6px;
   }
 
   .hall-content .hall-body {
@@ -332,12 +338,12 @@
   .sub-content .record-items .item .item-time {
     display: inline-block;
     color: #278CF5;
-    width: 55px;
+    width: 60px;
   }
 
   .sub-content .record-items .item .item-name {
     display: inline-block;
-    width: 60px !important;
+    width: 65px !important;
     margin-right: 10px;
   }
 

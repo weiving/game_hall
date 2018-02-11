@@ -1,9 +1,9 @@
 <template>
   <div id="setPhone">
     <div class="setPhone-head">
-      <router-link to="/my">
+      <div class="toMySet" @click="toComponent('mySet')">
         <img src="/static/img/left.png"/>
-      </router-link>
+      </div>
       <div class="title">绑定手机</div>
     </div>
     <div class="setPhone-content">
@@ -103,7 +103,8 @@
                 setTimeout(function () {
                   _this.isShow_msg = false;
                   _this.msg = '';
-                  _this.$router.push({path: '/mySet'});
+                  // _this.$router.push({path: '/mySet'});
+                  _this.$root.Bus.$emit('toggleComponent', 'mySet')
                 }, 2000)
               } else {
                 this.isShow_msg = true;
@@ -131,7 +132,10 @@
         this.isShow_msg = false;
         this.msg = '';
         this.isValid = true;
-      }
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
     },
     computed: {
       text: function () {
@@ -141,95 +145,101 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   #setPhone {
     width: 100%;
     height: 100%;
     background: #F7FBFF;
     display: flex;
     flex-direction: column;
+
+    .setPhone-head {
+      width: 100vw;
+      height: 50px;
+      line-height: 50px;
+      background: #5D97F9;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      font-size: 20px;
+
+      .toMySet {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 60px;
+        height: 50px;
+
+        img {
+          width: 11px;
+          height: 19px;
+        }
+      }
+    }
+
+    .setPhone-content {
+      width: 100vw;
+      flex: 1;
+      font-size: 16px;
+
+      .row {
+        width: 100vw;
+        height: 60px;
+        line-height: 60px;
+        background: #fff;
+        border-bottom: 1px solid #EBEBEB;
+        position: relative;
+
+        &.last {
+          border: none;
+          box-shadow: 0 5px 8px #F0F8FF;
+        }
+
+        input {
+          width: -webkit-calc(~"100vw - 30px");
+          width: calc(~"100vw - 30px");
+          height: 40px;
+          line-height: 40px;
+          margin-left: 15px;
+          margin-right: 15px;
+        }
+
+        .phone {
+          width: -webkit-calc(~"100vw - 130px");;
+          width: calc(~"100vw - 130px");
+        }
+
+        .getBtn {
+          position: absolute;
+          top: 0;
+          right: 10px;
+          color: #5D97F9;
+        }
+      }
+
+      .row-btn {
+        width: 100vw;
+        margin: 40px 10px;
+
+        .sure-btn {
+          width: -webkit-calc(~"100vw - 20px");
+          width: calc(~"100vw - 20px");
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          color: #fff;
+          background: #5D97F9;
+          border-radius: 6px;
+          &.active {
+            background: #CCCCCC;
+          }
+        }
+
+      }
+
+    }
+
   }
 
-  .setPhone-head {
-    width: 100vw;
-    height: 50px;
-    line-height: 50px;
-    background: #5D97F9;
-    color: #fff;
-    text-align: center;
-    position: relative;
-    font-size: 20px;
-  }
 
-  .setPhone-head img {
-    position: absolute;
-    top: 15px;
-    left: 13px;
-    width: 11px;
-    height: 19px;
-  }
-
-  .setPhone-content {
-    width: 100vw;
-    flex: 1;
-    font-size: 16px;
-  }
-
-  .setPhone-content .row {
-    width: 100vw;
-    height: 60px;
-    line-height: 60px;
-    background: #fff;
-    border-bottom: 1px solid #EBEBEB;
-    position: relative;
-  }
-
-  .setPhone-content .row.last {
-    border: none;
-    box-shadow: 0 5px 8px #F0F8FF;
-  }
-
-  .setPhone-content .row input {
-    width: -webkit-calc(100vw - 30px);
-    width: -moz-calc(100vw - 30px);
-    width: calc(100vw - 30px);
-    height: 40px;
-    line-height: 40px;
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-
-  .setPhone-content .row .phone {
-    width: -webkit-calc(100vw - 130px);
-    width: -moz-calc(100vw - 130px);
-    width: calc(100vw - 130px);
-  }
-
-  .setPhone-content .row .getBtn {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    color: #5D97F9;
-  }
-
-  .setPhone-content .row-btn {
-    width: 100vw;
-    margin: 40px 10px;
-  }
-
-  .setPhone-content .row-btn .sure-btn {
-    width: -webkit-calc(100vw - 20px);
-    width: -moz-calc(100vw - 20px);
-    width: calc(100vw - 20px);
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    color: #fff;
-    background: #5D97F9;
-    border-radius: 6px;
-  }
-
-  .setPhone-content .row-btn .sure-btn.active {
-    background: #CCCCCC;
-  }
 </style>

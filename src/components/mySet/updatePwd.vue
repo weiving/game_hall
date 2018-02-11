@@ -1,9 +1,9 @@
 <template>
   <div id="updatePwd">
     <div class="updatePwd-head">
-      <router-link to="/mySet" class="toMySet">
+      <div class="toMySet" @click="toComponent('mySet')">
         <img src="/static/img/left.png"/>
-      </router-link>
+      </div>
       <div class="title">修改密码</div>
     </div>
     <div class="updatePwd-content">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import {getCookie} from "../../../static/js/util";
+  import {getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "update-pwd",
@@ -57,7 +57,7 @@
           params.append('old_password', this.oldPwd);
           params.append('new_password', this.newPwd);
           var _this = this;
-          var session = getCookie("session");
+          var session = getLocalStorage("session");
           this.$http
             .post(`${this.$api}/user/reset_password?session=${session}`, params)
             .then(res => {
@@ -65,7 +65,8 @@
                 _this.isShow_msg = true;
                 _this.msg = res.data.message;
                 setTimeout(function () {
-                  _this.$router.push({path: '/mySet'})
+                  // _this.$router.push({path: '/mySet'})
+                  _this.$root.Bus.$emit('toggleComponent', 'mySet')
                 }, 500)
               } else {
                 _this.isShow_msg = true;
@@ -73,7 +74,10 @@
               }
             })
         }
-      }
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
     }
   }
 </script>
@@ -98,14 +102,14 @@
 
       .toMySet {
         position: absolute;
-        top: 5px;
+        top: 0px;
         left: 0px;
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 50px;
+
         img {
           width: 11px;
           height: 19px;
-          vertical-align: text-top;
         }
       }
     }

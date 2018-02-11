@@ -1,7 +1,7 @@
 <template>
   <div id="home">
-    <myHeader :user="user" :user_id="user_id"></myHeader>
-    <myContent :login_ip="login_ip"></myContent>
+    <myHeader :user="user" :user_id="user_id" :user_type="user_type"></myHeader>
+    <myContent :user_type="user_type"></myContent>
     <iFooter v-bind:isMy="true"></iFooter>
   </div>
 </template>
@@ -11,7 +11,7 @@
   import myContent from '@/components/my/myContent'
   import iFooter from '@/components/footer/iFooter'
   // import {getCookie} from "/static/js/util";
-  import {getCookie} from "../../../static/js/util";
+  import {getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "my",
@@ -19,6 +19,7 @@
       return {
         user: '',
         user_id: '',
+        user_type:'',
         // portrait:'',头像
         login_ip: ''
       }
@@ -33,17 +34,18 @@
     },
     methods: {
       getUserInfo: function () {
-        var session = getCookie("session");
+        var session = getLocalStorage("session");
         if (session == '' || session == undefined) {
           this.$router.push({path: '/login'})
         } else {
           this.$http
             .post(`${this.$api}/user/user_info?session=${session}`)
             .then(res => {
-              console.log(res)
+              // console.log(res)
               if (res.data.success == 1) {
-                this.user = res.data.user;
+                this.user = res.data.username;
                 this.user_id = res.data.user_id;
+                this.user_type=res.data.user_type;
                 // this.portrait=res.data.portrait;
                 this.login_ip = res.data.login_ip;
               } else {
@@ -61,10 +63,5 @@
 </script>
 
 <style scoped>
-  #home {
-    height: 100%;
-    background-color: #F7FBFF;
-    overflow: auto;
-    padding: 8px 10px;
-  }
+
 </style>

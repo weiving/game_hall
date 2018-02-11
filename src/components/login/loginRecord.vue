@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import {getCookie} from "../../../static/js/util";
+  import {getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "login-record",
@@ -56,7 +56,7 @@
     },
     methods: {
       getLoginRecord: function () {
-        var session = getCookie('session');
+        var session = getLocalStorage('session');
         if (session == '' || session == undefined) {
           this.$router.push({path: '/login'})
         } else {

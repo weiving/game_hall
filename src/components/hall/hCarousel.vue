@@ -1,13 +1,13 @@
 <template>
-  <swiper :options="swiperOption" style="height: auto">
-    <swiper-slide v-for="(item,index) in slideList" :key="index" >
+  <swiper :options="swiperOption" style="height: 200px">
+    <swiper-slide v-for="(item,index) in slideList" :key="index">
       <img :src="item.img_src" :alt="item.title">
     </swiper-slide>
     <!--<swiper-slide>-->
-      <!--<img src="/static/img/ad01.png" alt="">-->
+    <!--<img src="/static/img/ad01.png" alt="">-->
     <!--</swiper-slide>-->
     <!--<swiper-slide>-->
-      <!--<img src="/static/img/ad02.png" alt="">-->
+    <!--<img src="/static/img/ad02.png" alt="">-->
     <!--</swiper-slide>-->
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -18,7 +18,7 @@
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
   export default {
-    created(){
+    created() {
       this.get_conf();
     },
     data() {
@@ -35,13 +35,13 @@
             el: '.swiper-pagination',
             clickable: true
           },
-          slideList:""
+          slideList: ""
         }
       }
     },
-    methods:{
-      get_conf(){
-        this.slideList = this.$confJson.index.banner;
+    methods: {
+      get_conf() {
+        this.slideList = this.$confJson.index.banner.list;
       }
     },
     components: {
@@ -51,7 +51,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .swiper-container .swiper-slide img {
     width: 100% !important;
   }

@@ -1,9 +1,9 @@
 <template>
   <div id="mySet">
     <div class="mySet-head">
-      <router-link to="/my" class="toMy">
+      <div class="toMy" @click="toComponent('my')">
         <img src="/static/img/left.png"/>
-      </router-link>
+      </div>
       <div class="title">我的</div>
     </div>
     <div class="mySet-content">
@@ -17,10 +17,10 @@
         <div class="row">
           <img src="/static/img/Edition.png" class="head01-icon" alt="用户昵称">
           <span>用户昵称</span>
-          <router-link to="/updateNick" class="setName">
+          <div class="setName" @click="toComponent('updateNick')">
             <span class="username">{{nickname}}</span>
             <img src="/static/img/wind01.png" alt="">
-          </router-link>
+          </div>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
         <div class="row">
           <img src="/static/img/phone.png" class="head01-icon" alt="绑定手机">
           <span>绑定手机</span>
-          <div class="next">
+          <div class="next" @click="toComponent('setPhone')">
             <span class="text-red">已绑定</span>
             <img src="/static/img/wind01.png" alt="">
           </div>
@@ -47,12 +47,9 @@
         <div class="row">
           <img src="/static/img/phone.png" class="head01-icon" alt="修改密码">
           <span>修改密码</span>
-          <router-link to="/updatePwd">
-            <div class="next">
-
-              <img src="/static/img/wind01.png" alt="">
-            </div>
-          </router-link>
+          <div class="next" @click="toComponent('updatePwd')">
+            <img src="/static/img/wind01.png" alt="">
+          </div>
         </div>
       </div>
 
@@ -64,8 +61,8 @@
 </template>
 
 <script>
-  import {getCookie} from "../../../static/js/util";
-  import {delCookie} from "../../../static/js/util";
+  import {getLocalStorage} from "../../../static/js/util";
+  import {removeLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "my-set",
@@ -81,7 +78,7 @@
     },
     methods: {
       getUserInfo: function () {
-        var session = getCookie("session");
+        var session = getLocalStorage("session");
         if (session == '' || session == undefined) {
           this.$router.push({path: '/login'})
         } else {
@@ -104,9 +101,15 @@
         }
       },
       esc_login: function () {
-        delCookie("session")
-        this.$router.push({path: '/login'})
-      }
+        removeLocalStorage("session")
+        removeLocalStorage("user_id")
+        removeLocalStorage("showAssets")
+        // this.$router.push({path: '/login'})
+        this.$root.Bus.$emit('toggleComponent', 'login')
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
     }
   }
 </script>
@@ -131,15 +134,14 @@
 
       .toMy {
         position: absolute;
-        top: 5px;
+        top: 0px;
         left: 0px;
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 50px;
 
         img {
           width: 11px;
           height: 19px;
-          vertical-align: text-top;
         }
       }
 

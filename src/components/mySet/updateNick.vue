@@ -1,9 +1,9 @@
 <template>
   <div id="updateNick">
     <div class="updateNick-head">
-      <router-link to="/mySet" class="toMySet">
+      <div class="toMySet" @click="toComponent('mySet')">
         <img src="/static/img/left.png"/>
-      </router-link>
+      </div>
       <div class="title">我的昵称</div>
     </div>
     <div class="updateNick-content">
@@ -20,8 +20,7 @@
 </template>
 
 <script>
-  import {getCookie} from "../../../static/js/util";
-  import {setCookie} from "../../../static/js/util";
+  import {getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "update-nick",
@@ -38,14 +37,13 @@
     },
     methods: {
       getUserInfo: function () {
-        var session = getCookie("session");
+        var session = getLocalStorage("session");
         if (session == '' || session == undefined) {
           this.$router.push({path: '/login'})
         } else {
           this.$http
             .post(`${this.$api}/user/user_info?session=${session}`)
             .then(res => {
-              console.log(res)
               if (res.data.success == 1) {
                 if (this.nickname != undefined) {
                   this.nickname = res.data.nickname;
@@ -71,7 +69,7 @@
           params.append('nickname', this.nickname);
 
           var _this = this;
-          var session = getCookie("session");
+          var session = getLocalStorage("session");
           this.$http
             .post(`${this.$api}/user/edit_nickname?session=${session}`, params)
             .then(res => {
@@ -79,7 +77,8 @@
                 _this.isShow_msg = true;
                 _this.msg = res.data.message;
                 setTimeout(function () {
-                  _this.$router.push({path: '/mySet'})
+                  // _this.$router.push({path: '/mySet'})
+                  _this.$root.Bus.$emit('toggleComponent', 'mySet')
                 }, 500)
               } else {
                 _this.isShow_msg = true;
@@ -92,7 +91,10 @@
         this.isShow_msg = false;
         this.msg = "";
         this.isValid = true;
-      }
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
     }
   }
 </script>
@@ -117,15 +119,14 @@
 
       .toMySet {
         position: absolute;
-        top: 5px;
+        top: 0px;
         left: 0px;
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 50px;
 
         img {
           width: 11px;
           height: 19px;
-          vertical-align: text-top;
         }
       }
     }
