@@ -1,12 +1,12 @@
 <template>
-  <div id="mySet">
-    <div class="mySet-head">
-      <div class="toMy" @click="toComponent('my')">
+  <div id="mySet" class="page-wrap">
+    <div class="page-head">
+      <div class="toReturn" @click="toComponent('my')">
         <img src="/static/img/left.png"/>
       </div>
       <div class="title">我的</div>
     </div>
-    <div class="mySet-content">
+    <div class="page-content">
       <div class="my-first">
         <div class="row">
           <img src="/static/img/Head01.png" class="head01-icon" alt="我的头像">
@@ -34,10 +34,42 @@
           </div>
           <div class="row-line"></div>
         </div>
+        <!--<div class="row">-->
+          <!--<img src="/static/img/Alipay.png" class="head01-icon" alt="绑定支付宝">-->
+          <!--<span>绑定支付宝</span>-->
+          <!--<div class="next">-->
+            <!--<img src="/static/img/wind01.png" alt="">-->
+          <!--</div>-->
+        <!--</div>-->
         <div class="row">
-          <img src="/static/img/Alipay.png" class="head01-icon" alt="绑定支付宝">
-          <span>绑定支付宝</span>
+          <img src="/static/img/qq-icon.png" class="head01-icon" alt="绑定QQ">
+          <span>绑定QQ</span>
           <div class="next">
+            <img src="/static/img/wind01.png" alt="">
+          </div>
+          <div class="row-line"></div>
+        </div>
+        <div class="row">
+          <img src="/static/img/WeChat-icon.png" class="head01-icon" alt="绑定微信">
+          <span>绑定微信</span>
+          <div class="next">
+            <img src="/static/img/wind01.png" alt="">
+          </div>
+          <div class="row-line"></div>
+        </div>
+        <div class="row">
+          <img src="/static/img/mail-icon.png" class="head01-icon" alt="绑定邮箱">
+          <span>绑定邮箱</span>
+          <div class="next">
+            <img src="/static/img/wind01.png" alt="">
+          </div>
+          <div class="row-line"></div>
+        </div>
+        <div class="row">
+          <img src="/static/img/bank-icon.png" class="head01-icon" alt="绑定银行卡">
+          <span>绑定银行卡</span>
+          <div class="next">
+            <span class="text-red">3张</span>
             <img src="/static/img/wind01.png" alt="">
           </div>
         </div>
@@ -114,205 +146,6 @@
   }
 </script>
 
-<style scoped lang="less">
-  #mySet {
-    width: 100%;
-    height: 100%;
-    background: #F7FBFF;
-    display: flex;
-    flex-direction: column;
+<style scoped>
 
-    .mySet-head {
-      width: 100vw;
-      height: 50px;
-      line-height: 50px;
-      background: #5D97F9;
-      color: #fff;
-      text-align: center;
-      position: relative;
-      font-size: 20px;
-
-      .toMy {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 60px;
-        height: 50px;
-
-        img {
-          width: 11px;
-          height: 19px;
-        }
-      }
-
-    }
-
-    .mySet-content {
-      width: 100vw;
-      flex: 1;
-      font-size: 16px;
-
-      .my-first {
-        width: 94vw;
-        height: 120px;
-        margin: 16px 3vw 0 3vw;
-        border-radius: 10px;
-        background: #fff;
-        box-shadow: 0 0 3px 3px #F4FAFF;
-
-        .row {
-          height: 60px;
-          padding: 22px 10px 0px 55px;
-          position: relative;
-
-          .row-line {
-            padding-top: 22px;
-            border-bottom: 1px solid #EBEBEB;
-          }
-
-          .head01-icon {
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            top: 20px;
-            left: 25px;
-          }
-
-          .head-icon {
-            width: 42px;
-            height: 42px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-          }
-
-          .setName {
-            color: #999999;
-            position: absolute;
-            top: 0px;
-            right: 10px;
-            width: 190px;
-            height: 60px;
-            line-height: 60px;
-            text-align: right;
-
-            img {
-              width: 7px;
-              height: 12px;
-            }
-          }
-        }
-      }
-
-      .my-sub {
-        width: 94vw;
-        height: 120px;
-        margin: 16px 3vw 0 3vw;
-        border-radius: 10px;
-        background: #fff;
-        box-shadow: 0 0 3px 3px #F4FAFF;
-
-        .row {
-          height: 60px;
-          padding: 22px 10px 0px 55px;
-          position: relative;
-
-          .row-line {
-            padding-top: 22px;
-            border-bottom: 1px solid #EBEBEB;
-          }
-
-          .head01-icon {
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            top: 20px;
-            left: 25px;
-          }
-
-          .head-icon {
-            width: 42px;
-            height: 42px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-          }
-
-          .next {
-            color: #999999;
-            position: absolute;
-            top: 0px;
-            right: 10px;
-            width: 190px;
-            height: 60px;
-            line-height: 60px;
-            text-align: right;
-
-            .text-red {
-              color: red;
-            }
-
-            img {
-              width: 7px;
-              height: 12px;
-            }
-          }
-        }
-      }
-
-      .my-third {
-        width: 94vw;
-        height: 60px;
-        margin: 16px 3vw 0 3vw;
-        border-radius: 10px;
-        background: #fff;
-        box-shadow: 0 0 3px 3px #F4FAFF;
-
-        .row {
-          height: 60px;
-          padding: 22px 10px 0px 55px;
-          position: relative;
-
-          .head01-icon {
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            top: 20px;
-            left: 25px;
-          }
-
-          .next {
-            color: #999999;
-            position: absolute;
-            top: 0px;
-            right: 10px;
-            width: 190px;
-            height: 60px;
-            line-height: 60px;
-            text-align: right;
-
-            img {
-              width: 7px;
-              height: 12px;
-            }
-          }
-        }
-      }
-
-      .esc-login {
-        width: 94vw;
-        height: 40px;
-        line-height: 40px;
-        margin: 25px 3vw 0 3vw;
-        border-radius: 10px;
-        background: #5D97F9;
-        color: #fff;
-        text-align: center;
-
-        a {
-          color: #fff;
-        }
-      }
-    }
-  }
 </style>
