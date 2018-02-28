@@ -6,9 +6,12 @@ import bindCard from '@/components/recharge/bindCard'
 import manageCard from '@/components/recharge/manageCard'
 
 import msgCenter from '@/components/message/msgCenter'
-import msgList from '@/components/message/msgList'
-import msgDetail from '@/components/message/msgDetail'
-import msgSend from '@/components/message/msgSend'
+import msgMy from '@/components/message/msgMy'
+import msgMyDetail from '@/components/message/msgMyDetail'
+import msgMySend from '@/components/message/msgMySend'
+import msgTypeList from '@/components/message/msgTypeList'
+import msgTypeDetail from '@/components/message/msgTypeDetail'
+
 import my from '@/components/my/my'
 import reportRecord from '@/components/queryReport/reportRecord'
 import reportDetail from '@/components/queryReport/reportDetail'
@@ -16,6 +19,18 @@ import record from '@/components/queryRecord/record'
 import recordDetail from '@/components/queryRecord/recordDetail'
 import capitalRecord from '@/components/queryCapital/capitalRecord'
 import capitalDetail from '@/components/queryCapital/capitalDetail'
+
+import openAccount from '@/components/openAccount/openAccount'
+import lowerManage from '@/components/lowerManage/lowerManage'
+import lowerDetail from '@/components/lowerManage/lowerDetail'
+import shareBonus from '@/components/lowerManage/shareBonus'
+import shareBonusDetail from '@/components/lowerManage/shareBonusDetail'
+import dailyWages from '@/components/lowerManage/dailyWages'
+import dailyWagesDetail from '@/components/lowerManage/dailyWagesDetail'
+import packetManage from '@/components/redPacket/packetManage'
+import packetManageDetail from '@/components/redPacket/packetManageDetail'
+import sendPacket from '@/components/redPacket/sendPacket'
+
 
 import register from '@/components/register/register'
 import regSuccess from '@/components/register/regSuccess'
@@ -76,19 +91,29 @@ export default new Router({
       component: msgCenter
     },
     {
-      path: '/message/msgList',
-      name: 'msgList',
-      component: msgList
+      path: '/message/msgMy',
+      name: 'msgMy',
+      component: msgMy
     },
     {
-      path: '/message/msgDetail',
-      name: 'msgDetail',
-      component: msgDetail
+      path: '/message/msgMyDetail',
+      name: 'msgMyDetail',
+      component: msgMyDetail
     },
     {
-      path: '/message/msgSend',
-      name: 'msgSend',
-      component: msgSend
+      path: '/message/msgMySend',
+      name: 'msgMySend',
+      component: msgMySend
+    },
+    {
+      path: '/message/msgTypeList',
+      name: 'msgTypeList',
+      component: msgTypeList
+    },
+    {
+      path: '/message/msgTypeDetail',
+      name: 'msgTypeDetail',
+      component: msgTypeDetail
     },
 
     {
@@ -128,6 +153,57 @@ export default new Router({
     },
 
     {
+      path: '/openAccount/openAccount',
+      name: 'openAccount',
+      component: openAccount
+    },
+    {
+      path: '/lowerManage/lowerManage',
+      name: 'lowerManage',
+      component: lowerManage
+    },
+    {
+      path: '/lowerManage/lowerDetail',
+      name: 'lowerDetail',
+      component: lowerDetail
+    },
+    {
+      path: '/lowerManage/shareBonus',
+      name: 'shareBonus',
+      component: shareBonus
+    },
+    {
+      path: '/lowerManage/shareBonusDetail',
+      name: 'shareBonusDetail',
+      component: shareBonusDetail
+    },
+    {
+      path: '/lowerManage/dailyWages',
+      name: 'dailyWages',
+      component: dailyWages
+    },
+    {
+      path: '/lowerManage/dailyWagesDetail',
+      name: 'dailyWagesDetail',
+      component: dailyWagesDetail
+    },
+    {
+      path: '/redPacket/packetManage',
+      name: 'packetManage',
+      component: packetManage
+    },
+    {
+      path: '/redPacket/packetManageDetail',
+      name: 'packetManageDetail',
+      component: packetManageDetail
+    },
+    {
+      path: '/redPacket/sendPacket',
+      name: 'sendPacket',
+      component: sendPacket
+    },
+
+    {
       path: '/register',
       name: 'register',
       component: register
@@ -138,7 +214,7 @@ export default new Router({
       component: regSuccess
     },
     {
-      path: '/login/login',
+      path: '/login',
       name: 'login',
       component: login
     },

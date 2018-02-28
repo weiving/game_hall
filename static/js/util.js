@@ -27,6 +27,7 @@ export function delCookie(name) {
 export function getLocalStorage(name) {
     return window.localStorage.getItem(name);
 }
+
 // 设置 LocalStorage
 export function setLocalStorage(name, value) {
     return window.localStorage.setItem(name, value);
@@ -35,4 +36,12 @@ export function setLocalStorage(name, value) {
 // 删除 LocalStorage
 export function removeLocalStorage(name) {
     return window.localStorage.removeItem(name);
+}
+
+export function abc_WebSocket() {
+  const url = 'ws://192.168.1.108:8402'
+  let user_id = window.localStorage.getItem("user_id");
+  const wsurl = url + "/ws?user_id=" + user_id;
+  let webscoket = new WebSocket(wsurl);
+  return webscoket;
 }

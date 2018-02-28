@@ -1,0 +1,171 @@
+<template>
+  <div id="msgMySend" class="page-wrap">
+    <div class="page-head">
+      <div class="toReturn" @click="toComponent('msgMy')">
+        <img src="/static/img/left.png" alt="">
+      </div>
+      <div class="title">发送消息</div>
+    </div>
+    <div class="page-content">
+      <div class="box-item" @click="toggleShow">
+        <div class="select-title">请选择类型:</div>
+        <div class="select-value">{{defaultType}}</div>
+        <div class="clearfix"></div>
+        <div class="select-btn">
+          <i class="select-icon"></i>
+        </div>
+        <div class="selectType" v-show="isSelect">
+          <div v-for="(item,index) in typeList" class="item" @click="select_fn(index)">
+            {{item}}
+          </div>
+        </div>
+      </div>
+      <div class="box-item">
+        <div class="account-number" v-show="typeIndex==1">
+          <input type="text" placeholder="请输入用户名" v-model="username">
+        </div>
+        <div class="msg-title">
+          <input type="text" placeholder="请输入标题" v-model="title">
+        </div>
+        <div class="msg-text">
+          <textarea placeholder="请输入内容" v-model="content">{{content}}</textarea>
+        </div>
+      </div>
+      <div class="default-btn" :class="{active:disableSend}" @click="sureSend">确定发送</div>
+    </div>
+    <div class="mask" v-show="isSelect" @click="toggleShow"></div>
+    <div class="mask" v-if="isShow_msg" @click="toggleMsg"></div>
+    <div class="mask-text" v-if="isShow_msg" @click="toggleMsg">{{msg}}</div>
+  </div>
+</template>
+
+<script>
+  // import {abc_WebSocket} from "../../../static/js/util";
+  import {setLocalStorage} from "../../../static/js/util";
+
+  export default {
+    name: "msg-send",
+    data() {
+      return {
+        isSelect: false,
+        defaultType: '',
+        typeList: ["直属上级", "直属下级", "所有直属下级"],
+        typeIndex: 0,
+        username: '',
+        title: '',
+        content: '',
+        msg: '',
+        isShow_msg: false,
+        ws: ''
+      }
+    },
+    created() {
+      this.defaultTypeFn();
+      this.initws();
+    },
+    methods: {
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
+      defaultTypeFn() {
+        this.defaultType = this.typeList[0]
+      },
+      toggleShow() {
+        this.isSelect = !this.isSelect;
+      },
+      toggleMsg() {
+        this.isShow_msg = !this.isShow_msg;
+      },
+      select_fn(index) {
+        this.defaultType = this.typeList[index];
+        this.typeIndex = index;
+        this.isSelect == false;
+      },
+      sureSend() {
+        if (this.disableSend) {
+          let sendMsg = '';
+          if (this.typeIndex == 0) {
+            sendMsg = '{"cmd":"send","channels":["parent"],"title":"' + this.title + '","body":"' + this.content + '"}';
+          } else if (this.typeIndex == 1) {
+            sendMsg = '{"cmd":"send","child_name":"' + this.username + '","title":"' + this.title + '","body":"' + this.content + '"}';
+          } else {
+            sendMsg = '{"cmd":"send","channels":["children"],"title":"","body":""}';
+          }
+          if (this.ws.readyState === this.ws.OPEN) {
+            console.log('send', "OPEN");
+            this.sendMessage(sendMsg);
+          } else if (this.ws.readyState === this.ws.CONNECTING) {
+            console.log('msgMySend', "CONNECTING");
+            let that = this;
+            setTimeout(function () {
+              console.log("msgMySend", '发送');
+              that.sendMessage(sendMsg)
+            }, 300)
+          } else {
+            console.log('msgMySend', "初始化");
+            this.initws();
+            let that = this;
+            setTimeout(function () {
+              that.sendMessage(sendMsg)
+            }, 500)
+          }
+
+        }
+      },
+
+
+      initws() {
+        this.user_id = 1;
+        const wsurl = `${this.$wsurl}` + "/ws?user_id=" + this.user_id;
+        this.ws = new WebSocket(wsurl);
+        this.ws.onmessage = this.getMessage;
+        this.ws.onclose = '';
+        this.over = () => {
+          this.ws.close()
+        }
+      },
+      getMessage(e) {
+        const res = JSON.parse(e.data);
+        if (res.success == false && res.ret == 1) {
+          //无上级-用户不存在
+          this.isShow_msg = true;
+          this.msg = res.msg;
+        } else if (res.success == true && res.ret == 0) {
+          this.isShow_msg = true;
+          this.msg = res.msg;
+          const that = this;
+          setTimeout(function () {
+            that.$root.Bus.$emit('toggleComponent', 'msgCenter')
+          }, 1000)
+        }
+      },
+      sendMessage(content) {
+        this.ws.send(content)
+      },
+    },
+    computed: {
+      disableSend: function () {
+        if (this.typeIndex == 1) {
+          if (this.username.trim().length > 0 && this.title.trim().length > 0 && this.content.trim().length > 0) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          if (this.title.trim().length > 0 && this.content.trim().length > 0) {
+            return true
+          } else {
+            return false
+          }
+        }
+      }
+    },
+    beforeDestroy() {
+      this.over()
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

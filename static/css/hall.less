@@ -86,13 +86,27 @@ html, body, #app {
   color: #08BA06;
 }
 
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
 .mask {
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background: rgba(0, 0, 0, 0.1);
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+  background: #000;
   z-index: 99;
 }
 
@@ -142,7 +156,7 @@ html, body, #app {
     height: 100%;
     overflow: auto;
     //padding-bottom: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
     font-size: 14px;
     position: relative;
     .box-item {
@@ -273,7 +287,9 @@ html, body, #app {
         &:last-child {
           border: none;
         }
+
       }
+
     }
 
     .popover-footer {
@@ -293,11 +309,108 @@ html, body, #app {
     }
   }
 
+  .row-body {
+    background-color: #ffffff;
+    font-size: 16px;
+    .row {
+      height: 54px;
+      line-height: 54px;
+      border-bottom: solid 1px #E4E4E4;
+
+      &.row-head {
+        height: 110px;
+        .title {
+          height: 30px;
+        }
+      }
+
+      .row-label {
+        width: 70px;
+        margin-left: 5px;
+        text-align: justify;
+        text-align-last: justify;
+
+      }
+      .row-content {
+        padding-top: 13px;
+        padding-bottom: 8px;
+        .row-btn {
+          width: 20%;
+          height: 37px;
+          line-height: 37px;
+          text-align: center;
+          border: solid 1px #D7D7D7;
+          border-radius: 5px;
+          display: inline-block;
+          margin-right: 5%;
+          margin-bottom: 17px;
+          &.active {
+            border: solid 1px #5D97F9;
+            background: #D0E7FF;
+            color: #5D97F9;
+          }
+        }
+      }
+
+      .input-text {
+        height: 54px;
+        line-height: 54px;
+        text-align: right;
+      }
+
+      .next-icon {
+        width: 7px;
+        height: 12px;
+        margin-left: 5px;
+      }
+
+      .row-inline {
+        text-align: right;
+        .input-lower, .input-high {
+          display: inline-block;
+          border: 1px solid #D7D7D7;
+          width: 65px;
+          height: 25px;
+          line-height: 25px;
+          border-radius: 4px;
+          padding: 2px 5px;
+        }
+        span {
+          display: inline-block;
+          width: 10px;
+          height: 2px;
+          line-height: 25px;
+          background: #D7D7D7;
+          vertical-align: middle;
+        }
+      }
+      &:last-child {
+        border: none;
+      }
+
+    }
+  }
+
   //筛选弹出框-遮罩层
-  .mask {
+  .mask-top {
     top: 50px;
   }
 
+  .mask-text {
+    position: absolute;
+    top: 40%;
+    left: -webkit-calc(~"(100vw - 180px) / 2");
+    left: calc(~"(100vw - 180px) / 2");
+    height: 39px;
+    width: 180px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 11px 15px;
+    border-radius: 5px;
+    color: #ffff;
+    font-size: 16px;
+    z-index: 100;
+    text-align: center;
+  }
 }
 
 .default-btn {
@@ -355,7 +468,6 @@ html, body, #app {
       }
     }
   }
-
 }
 
 /*记录列表*/
@@ -378,15 +490,6 @@ html, body, #app {
     .row-content {
       height: 60px;
       position: relative;
-      .text-left {
-        text-align: left;
-      }
-      .text-center {
-        text-align: center;
-      }
-      .text-right {
-        text-align: right;
-      }
 
       .text-detail {
         width: 50px;
@@ -757,8 +860,8 @@ html, body, #app {
   }
 }
 
-/*消息列表*/
-#msgList {
+/*我的消息*/
+#msgMy {
   .message-item {
     .time {
       margin-top: 20px;
@@ -822,9 +925,8 @@ html, body, #app {
     }
   }
 }
-
 /*消息详情*/
-#msgDetail {
+#msgMyDetail {
   .msgDetail-item {
 
     .time {
@@ -856,9 +958,8 @@ html, body, #app {
     }
   }
 }
-
 /*发送消息*/
-#msgSend {
+#msgMySend {
 
   .box-item {
     vertical-align: middle;
@@ -898,8 +999,8 @@ html, body, #app {
       right: 50px;
       background: #ffffff;
       padding: 15px 10px;
-      -webkit-box-shadow: 0 0 5px 2px #e9f4ff;
-      box-shadow: 0 0 5px 2px #e9f4ff;
+      -webkit-box-shadow: 0 0 2px 2px #e9f4ff;
+      box-shadow: 0 0 2px 2px #e9f4ff;
       z-index: 100;
       .item {
         height: 30px;
@@ -942,6 +1043,9 @@ html, body, #app {
     }
   }
 }
+
+
+
 
 /*我的*/
 #home {
@@ -1221,6 +1325,297 @@ html, body, #app {
   }
 }
 
+/*开户中心*/
+#openAccount {
+
+  .openCenter {
+
+    .operationType {
+
+      .row-body {
+        background-color: #ffffff;
+        padding: 2px 20px 12px 20px;
+        .row {
+          height: 54px;
+          line-height: 54px;
+          border-bottom: solid 1px #E4E4E4;
+          .input-text {
+            height: 54px;
+            line-height: 54px;
+            text-align: right;
+          }
+
+          .next-icon {
+            width: 7px;
+            height: 12px;
+          }
+
+          &:last-child {
+            border: none;
+          }
+
+          &.linkUrl {
+            height: 100px;
+            padding: 10px 0;
+            .col-xs-12 {
+              height: 100%;
+              .text {
+                height: 100%;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+/*下级管理*/
+#lowerManage {
+
+}
+
+/*下级管理详情*/
+#lowerDetail {
+  .record-title {
+    height: 54px;
+    color: #CCCFD2;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 30px;
+  }
+  .record-opt {
+    background: #ffffff;
+    margin-top: 15px;
+    .opt-item {
+      height: 50px;
+      line-height: 50px;
+      margin: 0 10px;
+      border-bottom: solid 1px #E4E4E4;
+      text-align: center;
+      color: #5D97F9;
+      &.last {
+        border: none;
+      }
+    }
+  }
+}
+
+/*下级分红详情*/
+#shareBonusDetail {
+  .record-title {
+    height: 54px;
+    color: #CCCFD2;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 30px;
+  }
+  .record-opt {
+    background: #ffffff;
+    margin-top: 15px;
+    .opt-item {
+      height: 50px;
+      line-height: 50px;
+      margin: 0 10px;
+      border-bottom: solid 1px #E4E4E4;
+      text-align: center;
+      color: #5D97F9;
+      &.last {
+        border: none;
+      }
+    }
+  }
+}
+
+/*工资期数详细*/
+#dailyWagesDetail {
+  .record-title {
+    height: 54px;
+    color: #CCCFD2;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 30px;
+  }
+  .record-opt {
+    background: #ffffff;
+    margin-top: 15px;
+    .opt-item {
+      height: 50px;
+      line-height: 50px;
+      margin: 0 10px;
+      border-bottom: solid 1px #E4E4E4;
+      text-align: center;
+      color: #5D97F9;
+      &.last {
+        border: none;
+      }
+    }
+  }
+}
+
+#packetManage {
+
+  .query-popover {
+    .popover-row {
+      padding-left: 5px;
+      .title {
+        font-weight: normal;
+      }
+    }
+
+    .toReceive, .hasFailure, .all {
+      position: relative;
+      height: 20px;
+      line-height: 20px;
+      margin-left: 24px;
+      display: inline-block;
+      label {
+        display: block;
+        height: 20px;
+        width: 55px;
+        line-height: 20px;
+        cursor: pointer;
+      }
+      input {
+        z-index: 3;
+        display: block;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -24px;
+        margin: auto;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+      .user-defined {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -24px;
+        margin: auto;
+        width: 24px;
+        height: 24px;
+        border: 1px solid #BEBEBE;
+        border-radius: 50%;
+        cursor: pointer;
+
+        span.circle {
+          display: block;
+          width: 16px;
+          height: 16px;
+          margin-top: 3px;
+          margin-left: 3px;
+          background-color: transparent;
+          border-radius: 50%;
+        }
+
+        &.active {
+          border-color: #FF7F00;
+          span {
+            background-color: #FF7F00;
+          }
+        }
+      }
+    }
+    .all {
+      label {
+        width: 40px;
+      }
+    }
+  }
+}
+
+/*发送红包*/
+#sendPacket {
+  .page-content {
+    .toLower, .allLower {
+      position: relative;
+      height: 20px;
+      line-height: 20px;
+      margin-left: 24px;
+      display: inline-block;
+      label {
+        display: block;
+        height: 20px;
+        width: 75px;
+        line-height: 20px;
+        cursor: pointer;
+      }
+      input {
+        z-index: 3;
+        display: block;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -24px;
+        margin: auto;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+      .user-defined {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -24px;
+        margin: auto;
+        width: 24px;
+        height: 24px;
+        border: 1px solid #BEBEBE;
+        border-radius: 50%;
+        cursor: pointer;
+
+        span.circle {
+          display: block;
+          width: 16px;
+          height: 16px;
+          margin-top: 3px;
+          margin-left: 3px;
+          background-color: transparent;
+          border-radius: 50%;
+        }
+
+        &.active {
+          border-color: #FF7F00;
+          span {
+            background-color: #FF7F00;
+          }
+        }
+      }
+    }
+
+    .box-item {
+      textarea {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .box-amount {
+      margin-top: 30px;
+      text-align: center;
+      .amount {
+        font-size: 30px;
+        font-weight: 500;
+      }
+    }
+
+    .help-tips {
+      width: 90vw;
+      margin: 15px 5vw 0 5vw;
+      color: #CED1D3;
+    }
+  }
+}
+
 /*设置*/
 #mySet {
   .page-content {
@@ -1387,6 +1782,196 @@ html, body, #app {
       }
     }
   }
+}
+
+/*我的昵称*/
+#updateNick {
+
+  .page-content {
+    //width: 100vw;
+    //flex: 1;
+    //font-size: 16px;
+
+    .row {
+      width: 100vw;
+      height: 60px;
+      line-height: 60px;
+      background: #fff;
+      box-shadow: 0 5px 8px #F0F8FF;
+
+      input {
+        width: -webkit-calc(100vw - 30px);
+        width: -moz-calc(100vw - 30px);
+        width: calc(100vw - 30px);
+        height: 40px;
+        line-height: 40px;
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+
+    .row-btn {
+      width: 100vw;
+      margin: 40px 10px;
+
+      .sure-btn {
+        width: -webkit-calc(~"100vw - 20px");
+        width: calc(~"100vw - 20px");
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        background: #5D97F9;
+        border-radius: 6px;
+
+        &.active {
+          background: #CCCCCC;
+        }
+      }
+    }
+  }
+
+}
+
+/*绑定手机*/
+#setPhone {
+  .page-content {
+    .row {
+      width: 100vw;
+      height: 60px;
+      line-height: 60px;
+      background: #fff;
+      border-bottom: 1px solid #EBEBEB;
+      position: relative;
+
+      &.last {
+        border: none;
+        box-shadow: 0 5px 8px #F0F8FF;
+      }
+
+      input {
+        width: -webkit-calc(~"100vw - 30px");
+        width: calc(~"100vw - 30px");
+        height: 40px;
+        line-height: 40px;
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      .phone {
+        width: -webkit-calc(~"100vw - 130px");;
+        width: calc(~"100vw - 130px");
+      }
+
+      .getBtn {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        color: #5D97F9;
+      }
+    }
+
+    .row-btn {
+      width: 100vw;
+      margin: 40px 10px;
+
+      .sure-btn {
+        width: -webkit-calc(~"100vw - 20px");
+        width: calc(~"100vw - 20px");
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        background: #5D97F9;
+        border-radius: 6px;
+        &.active {
+          background: #CCCCCC;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+/*修改密码*/
+#updatePwd {
+
+  .page-content {
+
+    .row {
+      width: 100vw;
+      height: 60px;
+      line-height: 60px;
+      background: #fff;
+      border-bottom: 1px solid #EBEBEB;
+
+      &.last {
+        border: none;
+        box-shadow: 0 5px 8px #F0F8FF;
+      }
+
+      input {
+        width: -webkit-calc(100vw - 30px);
+        width: -moz-calc(100vw - 30px);
+        width: calc(100vw - 30px);
+        height: 40px;
+        line-height: 40px;
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+
+    .row-btn {
+      width: 100vw;
+      margin: 40px 10px;
+
+      .sure-btn {
+        width: -webkit-calc(~"100vw - 20px");
+        width: calc(~"100vw - 20px");
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        background: #5D97F9;
+        border-radius: 6px;
+
+        &.active {
+          background: #CCCCCC;
+        }
+      }
+    }
+  }
+
+  //.mask {
+  //  position: fixed;
+  //  top: 0px;
+  //  left: 0px;
+  //  width: 100%;
+  //  height: 100%;
+  //  z-index: 999;
+  //  opacity: 0.2;
+  //  filter: alpha(opacity=20);
+  //  background: #000;
+  //}
+  //
+  //.error-mask {
+  //  position: absolute;
+  //  top: 40%;
+  //  left: -webkit-calc(~"(100vw - 180px) / 2");
+  //  left: calc(~"(100vw - 180px) / 2");
+  //  height: 39px;
+  //  width: 180px;
+  //  background: rgba(0, 0, 0, 0.5);
+  //  padding: 11px 15px;
+  //  border-radius: 5px;
+  //  color: #ffff;
+  //  font-size: 16px;
+  //  z-index: 1000;
+  //  text-align: center;
+  //}
+
 }
 
 /*人气排行*/

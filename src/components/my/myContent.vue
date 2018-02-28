@@ -62,26 +62,24 @@
             <div class="des">查看最新的数据</div>
           </div>
         </div>
-        <div class="item last-item">
-          <router-link to="/">
-            <img src="/static/img/Management.png" alt="下级管理">
-            <div class="item-info">
-              <div class="title">下级管理</div>
-              <div class="des">分为下级管理</div>
-            </div>
-          </router-link>
+        <div class="item last-item" @click="toComponent('lowerManage')">
+          <img src="/static/img/Management.png" alt="下级管理">
+          <div class="item-info">
+            <div class="title">下级管理</div>
+            <div class="des">分为下级管理</div>
+          </div>
         </div>
         <div class="line"></div>
       </div>
       <div class="detail-line">
-        <div class="item">
+        <div class="item" @click="toComponent('openAccount')">
           <img src="/static/img/accounts.png" alt="开户中心">
           <div class="item-info">
             <div class="title">开户中心</div>
             <div class="des">分为添加下级</div>
           </div>
         </div>
-        <div class="item last-item">
+        <div class="item last-item" @click="toComponent('packetManage')">
           <img src="/static/img/Bag.png" alt="红包管理">
           <div class="item-info">
             <div class="title">红包管理</div>
@@ -91,14 +89,14 @@
         <div class="line"></div>
       </div>
       <div class="detail-line">
-        <div class="item">
+        <div class="item" @click="toComponent('shareBonus')">
           <img src="/static/img/Record.png" alt="下级分红">
           <div class="item-info">
             <div class="title">下级分红</div>
             <div class="des">通过条件查询</div>
           </div>
         </div>
-        <div class="item last-item">
+        <div class="item last-item" @click="toComponent('dailyWages')">
           <img src="/static/img/Wages.png" alt="下级日工资">
           <div class="item-info">
             <div class="title">下级日工资</div>

@@ -21,7 +21,7 @@
         <!--</div>-->
       </div>
       <div class="payment-wrap">
-        <div class="payment-item">
+        <div class="payment-item active">
           <img src="/static/img/pay.png"/>
           <div class="payment">
             <div class="title">银行卡支付</div>
@@ -29,24 +29,24 @@
           </div>
           <div class="selected"></div>
         </div>
-        <div class="payment-item">
-          <img src="/static/img/alipay02.png"/>
-          <div class="payment">
-            <div class="title">支付宝</div>
-            <div class="des">单笔限额5万，快速到账</div>
-          </div>
-          <div class="selected"></div>
-        </div>
-        <div class="payment-item active">
-          <img src="/static/img/wx02.png"/>
-          <div class="payment">
-            <div class="title">微信支付</div>
-            <div class="des">支持微信5.0以上客户端</div>
-          </div>
-          <div class="selected"></div>
-        </div>
+        <!--<div class="payment-item">-->
+          <!--<img src="/static/img/alipay02.png"/>-->
+          <!--<div class="payment">-->
+            <!--<div class="title">支付宝</div>-->
+            <!--<div class="des">单笔限额5万，快速到账</div>-->
+          <!--</div>-->
+          <!--<div class="selected"></div>-->
+        <!--</div>-->
+        <!--<div class="payment-item active">-->
+          <!--<img src="/static/img/wx02.png"/>-->
+          <!--<div class="payment">-->
+            <!--<div class="title">微信支付</div>-->
+            <!--<div class="des">支持微信5.0以上客户端</div>-->
+          <!--</div>-->
+          <!--<div class="selected"></div>-->
+        <!--</div>-->
       </div>
-      <div class="default-btn" :class="{active:val}">下一步</div>
+      <div class="default-btn" :class="{active:val}" @click="toComponent('manageCard')">下一步</div>
       <keyboard :show="keyboard" @typing="typing" @complete="blur"></keyboard>
     </div>
   </div>
@@ -216,7 +216,10 @@
           return false;
         }
         return true;
-      }
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
     }
   }
 </script>

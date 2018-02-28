@@ -32,11 +32,11 @@
             if (res.data.success == 1) {
               this.onlineNum = res.data.concurrent;
             } else {
-              console.log('concurrent.message', res.data.message)
+              console.log('在线人数', res.data.message)
             }
           })
           .catch(err => {
-            console.log('concurrent.err.message', err.message)
+            console.log('在线人数', err.message)
           })
       }
     },
@@ -45,6 +45,9 @@
       'hNav': hNav,
       'hContent': hContent,
       // 'iFooter': iFooter
+    },
+    destroyed(){
+      console.log("组件销毁");
     }
   }
 </script>

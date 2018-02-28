@@ -19,9 +19,12 @@ const url = 'http://192.168.1.108:8333' //本地
 // const url = 'http://120.78.173.153:8333' //线上
 const wsurl = 'ws://192.168.1.108:8402'//websocket连接
 
+
+
 Vue.prototype.$api = `${url}`
 Vue.prototype.$confJson = confJson
 Vue.prototype.$wsurl = `${wsurl}`
+// Vue.prototype.$myWebSocket='11555777'
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)

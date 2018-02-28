@@ -1,12 +1,12 @@
 <template>
-  <div id="setPhone">
-    <div class="setPhone-head">
-      <div class="toMySet" @click="toComponent('mySet')">
+  <div id="setPhone" class="page-wrap">
+    <div class="page-head">
+      <div class="toReturn" @click="toComponent('mySet')">
         <img src="/static/img/left.png"/>
       </div>
       <div class="title">绑定手机</div>
     </div>
-    <div class="setPhone-content">
+    <div class="page-content">
       <div class="row">
         <input type="text" class="phone" v-model="phone" placeholder="请输入手机号">
         <div class="getBtn" @click="send" :class="{disabled:isDisabled}">{{text}}</div>
@@ -146,100 +146,7 @@
 </script>
 
 <style scoped lang="less">
-  #setPhone {
-    width: 100%;
-    height: 100%;
-    background: #F7FBFF;
-    display: flex;
-    flex-direction: column;
 
-    .setPhone-head {
-      width: 100vw;
-      height: 50px;
-      line-height: 50px;
-      background: #5D97F9;
-      color: #fff;
-      text-align: center;
-      position: relative;
-      font-size: 20px;
-
-      .toMySet {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 60px;
-        height: 50px;
-
-        img {
-          width: 11px;
-          height: 19px;
-        }
-      }
-    }
-
-    .setPhone-content {
-      width: 100vw;
-      flex: 1;
-      font-size: 16px;
-
-      .row {
-        width: 100vw;
-        height: 60px;
-        line-height: 60px;
-        background: #fff;
-        border-bottom: 1px solid #EBEBEB;
-        position: relative;
-
-        &.last {
-          border: none;
-          box-shadow: 0 5px 8px #F0F8FF;
-        }
-
-        input {
-          width: -webkit-calc(~"100vw - 30px");
-          width: calc(~"100vw - 30px");
-          height: 40px;
-          line-height: 40px;
-          margin-left: 15px;
-          margin-right: 15px;
-        }
-
-        .phone {
-          width: -webkit-calc(~"100vw - 130px");;
-          width: calc(~"100vw - 130px");
-        }
-
-        .getBtn {
-          position: absolute;
-          top: 0;
-          right: 10px;
-          color: #5D97F9;
-        }
-      }
-
-      .row-btn {
-        width: 100vw;
-        margin: 40px 10px;
-
-        .sure-btn {
-          width: -webkit-calc(~"100vw - 20px");
-          width: calc(~"100vw - 20px");
-          height: 40px;
-          line-height: 40px;
-          text-align: center;
-          color: #fff;
-          background: #5D97F9;
-          border-radius: 6px;
-          &.active {
-            background: #CCCCCC;
-          }
-        }
-
-      }
-
-    }
-
-  }
 
 
 </style>

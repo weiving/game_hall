@@ -136,8 +136,8 @@
         removeLocalStorage("session")
         removeLocalStorage("user_id")
         removeLocalStorage("showAssets")
-        // this.$router.push({path: '/login'})
-        this.$root.Bus.$emit('toggleComponent', 'login')
+        this.$router.push({path: '/login'})
+        // this.$root.Bus.$emit('toggleComponent', 'login')
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)

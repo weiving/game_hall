@@ -7,15 +7,7 @@
       <div class="title">消息中心</div>
     </div>
     <div class="page-content">
-      <div class="box-item">
-        <div class="horn-icon"></div>
-        <div class="item-content">
-          <div class="title">系统公告</div>
-          <div class="text">大家好！充值平台已于12月18日...</div>
-          <div class="time">2017年12月27日</div>
-        </div>
-      </div>
-      <div class="box-item" @click="toMsgType('myMsg','我的消息')">
+      <div class="box-item" @click="toComponent('msgMy')">
         <div class="bell-icon"></div>
         <div class="item-content">
           <div class="title">我的消息</div>
@@ -23,14 +15,31 @@
           <div class="time">2017年12月27日</div>
         </div>
       </div>
-      <div class="box-item">
+      <div class="box-item" v-for="(item,index) in noticeType" v-if="index!=0&&index!=2" @click="toTypeList(index)">
         <div class="flag-icon"></div>
         <div class="item-content">
-          <div class="title">系统消息</div>
+          <div class="title">{{item.type_name}}</div>
           <div class="text">亲爱的玩家您可以点击选择官网充值...</div>
           <div class="time">2017年12月27日</div>
         </div>
       </div>
+
+      <!--<div class="box-item" @click="toComponent('msgSystem')">-->
+      <!--<div class="horn-icon"></div>-->
+      <!--<div class="item-content">-->
+      <!--<div class="title">系统公告</div>-->
+      <!--<div class="text">大家好！充值平台已于12月18日...</div>-->
+      <!--<div class="time">2017年12月27日</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="box-item">-->
+      <!--<div class="flag-icon"></div>-->
+      <!--<div class="item-content">-->
+      <!--<div class="title">系统消息</div>-->
+      <!--<div class="text">亲爱的玩家您可以点击选择官网充值...</div>-->
+      <!--<div class="time">2017年12月27日</div>-->
+      <!--</div>-->
+      <!--</div>-->
     </div>
   </div>
 </template>
@@ -41,20 +50,37 @@
   export default {
     name: "msg-center",
     data() {
-      return {}
+      return {
+        noticeType: ''
+      }
+    },
+    created() {
+      this.getNoticeType();
     },
     methods: {
-      // select_msgType(msgType, msgType_title) {
-      //   setLocalStorage("msgType", msgType);
-      //   setLocalStorage("msgType_title", msgType_title);
-      //   this.$router.push({path: '/msgList'});
-      // }
-      toMsgType(msgType, msgType_title) {
-        setLocalStorage("msgType", msgType);
-        setLocalStorage("msgType_title", msgType_title);
-        this.$root.Bus.$emit('toggleComponent', 'msgList')
+      getNoticeType() {
+        this.$http
+          .post(`${this.$api}/v1/notice/r/find_notice_type_list/1/1`)
+          .then(res => {
+            this.noticeType = res.data.data;
+          })
+      },
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
+      toTypeList(index) {
+        var noticeTitle = '';
+        if (index == 1) {
+          noticeTitle = '首页公告';
+        } else if (index == 3) {
+          noticeTitle = '系统公告';
+        } else if (index == 4) {
+          noticeTitle = '游戏公告';
+        }
+        setLocalStorage('noticeTitle', noticeTitle);
+        setLocalStorage('noticeType', index);
+        this.$root.Bus.$emit('toggleComponent', 'msgTypeList')
       }
-
     }
   }
 </script>

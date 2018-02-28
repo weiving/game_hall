@@ -1,0 +1,69 @@
+<template>
+  <div id="sendPacket" class="page-wrap">
+    <div class="page-head">
+      <div class="toReturn" @click="toComponent('packetManage')">
+        <img src="/static/img/left.png" alt="">
+      </div>
+      <div class="title">发送红包</div>
+    </div>
+    <div class="page-content">
+      <div class="box-item">
+        <label class="col-xs-4">红包金额</label>
+        <div class="con-xs-8 text-right">
+          <input type="text" class="text-right" placeholder="0.00">
+          <span>元</span>
+        </div>
+      </div>
+      <div class="box-item">
+        <label class="col-xs-4">红包个数</label>
+        <div class="con-xs-8 text-right">
+          <input type="text" class="text-right" placeholder="填写个数">
+          <span>个</span>
+        </div>
+      </div>
+      <div class="box-item">
+        <label class="col-xs-4">接受对象</label>
+        <div class="con-xs-8 text-right">
+          <div class="toLower">
+            <label for="toLower">直属下级</label>
+            <input type="radio" id="toLower" name="lower">
+            <div class="user-defined active">
+              <span class="circle active"></span>
+            </div>
+          </div>
+          <div class="allLower">
+            <label for="allLower">全部下级</label>
+            <input type="radio" id="allLower" name="lower">
+            <div class="user-defined">
+              <span class="circle active"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-item">
+        <textarea name=""  rows="3" cols="10" placeholder="恭喜发财"></textarea>
+      </div>
+      <div class="box-amount"><span>￥</span><span class="amount">4889</span></div>
+      <div class="default-btn">确认</div>
+      <p class="help-tips">红包金额至少10，红包个数最低为10个。累计发红包越多，抢红包获得的金额越大</p>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "send-packet",
+    data() {
+      return {}
+    },
+    methods: {
+      toComponent(component) {
+        this.$root.Bus.$emit('toggleComponent', component)
+      },
+    },
+  }
+</script>
+
+<style scoped>
+
+</style>

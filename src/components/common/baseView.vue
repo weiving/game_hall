@@ -14,9 +14,12 @@
   import manageCard from '@/components/recharge/manageCard'
 
   import msgCenter from '@/components/message/msgCenter'
-  import msgList from '@/components/message/msgList'
-  import msgDetail from '@/components/message/msgDetail'
-  import msgSend from '@/components/message/msgSend'
+  import msgMy from '@/components/message/msgMy'
+  import msgMyDetail from '@/components/message/msgMyDetail'
+  import msgMySend from '@/components/message/msgMySend'
+  import msgTypeList from '@/components/message/msgTypeList'
+  import msgTypeDetail from '@/components/message/msgTypeDetail'
+
   import my from '@/components/my/my'
   import reportRecord from '@/components/queryReport/reportRecord'
   import reportDetail from '@/components/queryReport/reportDetail'
@@ -24,6 +27,18 @@
   import recordDetail from '@/components/queryRecord/recordDetail'
   import capitalRecord from '@/components/queryCapital/capitalRecord'
   import capitalDetail from '@/components/queryCapital/capitalDetail'
+
+  import openAccount from '@/components/openAccount/openAccount'
+  import lowerManage from '@/components/lowerManage/lowerManage'
+  import lowerDetail from '@/components/lowerManage/lowerDetail'
+  import shareBonus from '@/components/lowerManage/shareBonus'
+  import shareBonusDetail from '@/components/lowerManage/shareBonusDetail'
+  import dailyWages from '@/components/lowerManage/dailyWages'
+  import dailyWagesDetail from '@/components/lowerManage/dailyWagesDetail'
+  import packetManage from '@/components/redPacket/packetManage'
+  import packetManageDetail from '@/components/redPacket/packetManageDetail'
+  import sendPacket from '@/components/redPacket/sendPacket'
+
 
   import register from '@/components/register/register'
   import regSuccess from '@/components/register/regSuccess'
@@ -63,10 +78,14 @@
       recharge,
       bindCard,
       manageCard,
+
       msgCenter,
-      msgList,
-      msgDetail,
-      msgSend,
+      msgMy,
+      msgMyDetail,
+      msgMySend,
+      msgTypeList,
+      msgTypeDetail,
+
       my,
       reportRecord,
       reportDetail,
@@ -74,6 +93,19 @@
       recordDetail,
       capitalRecord,
       capitalDetail,
+
+      openAccount,
+      lowerManage,
+      lowerDetail,
+      shareBonus,
+      shareBonusDetail,
+      dailyWages,
+      dailyWagesDetail,
+      packetManage,
+      packetManageDetail,
+      sendPacket,
+
+
       register,
       regSuccess,
       login,
@@ -85,7 +117,7 @@
       setPhone,
       ranking,
       gameFrame,
-      withdrawal
+      withdrawal,
     }
   }
 </script>

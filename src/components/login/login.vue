@@ -111,7 +111,8 @@
                 setLocalStorage("session", res.data.session);
                 setLocalStorage("user_id", res.data.user_id);
                 setLocalStorage("user_type", res.data.user_type);
-
+                setLocalStorage("user_name", this.username);
+                // this.$root.Bus.$emit('toggleComponent', 'hall');
                 this.$router.push({path: '/'})
               } else {
                 this.isShow_login_msg = true;

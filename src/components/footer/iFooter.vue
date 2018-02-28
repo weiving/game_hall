@@ -29,7 +29,7 @@
         const _this = this;
         this.$root.Bus.$on('footerStatus', function (status) {
           _this.defaultFooterStatus = status;
-        })
+        });
       },
       toComponent(component) {
         // const oIframe = document.getElementById('iframe');
