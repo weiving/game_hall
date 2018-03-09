@@ -1,58 +1,81 @@
 <template>
   <div id="recharge" class="page-wrap">
-    <div class="page-head">
-      <!--<div class="toReturn" @click="toUrl('hall')">-->
-      <!--<img src="/static/img/left.png" alt="">-->
-      <!--</div>-->
-      <div class="title">充值</div>
-    </div>
-    <div class="page-content">
-      <div class="input-box" @touchstart.stop="focus">
-        <div class="text">金额：</div>
-        <div class="margin-input">
-          <div class="amount" v-show="val">{{val}}</div>
-          <div class="placeholder" v-show="val.length===0">请输入充值金额</div>
-          <!--光标-->
-          <div class="cursor" :style="{visibility: cursor ? 'visible' : 'hidden'}"></div>
-        </div>
-        <!--清空-->
-        <!--<div class="empty-btn" v-show="val">111-->
-        <!--<i class="empty-icon"></i>-->
+    <div class="pay-select" v-if="toPayPage">
+      <div class="page-head">
+        <!--<div class="toReturn" @click="toUrl('hall')">-->
+        <!--<img src="/static/img/left.png" alt="">-->
         <!--</div>-->
+        <div class="title">充值</div>
       </div>
-      <div class="payment-wrap">
-        <div class="payment-item active">
-          <img src="/static/img/pay.png"/>
-          <div class="payment">
-            <div class="title">银行卡支付</div>
-            <div class="des">单笔限额5万，单日限额5万</div>
+      <div class="page-content">
+        <div class="input-box" @touchstart.stop="focus">
+          <div class="text">金额：</div>
+          <div class="margin-input">
+            <div class="amount" v-show="val">{{val}}</div>
+            <div class="placeholder" v-show="val.length===0">请输入充值金额</div>
+            <!--光标-->
+            <div class="cursor" :style="{visibility: cursor ? 'visible' : 'hidden'}"></div>
           </div>
-          <div class="selected"></div>
+          <!--清空-->
+          <!--<div class="empty-btn" v-show="val">111-->
+          <!--<i class="empty-icon"></i>-->
+          <!--</div>-->
         </div>
-        <!--<div class="payment-item">-->
+        <div class="payment-wrap">
+          <!--<div class="payment-item active">-->
+          <!--<img src="/static/img/pay.png"/>-->
+          <!--<div class="payment">-->
+          <!--<div class="title">银行卡支付</div>-->
+          <!--<div class="des">单笔限额5万，单日限额5万</div>-->
+          <!--</div>-->
+          <!--<div class="selected"></div>-->
+          <!--</div>-->
+          <!--<div class="payment-item">-->
           <!--<img src="/static/img/alipay02.png"/>-->
           <!--<div class="payment">-->
-            <!--<div class="title">支付宝</div>-->
-            <!--<div class="des">单笔限额5万，快速到账</div>-->
+          <!--<div class="title">支付宝</div>-->
+          <!--<div class="des">单笔限额5万，快速到账</div>-->
           <!--</div>-->
           <!--<div class="selected"></div>-->
-        <!--</div>-->
-        <!--<div class="payment-item active">-->
+          <!--</div>-->
+          <!--<div class="payment-item">-->
           <!--<img src="/static/img/wx02.png"/>-->
           <!--<div class="payment">-->
-            <!--<div class="title">微信支付</div>-->
-            <!--<div class="des">支持微信5.0以上客户端</div>-->
+          <!--<div class="title">微信支付</div>-->
+          <!--<div class="des">支持微信5.0以上客户端</div>-->
           <!--</div>-->
           <!--<div class="selected"></div>-->
-        <!--</div>-->
+          <!--</div>-->
+
+          <div class="payment-item" v-for="(item,index) in payAccountList" :key="index"
+               :class="{active:isSelectIndex==index}" @click="selectIndex(index)">
+            <img src="/static/img/pay.png"/>
+            <div class="payment">
+              <div class="title">{{item.pay_alias}}</div>
+              <div class="des">单笔限额{{item.pay_max}}万，单日限额5万</div>
+            </div>
+            <div class="selected"></div>
+          </div>
+        </div>
+        <div class="default-btn" :class="{active:val}" @click="toNext">下一步</div>
+        <keyboard :show="keyboard" @typing="typing" @complete="blur"></keyboard>
       </div>
-      <div class="default-btn" :class="{active:val}" @click="toComponent('manageCard')">下一步</div>
-      <keyboard :show="keyboard" @typing="typing" @complete="blur"></keyboard>
+    </div>
+    <div class="pay-page" v-else>
+      <div class="page-head">
+        <div class="toReturn" @click="closePayPage">
+          <img src="/static/img/close.png" alt="关闭">
+        </div>
+      </div>
+      <div class="page-content">
+        <iframe :src=payUrl frameborder="0"></iframe>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import {getLocalStorage} from "../../../static/js/util";
   import keyboard from './keyboard'
 
   export default {
@@ -63,7 +86,9 @@
     created() {
       document.addEventListener('touchstart', () => {
         this.blur();
-      })
+      });
+      this.getPayAccountList();
+
     },
     props: {},
     data() {
@@ -77,14 +102,28 @@
         bodyOverflow: '',
         // value: '',
         inter: 8,
-        decimal: 2
+        decimal: 2,
+        payAccountList: '',
+        isSelectIndex: 0,
+        toPayPage: true,
+        payUrl: 'http://www.baidu.com'
       }
     },
     methods: {
-      // toUrl(url) {
-      //   this.$root.Bus.$emit('toggleComponent', url)
-      //   this.$root.Bus.$emit('footerStatus', url)
-      // },
+      getPayAccountList() {
+        var session = getLocalStorage("session");
+        var user_id = getLocalStorage("user_id");
+        var username = getLocalStorage("username");
+        this.$http
+          .post(`${this.$api}/v1/pay/r/find_pay_account_list/${user_id}/${username}?session=${session}`)
+          .then(res => {
+            var resData = res.data;
+            console.log('支付列表', resData)
+            if (resData.success == true) {
+              this.payAccountList = resData.data;
+            }
+          })
+      },
       focus() {
         /*显示键盘*/
         this.showKeyboard();
@@ -220,6 +259,61 @@
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
+      /*选择支付方式*/
+      selectIndex(index) {
+        this.isSelectIndex = index;
+      },
+      /*选择支付*/
+      toNext() {
+        if (this.val) {
+          console.log('jindd');
+          /*哪种支付*/
+          var this_pay = this.payAccountList[this.isSelectIndex];
+
+          var pay_type = this_pay.pay_type;
+          var pay_url = this_pay.pay_url;
+
+          var money = this.val;
+          var pay_account_id = this_pay.aid;
+
+          var user_id = getLocalStorage('user_id');
+          var username = getLocalStorage('username');
+          var session = getLocalStorage('session');
+
+
+          if (pay_type == 2) {//银行支付
+            console.log('银行支付');
+
+          } else if (pay_type == 1) {//第三方
+            console.log('第三方支付');
+
+            this.toPayPage = false;
+            // this.payUrl = pay_url;
+            this.payUrl = 'http://baidu.com';
+            var params = new URLSearchParams();
+            params.append('money', money);
+            params.append('pay_account_id', pay_account_id);
+
+            this.$http
+              .post(`${this.$api}/v1/pay/r/create_pay_order/${user_id}/${username}?session=${session}`, params)
+              .then(res => {
+                var resData = res.data;
+                console.log('第三方创建支付订单', resData);
+                if (resData.success == true) {
+                  console.log('创建订单成功', resData.data.msg);
+                } else {
+                  console.log('创建订单失败', resData.data.msg);
+                }
+              })
+          } else {
+            //未分类
+          }
+        }
+      },
+      /*关闭支付*/
+      closePayPage() {
+        this.toPayPage = true
+      }
     }
   }
 </script>
@@ -232,146 +326,148 @@
     display: flex;
     flex-direction: column;
 
-    .recharge-head {
-      width: 100%;
-      height: 50px;
-      line-height: 50px;
-      background: #5D97F9;
-      color: #fff;
-      text-align: center;
-      position: relative;
-      font-size: 20px;
-
-      .toHall {
-        position: absolute;
-        top: 5px;
-        left: 0px;
-        width: 40px;
-        height: 40px;
-
-        img {
-          width: 11px;
-          height: 19px;
-          vertical-align: text-top;
-        }
-
-      }
-    }
-
-    .recharge-content {
-      font-size: 14px;
-      user-select: none;
-      .input-box {
+    .pay-select {
+      .recharge-head {
         width: 100%;
         height: 50px;
-        line-height: 16px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        padding: 17px 13px;
-        background: #ffffff;
-        box-shadow: 0 0 5px 2px #EEF7FE;
+        line-height: 50px;
+        background: #5D97F9;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        font-size: 20px;
 
-        .text {
-          margin-left: 12px;
-          float: left;
-        }
-
-        .margin-input {
-          margin-left: 10px;
-          float: left;
-          position: relative;
-
-          .amount {
-            float: left;
-            color: #999999;
-          }
-
-          .placeholder {
-            width: 120px;
-            position: absolute;
-            top: 0px;
-            left: 2px;
-            color: #999999;
-          }
-
-          .cursor {
-            float: left;
-            background-color: #4788c5;
-            height: 16px;
-            width: 2px;
-            margin-left: 2px;
-          }
-        }
-
-        .empty-btn {
-          width: 34px;
-          height: 34px;
+        .toHall {
           position: absolute;
-          top: 0px;
-          right: 10px;
+          top: 5px;
+          left: 0px;
+          width: 40px;
+          height: 40px;
+
+          img {
+            width: 11px;
+            height: 19px;
+            vertical-align: text-top;
+          }
+
         }
       }
-      .payment-wrap {
-        margin-top: 20px;
-        background: #ffffff;
-        box-shadow: 0 0 5px 2px #EEF7FE;
 
-        .payment-item {
-          height: 60px;
+      .recharge-content {
+        font-size: 14px;
+        user-select: none;
+        .input-box {
           width: 100%;
-          margin-left: 20px;
-          border-bottom: 1px solid #EBEBEB;
-          position: relative;
-          padding-top: 16px;
-          padding-left: 35px;
-          img {
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            top: 18px;
-            left: -10px;
+          height: 50px;
+          line-height: 16px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          padding: 17px 13px;
+          background: #ffffff;
+          box-shadow: 0 0 5px 2px #EEF7FE;
+
+          .text {
+            margin-left: 12px;
+            float: left;
           }
 
-          .payment {
+          .margin-input {
+            margin-left: 10px;
+            float: left;
+            position: relative;
 
-            .des {
-              margin-top: 6px;
-              font-size: 12px;
+            .amount {
+              float: left;
               color: #999999;
             }
-          }
 
-          &.active {
-            .selected {
-              width: 14px;
-              height: 11px;
-              background: url("/static/img/dict.png");
-              background-size: cover;
+            .placeholder {
+              width: 120px;
               position: absolute;
-              top: 25px;
-              right: 40px;
+              top: 0px;
+              left: 2px;
+              color: #999999;
+            }
+
+            .cursor {
+              float: left;
+              background-color: #4788c5;
+              height: 16px;
+              width: 2px;
+              margin-left: 2px;
             }
           }
 
-          &:last-child {
-            border: none;
+          .empty-btn {
+            width: 34px;
+            height: 34px;
+            position: absolute;
+            top: 0px;
+            right: 10px;
           }
         }
-      }
+        .payment-wrap {
+          margin-top: 20px;
+          background: #ffffff;
+          box-shadow: 0 0 5px 2px #EEF7FE;
 
-      .next-btn {
-        width: 94%;
-        margin-top: 37px;
-        margin-left: 3%;
-        height: 40px;
-        line-height: 40px;
-        background: #cccccc;
-        border-radius: 6px;
-        color: #ffffff;
-        text-align: center;
+          .payment-item {
+            height: 60px;
+            width: 100%;
+            margin-left: 20px;
+            border-bottom: 1px solid #EBEBEB;
+            position: relative;
+            padding-top: 16px;
+            padding-left: 35px;
+            img {
+              width: 30px;
+              height: 30px;
+              position: absolute;
+              top: 18px;
+              left: -10px;
+            }
 
-        &.active {
-          background: #6092F4;
+            .payment {
+
+              .des {
+                margin-top: 6px;
+                font-size: 12px;
+                color: #999999;
+              }
+            }
+
+            &.active {
+              .selected {
+                width: 14px;
+                height: 11px;
+                background: url("/static/img/dict.png");
+                background-size: cover;
+                position: absolute;
+                top: 25px;
+                right: 40px;
+              }
+            }
+
+            &:last-child {
+              border: none;
+            }
+          }
+        }
+
+        .next-btn {
+          width: 94%;
+          margin-top: 37px;
+          margin-left: 3%;
+          height: 40px;
+          line-height: 40px;
+          background: #cccccc;
+          border-radius: 6px;
+          color: #ffffff;
+          text-align: center;
+
+          &.active {
+            background: #6092F4;
+          }
         }
       }
     }

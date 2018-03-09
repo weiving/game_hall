@@ -17,38 +17,74 @@
         <div class="operationType" v-if="defaultType=='addLower'">
           <div class="row-body">
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">用户名</div></div>
-              <input type="text" class="col-xs-8 input-text" placeholder="请输入用户名">
+              <div class="col-xs-4">
+                <div class="row-label">用户名</div>
+              </div>
+              <input type="text" class="col-xs-8 input-text" v-model="lower_username" placeholder="请输入用户名">
             </div>
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">密码</div></div>
-              <input type="text" class="col-xs-8 input-text" placeholder="默认密码123456">
+              <div class="col-xs-4">
+                <div class="row-label">密码</div>
+              </div>
+              <input type="password" class="col-xs-8 input-text" v-model="lower_password" placeholder="默认密码123456">
             </div>
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">返点值</div></div>
-              <input type="text" class="col-xs-8 input-text" placeholder="默认0">
-            </div>
-            <div class="row">
-              <div class="col-xs-4"><div class="row-label">用户类型</div></div>
-              <div class="col-xs-8 text-right">
-                请选择
+              <div class="col-xs-4">
+                <div class="row-label">选择平台</div>
+              </div>
+              <div class="col-xs-8 text-right" @click="showPlatform" :class="{'text-orange':selectPlatformStatus}">
+                {{selectPlatformText}}
                 <img src="/static/img/wind01.png" class="next-icon">
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="row-label">选择游戏</div>
+              </div>
+              <div class="col-xs-8 text-right" @click="showGame" :class="{'text-orange':selectGameStatus}">
+                {{selectGameText}}
+                <img src="/static/img/wind01.png" class="next-icon">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="row-label">用户类型</div>
+              </div>
+              <div class="col-xs-8 text-right">
+                <div class="ordinary" @click="selectUserType(1)">
+                  <label for="ordinary">普通</label>
+                  <input type="radio" name="userType" id="ordinary">
+                  <div class="user-defined" :class="{active:user_type==1}">
+                    <span class="circle"></span>
+                  </div>
+                </div>
+                <div class="agent" @click="selectUserType(2)">
+                  <label for="agent">代理</label>
+                  <input type="radio" name="userType" id="agent">
+                  <div class="user-defined" :class="{active:user_type==2}">
+                    <span class="circle"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="default-btn">确认</div>
+          <div class="default-btn active" @click="addLowerFn">确认</div>
         </div>
         <div class="operationType" v-if="defaultType=='linkOpen'">
           <div class="row-body">
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">用户类型</div></div>
+              <div class="col-xs-4">
+                <div class="row-label">用户类型</div>
+              </div>
               <div class="col-xs-8 text-right">
                 请选择
                 <img src="/static/img/wind01.png" class="next-icon">
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">返点值</div></div>
+              <div class="col-xs-4">
+                <div class="row-label">返点值</div>
+              </div>
               <input type="text" class="col-xs-8 input-text" placeholder="默认0">
             </div>
             <div class="row linkUrl">
@@ -90,41 +126,49 @@
         <div class="popover-body">
           <div class="row-body">
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">用户类型</div></div>
+              <div class="col-xs-4">
+                <div class="row-label">用户类型</div>
+              </div>
               <div class="col-xs-8 text-right">
                 请选择<img src="/static/img/wind01.png" class="next-icon">
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">返点信息</div></div>
+              <div class="col-xs-4">
+                <div class="row-label">返点信息</div>
+              </div>
               <input type="text" v-model="rebates" class="col-xs-8 input-text" placeholder="请输入内容">
             </div>
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">备注</div></div>
+              <div class="col-xs-4">
+                <div class="row-label">备注</div>
+              </div>
               <input type="text" v-model="remark" class="col-xs-8 input-text" placeholder="请输入内容">
             </div>
             <div class="row">
-              <div class="col-xs-4"><div class="row-label">注册量</div></div>
+              <div class="col-xs-4">
+                <div class="row-label">注册量</div>
+              </div>
               <input type="text" v-model="registerNum" class="col-xs-8 input-text" placeholder="请输入内容">
             </div>
           </div>
           <!--<div class="popover-row">-->
-            <!--<div class="col-xs-4">用户类型</div>-->
-            <!--<div class="col-xs-8 text-right">-->
-              <!--请选择<img src="/static/img/wind01.png" class="next-icon">-->
-            <!--</div>-->
+          <!--<div class="col-xs-4">用户类型</div>-->
+          <!--<div class="col-xs-8 text-right">-->
+          <!--请选择<img src="/static/img/wind01.png" class="next-icon">-->
+          <!--</div>-->
           <!--</div>-->
           <!--<div class="popover-row">-->
-            <!--<div class="col-xs-4 text-left">返点信息</div>-->
-            <!--<input type="text" v-model="rebates" class="col-xs-8 input-text" placeholder="请输入内容">-->
+          <!--<div class="col-xs-4 text-left">返点信息</div>-->
+          <!--<input type="text" v-model="rebates" class="col-xs-8 input-text" placeholder="请输入内容">-->
           <!--</div>-->
           <!--<div class="popover-row">-->
-            <!--<div class="col-xs-4 text-left">备注</div>-->
-            <!--<input type="text" v-model="remark" class="col-xs-8 input-text" placeholder="请输入内容">-->
+          <!--<div class="col-xs-4 text-left">备注</div>-->
+          <!--<input type="text" v-model="remark" class="col-xs-8 input-text" placeholder="请输入内容">-->
           <!--</div>-->
           <!--<div class="popover-row">-->
-            <!--<div class="col-xs-4 text-left">注册量</div>-->
-            <!--<input type="text" v-model="registerNum" class="col-xs-8 input-text" placeholder="请输入内容">-->
+          <!--<div class="col-xs-4 text-left">注册量</div>-->
+          <!--<input type="text" v-model="registerNum" class="col-xs-8 input-text" placeholder="请输入内容">-->
           <!--</div>-->
         </div>
         <div class="popover-footer">
@@ -134,12 +178,85 @@
       </div>
     </transition>
     <div class="mask" v-show="isShowPopover" @click="togglePopover"></div>
+    <transition name="slideRight">
+      <div class="slide-popover platformPopover" v-show="isShowPlatformPopover">
+        <div class="row-body">
+          <div class="row" v-for="(item,index) in platformList" :key="index" @click="surePlatform(item.id)">
+            {{item.name}}
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="slideRight">
+      <div class="slide-popover gamePopover" v-show="isShowGamePopover">
+        <div class="row-body">
+          <div class="row" v-for="(item,index) in gameList">
+            <div class="col-xs-8">{{item.name}}</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值" v-model="item.code">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+          <div class="row">
+            <div class="col-xs-8">游戏11111</div>
+            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
+          </div>
+        </div>
+        <div class="row-footer">
+          <div class="opt-btn">重置</div>
+          <div class="opt-btn sure-btn" @click="sureSelectGame">确定</div>
+        </div>
+      </div>
+    </transition>
+    <div class="mask" v-show="isShowMsg" @click="toggleShowMsg"></div>
+    <div class="mask-text" v-show="isShowMsg"><span>{{msg}}</span></div>
   </div>
 </template>
 
 <script>
+  import {getLocalStorage} from "../../../static/js/util";
+
   export default {
     name: "open-account",
+    props: {},
     data() {
       return {
         openAccountCenter: ['添加下级', '链接开户', '链接管理'],
@@ -148,19 +265,171 @@
         isShowPopover: false,
         rebates: '',
         remark: '',
-        registerNum: ''
+        registerNum: '',
+
+        isShowPlatformPopover: false,
+        selectPlatformText: '请选择',
+        selectPlatformStatus: false,
+        platformList: [],
+        platform_id: '',
+
+        isShowGamePopover: false,
+        selectGameText: '请选择',
+        selectGameStatus: false,
+        gameList: [],
+
+        isShowMsg: false,
+        msg: '',
+
+        lower_username: '',
+        lower_password: '',
+        // funds_password:'',
+        user_type: 1,
+        rebates: []
       }
     },
     methods: {
       toggleType(type) {
         this.defaultType = type;
       },
+      /*筛选*/
       togglePopover() {
         this.isShowPopover = !this.isShowPopover;
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
+      /*选择平台*/
+      showPlatform() {
+        var session = getLocalStorage('session');
+        var user_id = getLocalStorage('user_id');
+        var username = getLocalStorage('username');
+
+        var params = new URLSearchParams();
+        params.append('args', '{}');
+        this.$http
+          .post(`${this.$api}/v1/platform/r/list/${user_id}/${username}?session=${session}`, params)
+          .then(res => {
+            var resData = res.data;
+            console.log("平台信息", resData);
+            if (resData.success == true) {
+              this.platformList = resData.data.list;
+            }
+          });
+        this.isShowPlatformPopover = !this.isShowPlatformPopover;
+      },
+      surePlatform(id) {
+        this.isShowPlatformPopover = !this.isShowPlatformPopover;
+        this.selectPlatformText = '已选择';
+        this.selectPlatformStatus = true;
+        this.platform_id = id;
+        console.log("确定选择平台", this.platformList);
+      },
+      /*选择游戏*/
+      showGame() {
+        if (this.platform_id == "" || this.platform_id == undefined) {
+          this.isShowMsg = !this.isShowMsg;
+          this.msg = "请先选择平台";
+        } else {
+          var session = getLocalStorage('session');
+          var user_id = getLocalStorage('user_id');
+          var username = getLocalStorage('username');
+
+          var params = new URLSearchParams();
+          params.append('args', '{}');
+          this.$http
+            .post(`${this.$api}/v1/game/r/list/${user_id}/${username}?session=${session}`, params)
+            .then(res => {
+              var resData = res.data;
+              if (resData.success == true) {
+                this.gameList = resData.data.list;
+                for (var i = 0; i < this.gameList.length; i++) {
+                  // this.gameList[i].code = 0;
+                  this.$set(this.gameList[i], 'code', 0)
+                }
+              }
+            });
+          this.isShowGamePopover = !this.isShowGamePopover;
+        }
+
+      },
+      sureSelectGame() {
+        this.isShowGamePopover = !this.isShowGamePopover;
+        this.selectGameText = '已选择';
+        this.selectGameStatus = true;
+        var gameList = this.gameList;
+        var array = [];
+        for (var i = 0; i < gameList.length; i++) {
+          var platform_id = parseInt(this.platform_id);
+          var game_id = parseInt(gameList[i].id);
+          var rebate = parseInt(gameList[i].code);
+
+          var obj = {
+            'platform_id': platform_id,
+            "game_id": game_id,
+            "rebate": rebate
+          };
+          array.push(obj);
+        }
+        this.rebates = array;
+        console.log('rebates数组', this.rebates);
+      },
+      toggleShowMsg() {
+        this.isShowMsg = !this.isShowMsg;
+      },
+      /*选择用户类型*/
+      selectUserType(type) {
+        this.user_type = type;
+      },
+
+      //添加下级
+      addLowerFn() {
+        if (this.lower_username == '' || this.lower_username == undefined) {
+          this.isShowMsg = true;
+          this.msg = "请填写用户名";
+          return
+        } else if (this.lower_password == '' || this.lower_password == undefined) {
+          this.isShowMsg = true;
+          this.msg = "请填写密码";
+          return
+        } else if (this.platform_id == '' || this.platform_id == undefined) {
+          this.isShowMsg = true;
+          this.msg = "请选择平台";
+          return
+        } else if (this.rebates.length == 0 || this.rebates.length == undefined) {
+          this.isShowMsg = true;
+          this.msg = "请选择游戏";
+          return
+        } else {
+
+          var session = getLocalStorage('session');
+          var user_id = getLocalStorage('user_id');
+          var username = getLocalStorage('username');
+
+          var params = new URLSearchParams();
+          params.append('username', this.lower_username);
+          params.append('password', this.lower_password);
+          params.append('user_type', this.user_type);
+          params.append('rebates', JSON.stringify(this.rebates));
+
+          this.$http
+            .post(`${this.$api}/v1/user/w/gen_spread_code/${user_id}/${username}?session=${session}`, params)
+            .then(res => {
+              var resData = res.data;
+              console.log("添加下级", resData);
+              if (resData.success == true) {
+                this.isShowMask = true;
+                this.msg = resData.msg;
+              } else {
+                this.isShowMask = true;
+                this.msg = resData.msg;
+              }
+            });
+
+
+        }
+
+      }
     }
   }
 </script>

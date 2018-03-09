@@ -128,7 +128,7 @@
             this.isShow_phone_msg = true;
             return this.isValid = false;
           }
-          if(!this.isShow_phone_msg){
+          if (!this.isShow_phone_msg) {
             var params = new URLSearchParams();
             params.append("phone", this.phone);
             this.$http
@@ -136,7 +136,7 @@
               .then(res => {
                 console.log("res", res);
                 if (res.data.success == 1) {
-                  console.log(res.data.message)
+                  console.log(res.data.message);
                   this.isDisabled = true;
                   setTimeout(this.run, 1000);
                 } else {
@@ -150,7 +150,7 @@
         }
       },
       run() {
-        this.time = this.second
+        this.time = this.second;
         this.timer()
       },
       timer() {
@@ -205,17 +205,17 @@
 
         if (this.isValid) {
           var params = new URLSearchParams();
-          params.append("user", this.username);
+          params.append("username", this.username);
           params.append("password", this.password);
           params.append("phone", this.phone);
           params.append("code", this.phoneCode);
           params.append("vcode", this.code);
 
           this.$http
-            .post(`${this.$api}/register/phone?vcode=${this.cookie_vcode}`, params)
+            .post(`${this.$api}/v1/register/phone?vcode=${this.cookie_vcode}`, params)
             .then(res => {
               console.log("res", res);
-              if (res.data.success == 1) {
+              if (res.data.success == true) {
                 // this.$router.push({path: '/regSuccess'})
                 this.isShow_msg = true;
                 this.msg = res.data.message;
@@ -263,264 +263,4 @@
   }
 </script>
 
-<style scoped>
-  #register {
-    width: 100%;
-    height: 100%;
-    background-image: url('/static/img/bg.png');
-    background-size: cover;
-    position: relative;
-  }
 
-  #register .mask {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    opacity: 0.2;
-    filter: alpha(opacity=20);
-    background: #000;
-  }
-
-  #register .error-mask {
-    position: absolute;
-    top: 40%;
-    left: -webkit-calc((100vw - 180px) / 2);
-    left: -moz-calc((100vw - 180px) / 2);
-    left: calc((100vw - 180px) / 2);
-    height: 39px;
-    width: 180px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 11px 15px;
-    border-radius: 5px;
-    color: #ffff;
-    font-size: 16px;
-    z-index: 1000;
-    text-align: center;
-  }
-
-  .reg-head {
-    padding: 20px 13px;
-    position: relative;
-    text-align: center;
-    color: #fff;
-    font-size: 24px;
-  }
-
-  .reg-head img {
-    position: absolute;
-    top: 23px;
-    left: 13px;
-    width: 11px;
-    height: 19px;
-  }
-
-  .reg-head .toLogin {
-    position: absolute;
-    top: 25px;
-    right: 10px;
-    font-size: 18px;
-    color: #fff;
-  }
-
-  .reg-content {
-    width: 100vw;
-    padding: 100px 13vw 100px 13vw;
-    color: #ABB8BF;
-  }
-
-  .reg-content .reg-item {
-    width: 74vw;
-    height: 40px;
-    background: #fff;
-    border-radius: 40px;
-    position: relative;
-    padding: 12px 18px;
-    margin-bottom: 20px;
-  }
-
-  .reg-content .error-msg {
-    position: absolute;
-    top: 40px;
-    left: 12vw;
-    height: 39px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 11px 15px;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 12px;
-    text-align: center;
-    z-index: 10;
-  }
-
-  .reg-content .reg-item input {
-    width: -webkit-calc(74vw - 84px);
-    width: -moz-calc(74vw - 84px);
-    width: calc(74vw - 84px);
-    height: 19px;
-    margin-left: 16px;
-    float: left;
-  }
-
-  .reg-content .reg-item input:focus {
-    -webkit-box-shadow: 0 0 5px #fff;
-    -moz-box-shadow: 0 0 5px #fff;
-    box-shadow: 0 0 5px #fff;
-    border-color: #fff;
-    background: #fff;
-  }
-
-  .reg-content .reg-item .username-icon {
-    display: block;
-    width: 19px;
-    height: 19px;
-    background-image: url("/static/img/ico_account.png");
-    background-size: cover;
-    float: left;
-  }
-
-  .reg-content .reg-item .password-icon {
-    display: block;
-    width: 19px;
-    height: 19px;
-    background-image: url("/static/img/ico_password.png");
-    background-size: cover;
-    float: left;
-  }
-
-  .reg-content .reg-item .password {
-    width: -webkit-calc(74vw - 93px);
-    width: -moz-calc(74vw - 93px);
-    width: calc(74vw - 93px);
-  }
-
-  .reg-content .reg-item .close-icon {
-    display: block;
-    width: 17px;
-    height: 12px;
-    background-image: url("/static/img/ico_ice_up_2.png");
-    background-size: cover;
-    float: left;
-    margin-top: 2px;
-    margin-left: 5px;
-  }
-
-  .reg-content .reg-item .open-icon {
-    display: block;
-    width: 17px;
-    height: 12px;
-    background-image: url("/static/img/ico_ice_down_2.png");
-    background-size: cover;
-    float: left;
-    margin-top: 2px;
-    margin-left: 5px;
-  }
-
-  .reg-content .reg-item .phone-icon {
-    display: block;
-    width: 19px;
-    height: 19px;
-    background-image: url("/static/img/ico_phone_2.png");
-    background-size: cover;
-    float: left;
-  }
-
-  .reg-content .reg-item .phoneCode-icon {
-    display: block;
-    width: 19px;
-    height: 19px;
-    background-image: url("/static/img/ico_protect.png");
-    background-size: cover;
-    float: left;
-  }
-
-  .reg-content .reg-item .phoneCode {
-    width: -webkit-calc(74vw - 170px);
-    width: -moz-calc(74vw - 170px);
-    width: calc(74vw - 170px);
-    float: left;
-  }
-
-  .reg-content .reg-item .phoneCode-info {
-    width: 100px;
-    position: absolute;
-    top: 8px;
-    right: 10px;
-  }
-
-  .reg-content .reg-item .phoneCode-info .line {
-    display: block;
-    width: 1px;
-    height: 24px;
-    /*position: absolute;*/
-    /*top: 1px;*/
-    /*right: 90px;*/
-    background: #ABB8BF;
-  }
-
-  .reg-content .reg-item .phoneCode-info .getCode {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    color: #6197F8;
-  }
-
-  .reg-content .reg-item .phoneCode-info .disabled {
-    color: #ABB8BF;
-  }
-
-  .reg-content .reg-item .code-icon {
-    display: block;
-    width: 19px;
-    height: 19px;
-    background-image: url("/static/img/ico_protect.png");
-    background-size: cover;
-    float: left;
-  }
-
-  .reg-content .reg-item .code {
-    width: -webkit-calc(74vw - 150px);
-    width: -moz-calc(74vw - 150px);
-    width: calc(74vw - 150px);
-    float: left;
-  }
-
-  .reg-content .reg-item .identify-code {
-    margin-top: -10px;
-    margin-left: 18px;
-    height: 40px;
-    line-height: 40px;
-    float: left;
-  }
-
-  .reg-content .reg-item .identify-code img {
-    width: 60px;
-    height: 35px;
-  }
-
-  .reg-content .reg-btn {
-    width: 74vw;
-    height: 40px;
-    background: #55AAFF;
-    border-radius: 40px;
-    padding: 12px 18px;
-    color: #fff;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 45px;
-  }
-
-  .reg-footer {
-    width: 100vw;
-    text-align: center;
-    font-size: 14px;
-    color: #fff;
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-  }
-
-</style>

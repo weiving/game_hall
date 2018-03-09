@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <myHeader :user="user" :user_id="user_id" :user_type="user_type"></myHeader>
+    <myHeader :username="username" :user_id="user_id" :user_type="user_type"></myHeader>
     <myContent :user_type="user_type"></myContent>
     <iFooter v-bind:isMy="true"></iFooter>
   </div>
@@ -17,9 +17,9 @@
     name: "my",
     data() {
       return {
-        user: '',
+        username: '',
         user_id: '',
-        user_type:'',
+        user_type: '',
         // portrait:'',头像
         login_ip: ''
       }
@@ -34,20 +34,22 @@
     },
     methods: {
       getUserInfo: function () {
+        var user_id = getLocalStorage("user_id");
+        var username = getLocalStorage("username");
         var session = getLocalStorage("session");
         if (session == '' || session == undefined) {
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/user/user_info?session=${session}`)
+            .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
             .then(res => {
-              // console.log(res)
-              if (res.data.success == 1) {
-                this.user = res.data.username;
-                this.user_id = res.data.user_id;
-                this.user_type=res.data.user_type;
-                // this.portrait=res.data.portrait;
-                this.login_ip = res.data.login_ip;
+              var resData=res.data;
+              if (res.data.success == true) {
+                this.username = resData.data.username;
+                this.user_id = resData.data.user_id;
+                this.user_type = resData.data.user_type;
+                // this.portrait=resData.data.portrait;
+                this.login_ip = resData.data.login_ip;
               } else {
                 this.$router.push({path: '/login'})
               }

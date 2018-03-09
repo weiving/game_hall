@@ -7,25 +7,27 @@
       <div class="title">绑定手机</div>
     </div>
     <div class="page-content">
-      <div class="row">
-        <input type="text" class="phone" v-model="phone" placeholder="请输入手机号">
-        <div class="getBtn" @click="send" :class="{disabled:isDisabled}">{{text}}</div>
-        <div class="error-msg" v-if="isShow_phone_msg">{{msg}}</div>
+      <div class="set-body">
+        <div class="row">
+          <input type="text" class="phone" v-model="phone" placeholder="请输入手机号">
+          <div class="getBtn" @click="send" :class="{disabled:isDisabled}">{{text}}</div>
+        </div>
+        <div class="row last">
+          <input type="text" class="code" v-model="code" placeholder="请输入验证码">
+        </div>
+        <div class="default-btn" @click="update" :class="{active:phone.trim().length>0&&code.trim().length>0}">
+          <p>确认绑定</p>
+        </div>
       </div>
-      <div class="row last">
-        <input type="text" class="code" v-model="code" placeholder="请输入验证码">
-        <div class="error-msg" v-if="isShow_code_msg">{{msg}}</div>
-      </div>
-      <div class="row-btn">
-        <div class="sure-btn" @click="update">确认绑定</div>
-      </div>
-      <div class="mask" v-if="isShow_msg" @click="showMask"></div>
-      <div class="error-mask" v-if="isShow_msg" @click="showMask">{{msg}}</div>
     </div>
+    <div class="mask" v-if="isShow_msg" @click="showMask"></div>
+    <div class="mask-text" v-if="isShow_msg" @click="showMask"><span>{{msg}}</span></div>
   </div>
 </template>
 
 <script>
+  import {getLocalStorage} from "../../../static/js/util";
+
   export default {
     name: "set-phone",
     data() {
@@ -36,9 +38,6 @@
         time: 0,
         second: 60,
         msg: '',
-        isShow_phone_msg: false,
-        isShow_code_msg: false,
-        isValid: true,
         isShow_msg: false
       }
     },
@@ -46,20 +45,23 @@
       send() {
         if (!this.isDisabled) {
           var params = new URLSearchParams();
-          params.append("phone", this.phone)
+          params.append("phone", this.phone);
           this.$http
-            .post(`${this.$api}/text_msg`, params)
+            .post(`${this.$api}/v1/text_msg`, params)
             .then(res => {
-              console.log(res)
-              this.isDisabled = true;
-              setTimeout(this.run, 1000);
+              var resData = res.data;
+              console.log('验证码', resData.msg);
+              if (resData.success == true) {
+                this.isDisabled = true;
+                setTimeout(this.run, 1000);
+              }
             }).catch(err => {
             console.log(err)
           })
         }
       },
       run() {
-        this.time = this.second
+        this.time = this.second;
         this.timer()
       },
       timer() {
@@ -71,67 +73,57 @@
         }
       },
       update() {
-        if (this.isValid) {
-          var phValid = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+        var phValid = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+        // var reg=11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+        if (this.phone == '' || this.phone == undefined) {
+          this.isShow_msg = true;
+          this.msg = "请输入手机号码~";
+          return;
+        } else if (!phValid.test(this.phone)) {
+          this.isShow_msg = true;
+          this.msg = "请输入正确的手机号码~";
+          return;
+        } else if (this.code == '' || this.code == undefined) {
+          this.isShow_msg = true;
+          this.msg = "请输入验证码~";
+          return;
+        } else {
+          var session = getLocalStorage("session");
+          var user_id = getLocalStorage("user_id");
+          var username = getLocalStorage("username");
 
-          if (this.phone == '' || this.phone == undefined) {
-            this.isShow_phone_msg = true;
-            this.msg = "请输入手机号码~";
-            return this.isValid = false;
-          } else if (!phValid.test(this.phone)) {
-            this.isShow_phone_msg = true;
-            this.msg = "请输入正确的手机号码~";
-            return this.isValid = false;
-          } else if (this.code == '' || this.code == undefined) {
-            this.isShow_code_msg = true;
-            this.msg = "请输入验证码~";
-            return this.isValid = false;
-          }
-        }
-        if (this.isValid) {
           var params = new URLSearchParams();
-          params.append("phone", this.phone)
-          params.append("code", this.code)
+          params.append("phone", this.phone);
+          params.append("code", this.code);
+
           this.$http
-            .post(`${this.$api}/user/bind_phone`, params)
+            .post(`${this.$api}/v1/userdata/w/bind_phone/${user_id}/${username}?session=${session}`, params)
             .then(res => {
-              console.log(res);
-              if (res.data.success == 1) {
-                this.isShow_msg = false;
-                this.msg = res.data.message;
+              var resData = res.data;
+              console.log('手机', resData);
+              if (resData.success == true) {
+                this.isShow_msg = true;
+                this.msg = resData.msg;
                 var _this = this
                 setTimeout(function () {
                   _this.isShow_msg = false;
                   _this.msg = '';
-                  // _this.$router.push({path: '/mySet'});
                   _this.$root.Bus.$emit('toggleComponent', 'mySet')
-                }, 2000)
+                }, 500)
               } else {
                 this.isShow_msg = true;
-                this.msg = err.data.message;
-                var _this = this;
-                setTimeout(function () {
-                  _this.isShow_msg = false;
-                  this.msg = '';
-                }, 2000)
+                this.msg = resData.msg;
               }
             })
             .catch(err => {
               this.isShow_msg = true;
-              this.msg = err.data.message;
-              var _this = this
-              setTimeout(function () {
-                _this.isShow_msg = false;
-                this.msg = '';
-              }, 2000)
+              this.msg = err.data.msg;
             })
         }
-
       },
       showMask() {
         this.isShow_msg = false;
         this.msg = '';
-        this.isValid = true;
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
@@ -146,7 +138,6 @@
 </script>
 
 <style scoped lang="less">
-
 
 
 </style>

@@ -5,7 +5,7 @@
         <span class="close-ico" v-bind:class="{'open-ico':isShowAssets==1}"
               @click="toggle"></span>
       </div>
-      <div class="assets-num" v-if="isShowAssets==1"><span class="amount">16734.5</span>元</div>
+      <div class="assets-num" v-if="isShowAssets==1"><span class="amount">{{amount}}</span>元</div>
       <div class="assets-num" v-else>******</div>
       <div class="withdrawal-btn" @click="toComponent('withdrawal')">提现</div>
       <div class="recharge-btn" @click="toComponent('recharge')">充值</div>
@@ -147,10 +147,12 @@
     name: "my-content",
     props: ['user_type'],
     created() {
+      this.getAssets();
       this.getState();
     },
     data: function () {
       return {
+        amount: '',
         isShowAssets: 0,
         swiperOption: {
           slidesPerView: 4,
@@ -161,6 +163,21 @@
     methods: {
       getState: function () {
         this.isShowAssets = getLocalStorage("showAssets");
+      },
+      getAssets: function () {
+        var user_id = getLocalStorage("user_id");
+        var username = getLocalStorage("username");
+        var session = getLocalStorage("session");
+        this.$http
+          .post(`${this.$api}/v1/wallet/r/get_user_balance/${user_id}/${username}?session=${session}`)
+          .then(res => {
+            var resData = res.data;
+            if (resData.success == true) {
+              this.amount = resData.balance;
+            } else {
+
+            }
+          })
       },
       toggle: function () {
         var showstate = getLocalStorage("showAssets");

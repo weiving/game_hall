@@ -15,7 +15,7 @@
           <div class="time">2017年12月27日</div>
         </div>
       </div>
-      <div class="box-item" v-for="(item,index) in noticeType" v-if="index!=0&&index!=2" @click="toTypeList(index)">
+      <div class="box-item" v-for="(item,index) in noticeTypeList" v-if="index!=0&&index!=2" @click="toTypeList(index)">
         <div class="flag-icon"></div>
         <div class="item-content">
           <div class="title">{{item.type_name}}</div>
@@ -45,13 +45,13 @@
 </template>
 
 <script>
-  import {setLocalStorage} from "../../../static/js/util";
+  import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "msg-center",
     data() {
       return {
-        noticeType: ''
+        noticeTypeList: ''
       }
     },
     created() {
@@ -59,10 +59,16 @@
     },
     methods: {
       getNoticeType() {
+        var user_id = getLocalStorage('user_id');
+        var user_name = getLocalStorage('user_name');
+        var session = getLocalStorage('session');
+
         this.$http
-          .post(`${this.$api}/v1/notice/r/find_notice_type_list/1/1`)
+          .post(`${this.$api}/v1/notice/r/find_notice_type_list/${user_id}/${user_name}?session=${session}`)
           .then(res => {
-            this.noticeType = res.data.data;
+            var resData = res.data;
+            console.log(resData);
+            this.noticeTypeList = resData.data;
           })
       },
       toComponent(component) {

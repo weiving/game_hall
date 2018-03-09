@@ -7,6 +7,9 @@
       <div class="title">{{noticeTitle}}</div>
     </div>
     <div class="page-content">
+      <div class="unMessage" v-if="msgList.length==0">
+        <div class="box-item">暂无公告</div>
+      </div>
       <div class="message-item" v-for="(item,index) in msgList" v-bind:key="index">
         <div class="time">{{item.effected_at}}</div>
         <div class="box-item">

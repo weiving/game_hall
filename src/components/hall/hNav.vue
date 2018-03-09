@@ -45,7 +45,7 @@
     position: absolute;
     top: -40px;
     left: 3%;
-    z-index: 100;
+    z-index: 59;
     font-size: 14px;
   }
 

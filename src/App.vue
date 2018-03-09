@@ -7,14 +7,22 @@
 
 <script>
   import iFooter from '@/components/footer/iFooter'
+
   export default {
     name: 'app',
+    data() {
+      return {
+      }
+    },
     components: {
       iFooter: iFooter
     },
+    methods: {
+
+    }
   }
 </script>
 
-<style>
+<style lang="less">
 
 </style>

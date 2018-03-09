@@ -1,13 +1,13 @@
 <template>
-  <div id="manageCard" class="page-wrap">
+  <div id="selectCard" class="page-wrap">
     <div class="page-head">
-      <div class="toReturn" @click="toComponent('mySet')">
+      <div class="toReturn" @click="toComponent('recharge')">
         <img src="/static/img/left.png" alt="">
       </div>
-      <div class="title">银行卡管理</div>
+      <div class="title">选择银行卡</div>
     </div>
     <div class="page-content">
-      <div class="box-item card-box">
+      <div class="box-item card-box" v-for="(item,index) in cardList">
         <div class="card-logo">招商</div>
         <div class="card-name">招商银行</div>
         <div class="cardID">6236 **** **** 8889</div>
@@ -16,7 +16,6 @@
           <div class="owner">罗**</div>
         </div>
       </div>
-
       <div class="box-item" @click="toComponent('bindCard')">
         <div class="ellipsis-icon text-right">****</div>
         <div class="ellipsis-icon text-right">****</div>
@@ -24,33 +23,42 @@
         <div class="ellipsis-icon text-left">****</div>
         <div class="ellipsis-icon text-left">****</div>
       </div>
-
-      <div class="opt-box" v-show="isShow">
-        <div class="box-item">
-          <div class="opt-btn card-line">更换银行卡</div>
-          <div class="opt-btn">修改预留手机号</div>
-        </div>
-        <div class="box-item">
-          <div class="opt-btn">删除</div>
-        </div>
-      </div>
     </div>
-    <div class="mask" v-show="isShow"></div>
   </div>
 </template>
 
 <script>
+  import {getLocalStorage} from "../../../static/js/util";
+
   export default {
-    name: "manage-card",
+    name: "select-card",
     data() {
       return {
-        isShow: false
+        cardList: [],
       }
     },
-    methods:{
+    created() {
+      this.getCardList();
+    },
+    methods: {
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
+      getCardList() {
+        var user_id = getLocalStorage('user_id');
+        var username = getLocalStorage('username');
+        var session = getLocalStorage('session');
+
+        this.$http
+          .post(`${this.$api}/v1/bank/r/find_user_bank_list/${user_id}/${username}?session=${session}`)
+          .then(res => {
+            console.log('33', res.data);
+            if (res.data.success == true) {
+              this.cardList = res.data.data;
+            }
+          })
+      },
+
     }
   }
 </script>

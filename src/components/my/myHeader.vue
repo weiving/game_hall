@@ -5,7 +5,7 @@
       <div class="h-center">
         <div class="unAgentUser" v-if="user_type==1">
           <div class="name-row">
-            <div class="username">{{user}}</div>
+            <div class="username">{{username}}</div>
             <div class="vip">普通会员</div>
           </div>
           <div class="uid-row">
@@ -14,7 +14,7 @@
         </div>
         <div class="agentUser" v-else>
           <div class="name-row">
-            <div class="username">{{user}}</div>
+            <div class="username">{{username}}</div>
           </div>
           <div class="uid-row">
             UID:<span class="code">{{user_id}}</span>
@@ -36,7 +36,7 @@
 <script>
   export default {
     name: "my-header",
-    props: ['user', 'user_id', 'user_type'],
+    props: ['username', 'user_id', 'user_type'],
     methods: {
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)

@@ -1,25 +1,23 @@
 <template>
-  <div id="updateNick" class="page-wrap">
+  <div id="setQQ" class="page-wrap">
     <div class="page-head">
       <div class="toReturn" @click="toComponent('mySet')">
         <img src="/static/img/left.png"/>
       </div>
-      <div class="title">我的昵称</div>
+      <div class="title">绑定QQ</div>
     </div>
     <div class="page-content">
       <div class="set-body">
         <div class="row last">
-          <input type="text" class="nickname" v-model="nickname" placeholder="这个家伙很懒，什么都没留下">
+          <input type="text" class="qq" v-model="qq" placeholder="这个家伙很懒，什么都没留下">
         </div>
-        <div class="default-btn" @click="update" :class="{active:nickname.trim().length>0}">
+        <div class="default-btn" @click="update" :class="{active:qq.trim().length>0}">
           <p>确认修改</p>
         </div>
       </div>
     </div>
     <div class="mask" v-if="isShow_msg" @click="showMask"></div>
-    <div class="mask-text" v-if="isShow_msg" @click="showMask">
-      <span>{{msg}}</span>
-    </div>
+    <div class="mask-text" v-if="isShow_msg" @click="showMask"><span>{{msg}}</span></div>
   </div>
 </template>
 
@@ -27,13 +25,13 @@
   import {getLocalStorage} from "../../../static/js/util";
 
   export default {
-    name: "update-nick",
+    name: "set-q-q",
     created() {
       this.getUserInfo();
     },
     data() {
       return {
-        nickname: '',
+        qq: '',
         msg: '',
         isShow_msg: false,
       }
@@ -49,11 +47,10 @@
           this.$http
             .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
             .then(res => {
-              var resData = res.data;
-              console.log('resDat', resData)
+              var resData=res.data;
               if (resData.success == true) {
-                if (resData.data.nickname != undefined && resData.data.nickname != '') {
-                  this.nickname = resData.data.nickname;
+                if (resData.data.qq != undefined && resData.data.qq != '') {
+                  this.qq = resData.data.qq;
                 }
               } else {
                 this.$router.push({path: '/login'})
@@ -66,31 +63,31 @@
         }
       },
       update: function () {
-        if (this.nickname == '' || this.nickname == undefined) {
+        if (this.qq == '' || this.qq == undefined) {
           this.isShow_msg = true;
-          this.msg = "昵称不能为空~";
+          this.msg = "qq号码不能为空~";
           return;
         } else {
           var params = new URLSearchParams();
-          params.append('nickname', this.nickname);
+          params.append('qq', this.qq);
 
           var _this = this;
           var session = getLocalStorage("session");
           var user_id = getLocalStorage("user_id");
           var username = getLocalStorage("username");
           this.$http
-            .post(`${this.$api}/v1/userdata/w/edit_nickname/${user_id}/${username}?session=${session}`, params)
+            .post(`${this.$api}/v1/userdata/w/bind_qq/${user_id}/${username}?session=${session}`, params)
             .then(res => {
-              var resData = res.data;
+              var resData=res.data;
               if (resData.success == true) {
-                _this.isShow_msg = true;
-                _this.msg = resData.msg;
+                this.isShow_msg = true;
+                this.msg = resData.msg;
                 setTimeout(function () {
                   _this.$root.Bus.$emit('toggleComponent', 'mySet')
                 }, 500)
               } else {
-                _this.isShow_msg = true;
-                _this.msg = resData.msg;
+                this.isShow_msg = true;
+                this.msg = resData.msg;
               }
             })
         }
@@ -100,7 +97,6 @@
       showMask: function () {
         this.isShow_msg = false;
         this.msg = "";
-        this.isValid = true;
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
@@ -110,6 +106,5 @@
 </script>
 
 <style scoped>
-
 
 </style>

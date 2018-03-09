@@ -9,9 +9,12 @@
 
 <script>
   import Hall from '@/components/hall/Hall'
+
   import recharge from '@/components/recharge/recharge'
   import bindCard from '@/components/recharge/bindCard'
   import manageCard from '@/components/recharge/manageCard'
+  import selectCard from '@/components/recharge/selectCard'
+
 
   import msgCenter from '@/components/message/msgCenter'
   import msgMy from '@/components/message/msgMy'
@@ -45,12 +48,19 @@
   import login from '@/components/login/login'
   import loginRecord from '@/components/login/loginRecord'
   import loginTryPlay from '@/components/login/loginTryPlay'
+  import maintenance from '@/components/login/maintenance'
+
+
   import mySet from '@/components/mySet/mySet'
   import updatePwd from '@/components/mySet/updatePwd'
   import updateNick from '@/components/mySet/updateNick'
   import setPhone from '@/components/mySet/setPhone'
-  import ranking from '@/components/ranking/ranking'
+  import setQQ from '@/components/mySet/setQQ'
+  import setWeChat from '@/components/mySet/setWeChat'
+  import setEmail from '@/components/mySet/setEmail'
+  import gValidate from '@/components/mySet/gValidate'
 
+  import ranking from '@/components/ranking/ranking'
   import gameFrame from '@/components/common/gameFrame'
   import withdrawal from '@/components/withdrawal/withdrawal'
 
@@ -69,15 +79,17 @@
         const _this = this
         this.$root.Bus.$on('toggleComponent', function (componentName) {
           _this.currentView = componentName
-          console.log('currentView', _this.currentView)
+          // console.log('currentView', _this.currentView)
         })
       }
     },
     components: {
       Hall,
+
       recharge,
       bindCard,
       manageCard,
+      selectCard,
 
       msgCenter,
       msgMy,
@@ -105,16 +117,22 @@
       packetManageDetail,
       sendPacket,
 
-
       register,
       regSuccess,
       login,
       loginRecord,
       loginTryPlay,
+      maintenance,
+
       mySet,
       updatePwd,
       updateNick,
       setPhone,
+      setQQ,
+      setWeChat,
+      setEmail,
+      gValidate,
+
       ranking,
       gameFrame,
       withdrawal,

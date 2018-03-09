@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hall from '@/components/hall/Hall'
+
 import recharge from '@/components/recharge/recharge'
 import bindCard from '@/components/recharge/bindCard'
 import manageCard from '@/components/recharge/manageCard'
+import selectCard from '@/components/recharge/selectCard'
 
 import msgCenter from '@/components/message/msgCenter'
 import msgMy from '@/components/message/msgMy'
@@ -37,11 +39,18 @@ import regSuccess from '@/components/register/regSuccess'
 import login from '@/components/login/login'
 import loginRecord from '@/components/login/loginRecord'
 import loginTryPlay from '@/components/login/loginTryPlay'
+import maintenance from '@/components/login/maintenance'
+
 
 import mySet from '@/components/mySet/mySet'
 import updatePwd from '@/components/mySet/updatePwd'
 import updateNick from '@/components/mySet/updateNick'
 import setPhone from '@/components/mySet/setPhone'
+import setQQ from '@/components/mySet/setQQ'
+import setWeChat from '@/components/mySet/setWeChat'
+import setEmail from '@/components/mySet/setEmail'
+import gValidate from '@/components/mySet/gValidate'
+
 
 import ranking from '@/components/ranking/ranking'
 import index from '@/components/try/index'
@@ -69,6 +78,7 @@ export default new Router({
       name: 'Hall',
       component: Hall
     },
+
     {
       path: '/recharge/recharge',
       name: 'recharge',
@@ -84,6 +94,12 @@ export default new Router({
       name: 'manageCard',
       component: manageCard
     },
+    {
+      path: '/selectCard',
+      name: 'selectCard',
+      component: selectCard
+    },
+
 
     {
       path: '/message/msgCenter',
@@ -228,6 +244,12 @@ export default new Router({
       name: 'loginTryPlay',
       component: loginTryPlay
     },
+    {
+      path: '/maintenance',
+      name: 'maintenance',
+      component: maintenance
+    },
+
 
     {
       path: '/mySet/mySet',
@@ -245,10 +267,31 @@ export default new Router({
       component: updateNick
     },
     {
+      path: '/mySet/setQQ',
+      name: 'setQQ',
+      component: setQQ
+    },
+    {
+      path: '/mySet/setWeChat',
+      name: 'setWeChat',
+      component: setWeChat
+    },
+    {
+      path: '/mySet/setEmail',
+      name: 'setEmail',
+      component: setEmail
+    },
+    {
       path: '/mySet/setPhone',
       name: 'setPhone',
       component: setPhone
     },
+    {
+      path: '/mySet/gValidate',
+      name: 'gValidate',
+      component: gValidate
+    },
+
     {
       path: '/ranking/ranking',
       name: 'ranking',

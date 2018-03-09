@@ -92,30 +92,29 @@
       </div>
       <div class="record-items">
         <swiper :options="swiperOption">
-          <swiper-slide class="item">
-            <div class="item-time">31分钟前</div>
-            <div class="item-name">wa***wu</div>
-            <div class="item-game-name">德州扑克</div>
-            <div class="record-money">已充值￥<span class="num">130.00</span></div>
+          <swiper-slide class="item" v-for="(item,index) in scrollNoticeList" :key="index">
+            <div class="item-time">{{item.expired_at}}</div>
+            <div class="item-name">{{item.title}}</div>
+            <div class="item-content">{{item.content}}</div>
           </swiper-slide>
-          <swiper-slide class="item">
-            <div class="item-time">38分钟前</div>
-            <div class="item-name">cinv***2690</div>
-            <div class="item-game-name">趣味应三张</div>
-            <div class="record-money">已充值<span class="num">￥432.00</span></div>
-          </swiper-slide>
-          <swiper-slide class="item">
-            <div class="item-time">46分钟前</div>
-            <div class="item-name">22***2690</div>
-            <div class="item-game-name">多尔夫</div>
-            <div class="record-money">已充值<span class="num">￥200.00</span></div>
-          </swiper-slide>
-          <swiper-slide class="item">
-            <div class="item-time">25分钟前</div>
-            <div class="item-name">123***2690</div>
-            <div class="item-game-name">反间谍</div>
-            <div class="record-money">已充值<span class="num">￥32.00</span></div>
-          </swiper-slide>
+          <!--<swiper-slide class="item">-->
+          <!--<div class="item-time">38分钟前</div>-->
+          <!--<div class="item-name">cinv***2690</div>-->
+          <!--<div class="item-game-name">趣味应三张</div>-->
+          <!--<div class="record-money">已充值<span class="num">￥432.00</span></div>-->
+          <!--</swiper-slide>-->
+          <!--<swiper-slide class="item">-->
+          <!--<div class="item-time">46分钟前</div>-->
+          <!--<div class="item-name">22***2690</div>-->
+          <!--<div class="item-game-name">多尔夫</div>-->
+          <!--<div class="record-money">已充值<span class="num">￥200.00</span></div>-->
+          <!--</swiper-slide>-->
+          <!--<swiper-slide class="item">-->
+          <!--<div class="item-time">25分钟前</div>-->
+          <!--<div class="item-name">123***2690</div>-->
+          <!--<div class="item-game-name">反间谍</div>-->
+          <!--<div class="record-money">已充值<span class="num">￥32.00</span></div>-->
+          <!--</swiper-slide>-->
         </swiper>
       </div>
     </div>
@@ -124,6 +123,7 @@
 
 <script>
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
+  import {getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "h-content",
@@ -147,7 +147,8 @@
         },
         click_times: 0,
         h_val: 240,
-        text: "点击查看全部"
+        text: "点击查看全部",
+        scrollNoticeList: ''
       }
     },
     methods: {
@@ -156,7 +157,32 @@
         this.itemList = this.$confJson.index.lobby.chess.slice(0, 8);
         // console.log(this.itemHead)
         // console.log(this.itemList)
+        var user_id = getLocalStorage('user_id');
+        var user_name = getLocalStorage('user_name');
+        var session = getLocalStorage('session');
+
+        var params = new URLSearchParams();
+        params.append('device', 1);
+
+        if (user_id == undefined || user_id == '') {
+          this.$http
+            .post(`${this.$api}/v1/notice/r/get_scroll_notice/1/1?session=${session}`, params)
+            .then(res => {
+              var resData = res.data;
+              this.scrollNoticeList = resData.data;
+            })
+        } else {
+          this.$http
+            .post(`${this.$api}/v1/notice/r/get_login_scroll_notice/${user_id}/${user_name}?session=${session}`, params)
+            .then(res => {
+              var resData = res.data;
+              this.scrollNoticeList = resData.data;
+            })
+        }
+
+
       },
+
       get_more() {
         var length = this.$confJson.index.lobby.chess.length;
         if (length > 8 + this.click_times * 4) {
@@ -169,6 +195,7 @@
         }
 
       },
+
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
@@ -176,182 +203,204 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .text-orange {
-    color: #FF9F44;
     margin-right: 5px;
   }
 
   #content {
     margin-top: 25px;
+    .hall-content {
+      width: 94%;
+      margin-left: 3%;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 1px 5px #F4F9FE;
+      padding: 10px 10px 0 10px;
+
+      .hall-header {
+        height: 80px;
+        border-bottom: 1px solid #F5F5F5;
+        position: relative;
+
+        img {
+          width: 65px;
+          height: 65px;
+          float: left;
+        }
+
+        .header-game-info {
+          height: 65px;
+          margin-left: 15px;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+
+          .game-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+          }
+
+          .game-online {
+            margin-bottom: 10px;
+            color: #B2B2B2;
+          }
+
+          .game-des {
+            color: #B2B2B2;
+          }
+        }
+
+        .jump-btn {
+          position: absolute;
+          top: 10px;
+          right: 5px;
+          .play-game {
+            height: 40px;
+            line-height: 40px;
+            background-color: #fff;
+            border: 1px solid #278CF5;
+            color: #278CF5;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 1px 6px;
+          }
+        }
+
+      }
+
+      .hall-body {
+        width: 100%;
+        height: 240px;
+        border-bottom: 1px solid #F5F5F5;
+
+        .item-game {
+          width: 22%;
+          height: 110px;
+          margin-top: 10px;
+          margin-right: 4%;
+          float: left;
+          text-align: center;
+
+          &:nth-child(4n) {
+            margin-right: 0;
+          }
+
+          img {
+            width: 65px;
+            height: 65px;
+            background-size: cover;
+          }
+
+          .play-online {
+            margin-top: 5px;
+            font-size: 10px;
+            color: rgb(178, 178, 178);
+          }
+
+          .title {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+      }
+
+      .hall-footer {
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+      }
+    }
+
+    .sub-content {
+      width: 94%;
+      margin-top: 15px;
+      margin-bottom: 55px;
+      margin-left: 3%;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 1px 5px #F4F9FE;
+      padding: 15px 10px 0 10px;
+      display: flex;
+      font-size: 10px;
+
+      .progress {
+        display: inline-block;
+        width: 8px;
+        margin-right: 10px;
+
+        .circle {
+          width: 8px;
+          height: 8px;
+          background: #278CF5;
+          border-radius: 50%;
+          margin-top: 3px;
+          margin-bottom: 5px;
+        }
+
+        .line {
+          width: 2px;
+          height: 10px;
+          background: #278CF5;
+          margin-left: 3px;
+        }
+      }
+
+      .record-items {
+        flex: 1;
+        .swiper-container {
+          height: 105px;
+        }
+
+        .item {
+          /*.item-time {*/
+          /*display: inline-block;*/
+          /*color: #278CF5;*/
+          /*width: 60px;*/
+          /*}*/
+
+          /*.item-name {*/
+          /*display: inline-block;*/
+          /*width: 65px !important;*/
+          /*margin-right: 10px;*/
+          /*}*/
+
+          /*.item-game-name {*/
+          /*display: inline-block;*/
+          /*}*/
+
+          /*.record-money {*/
+          /*display: inline-block;*/
+          /*}*/
+          .item-time {
+            float: left;
+            color: #278CF5;
+            width: 21%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .item-name {
+            float: left;
+            width: 25%;
+            margin-left: 5%;
+          }
+          .item-content {
+            float: left;
+            width: 40%;
+            margin-left: 5%;
+          }
+        }
+
+      }
+
+    }
+
   }
 
-  .hall-content {
-    width: 94%;
-    margin-left: 3%;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 1px 5px #F4F9FE;
-    padding: 10px 10px 0 10px;
-  }
 
-  .hall-content .hall-header {
-    height: 80px;
-    border-bottom: 1px solid #F5F5F5;
-    position: relative;
-  }
-
-  .hall-header img {
-    width: 65px;
-    height: 65px;
-    float: left;
-  }
-
-  .hall-header .header-game-info {
-    height: 65px;
-    margin-left: 15px;
-    float: left;
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  .hall-header .header-game-info .game-title {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-
-  .hall-header .header-game-info .game-online {
-    margin-bottom: 10px;
-    color: #B2B2B2;
-  }
-
-  .hall-header .header-game-info .game-des {
-    color: #B2B2B2;
-  }
-
-  .hall-header .jump-btn {
-    position: absolute;
-    top: 10px;
-    right: 5px;
-  }
-
-  .hall-header .jump-btn .play-game {
-    height: 40px;
-    line-height: 40px;
-    background-color: #fff;
-    border: 1px solid #278CF5;
-    color: #278CF5;
-    border-radius: 4px;
-    font-size: 16px;
-    padding: 1px 6px;
-  }
-
-  .hall-content .hall-body {
-    width: 100%;
-    height: 240px;
-    border-bottom: 1px solid #F5F5F5;
-  }
-
-  .hall-content .hall-body .item-game {
-    width: 22%;
-    height: 110px;
-    margin-top: 10px;
-    margin-right: 4%;
-    float: left;
-    text-align: center;
-  }
-
-  .hall-content .hall-body .item-game:nth-child(4n) {
-    margin-right: 0;
-  }
-
-  .hall-content .hall-body .item-game img {
-    width: 65px;
-    height: 65px;
-    background-size: cover;
-  }
-
-  .hall-content .hall-body .item-game .play-online {
-    margin-top: 5px;
-    font-size: 10px;
-    color: rgb(178, 178, 178);
-  }
-
-  .hall-content .hall-body .item-game .title {
-    margin-top: 10px;
-    font-size: 14px;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .hall-content .hall-footer {
-    height: 34px;
-    line-height: 34px;
-    text-align: center;
-  }
-
-  .sub-content {
-    width: 94%;
-    margin-top: 15px;
-    margin-bottom: 55px;
-    margin-left: 3%;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 1px 5px #F4F9FE;
-    padding: 15px 10px 0 10px;
-    display: flex;
-    font-size: 10px;
-  }
-
-  .sub-content .progress {
-    display: inline-block;
-    width: 8px;
-    margin-right: 10px;
-  }
-
-  .sub-content .progress .circle {
-    width: 8px;
-    height: 8px;
-    background: #278CF5;
-    border-radius: 50%;
-    margin-top: 3px;
-    margin-bottom: 5px;
-  }
-
-  .sub-content .progress .line {
-    width: 2px;
-    height: 10px;
-    background: #278CF5;
-    margin-left: 3px;
-  }
-
-  .sub-content .record-items {
-    flex: 1;
-  }
-
-  .sub-content .record-items .swiper-container {
-    height: 105px;
-  }
-
-  .sub-content .record-items .item .item-time {
-    display: inline-block;
-    color: #278CF5;
-    width: 60px;
-  }
-
-  .sub-content .record-items .item .item-name {
-    display: inline-block;
-    width: 65px !important;
-    margin-right: 10px;
-  }
-
-  .sub-content .record-items .item .item-game-name {
-    display: inline-block;
-  }
-
-  .sub-content .record-items .item .record-money {
-    display: inline-block;
-  }
 </style>
