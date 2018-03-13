@@ -325,15 +325,14 @@
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0px 0px 1px 5px #F4F9FE;
-      padding: 15px 10px 0 10px;
+      padding: 15px 10px;
       display: flex;
       font-size: 10px;
 
       .progress {
         display: inline-block;
-        width: 8px;
-        margin-right: 10px;
-
+        width: 18px;
+        height: 105px;
         .circle {
           width: 8px;
           height: 8px;
@@ -341,6 +340,9 @@
           border-radius: 50%;
           margin-top: 3px;
           margin-bottom: 5px;
+          &:first-child {
+            margin-top: 8px;
+          }
         }
 
         .line {
@@ -353,11 +355,14 @@
 
       .record-items {
         flex: 1;
+        width: 100%;
         .swiper-container {
           height: 105px;
+          width: 100%;
         }
 
         .item {
+          padding-top: 5px;
           /*.item-time {*/
           /*display: inline-block;*/
           /*color: #278CF5;*/
@@ -380,7 +385,7 @@
           .item-time {
             float: left;
             color: #278CF5;
-            width: 21%;
+            width: 22%;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -388,11 +393,17 @@
             float: left;
             width: 25%;
             margin-left: 5%;
+            overflow: hidden;
+            white-space: nowrap;
           }
           .item-content {
             float: left;
-            width: 40%;
+            width: 35%;
+            height: 13px;
             margin-left: 5%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
 

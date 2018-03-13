@@ -541,7 +541,7 @@ html, body, #app {
 }
 
 /*register*/
-#register {
+#register,#registerCode{
   width: 100%;
   height: 100%;
   background-image: url('/static/img/bg.png');
@@ -549,34 +549,33 @@ html, body, #app {
   position: relative;
   z-index: 61;
 
-  .mask {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    opacity: 0.2;
-    filter: alpha(opacity=20);
-    background: #000;
-  }
-
-  .error-mask {
-    position: absolute;
-    top: 40%;
-    left: -webkit-calc((100vw - 180px) / 2);
-    left: -moz-calc((100vw - 180px) / 2);
-    left: calc((100vw - 180px) / 2);
-    height: 39px;
-    width: 180px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 11px 15px;
-    border-radius: 5px;
-    color: #ffff;
-    font-size: 16px;
-    z-index: 1000;
-    text-align: center;
-  }
+  //.mask {
+  //  position: fixed;
+  //  top: 0px;
+  //  left: 0px;
+  //  width: 100%;
+  //  height: 100%;
+  //  z-index: 999;
+  //  opacity: 0.2;
+  //  filter: alpha(opacity=20);
+  //  background: #000;
+  //}
+  //.error-mask {
+  //  position: absolute;
+  //  top: 40%;
+  //  left: -webkit-calc((100vw - 180px) / 2);
+  //  left: -moz-calc((100vw - 180px) / 2);
+  //  left: calc((100vw - 180px) / 2);
+  //  height: 39px;
+  //  width: 180px;
+  //  background: rgba(0, 0, 0, 0.5);
+  //  padding: 11px 15px;
+  //  border-radius: 5px;
+  //  color: #ffff;
+  //  font-size: 16px;
+  //  z-index: 1000;
+  //  text-align: center;
+  //}
 
   .reg-head {
     padding: 20px 13px;
@@ -623,6 +622,7 @@ html, body, #app {
         height: 19px;
         margin-left: 16px;
         float: left;
+        font-size:16px;
       }
 
       input:focus {
@@ -705,7 +705,7 @@ html, body, #app {
       }
 
       .phoneCode-info {
-        width: 100px;
+        width: 110px;
         position: absolute;
         top: 8px;
         right: 10px;
@@ -2186,64 +2186,61 @@ html, body, #app {
     }
   }
 
-  .operationType {
-    .ordinary, .agent {
-      position: relative;
+  .ordinary, .agent {
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 24px;
+    display: inline-block;
+    label {
+      display: block;
       height: 20px;
+      width: 40px;
       line-height: 20px;
-      margin-left: 24px;
-      display: inline-block;
-      label {
-        display: block;
-        height: 20px;
-        width: 40px;
-        line-height: 20px;
-        cursor: pointer;
-      }
-      input {
-        z-inde: 3;
-        display: block;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: -24px;
-        margin: auto;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-      }
-      .user-defined {
-        z-index: 2;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: -24px;
-        margin: auto;
-        width: 24px;
-        height: 24px;
-        border: 1px solid #BEBEBE;
-        border-radius: 50%;
-        cursor: pointer;
+      cursor: pointer;
+    }
+    input {
+      z-inde: 3;
+      display: block;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -24px;
+      margin: auto;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .user-defined {
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -24px;
+      margin: auto;
+      width: 24px;
+      height: 24px;
+      border: 1px solid #BEBEBE;
+      border-radius: 50%;
+      cursor: pointer;
 
-        span.circle {
-          display: block;
-          width: 16px;
-          height: 16px;
-          margin-top: 3px;
-          margin-left: 3px;
-          background-color: transparent;
-          border-radius: 50%;
-        }
-        &.active {
-          border-color: #FF7F00;
-          .circle {
-            background-color: #FF7F00;
-          }
+      span.circle {
+        display: block;
+        width: 16px;
+        height: 16px;
+        margin-top: 3px;
+        margin-left: 3px;
+        background-color: transparent;
+        border-radius: 50%;
+      }
+      &.active {
+        border-color: #FF7F00;
+        .circle {
+          background-color: #FF7F00;
         }
       }
     }
-
   }
 }
 

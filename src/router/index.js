@@ -35,6 +35,7 @@ import sendPacket from '@/components/redPacket/sendPacket'
 
 
 import register from '@/components/register/register'
+import registerCode from '@/components/register/registerCode'
 import regSuccess from '@/components/register/regSuccess'
 import login from '@/components/login/login'
 import loginRecord from '@/components/login/loginRecord'
@@ -223,6 +224,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+    },
+    {
+      path: '/registerCode',
+      name: 'registerCode',
+      component: registerCode
     },
     {
       path: '/regSuccess',

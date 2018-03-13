@@ -1,5 +1,5 @@
 <template>
-  <div id="register">
+  <div id="register" class="page-wrap">
     <div class="reg-head">
       <img src="/static/img/left.png" @click="go_back"/>
       <div class="title">免费注册</div>
@@ -49,7 +49,7 @@
       <p class="find-password">找回密码请联系客服</p>
     </div>
     <div class="mask" v-if="isShow_msg" @click="showMask"></div>
-    <div class="error-mask" v-if="isShow_msg" @click="showMask">{{msg}}</div>
+    <div class="mask-text" v-if="isShow_msg" @click="showMask"><span>{{msg}}</span></div>
   </div>
 </template>
 
@@ -79,7 +79,6 @@
         isShow_phoneCode_msg: false,
         isShow_code_msg: false,
         isShow_msg: false,
-        isValid: true,
         time: 0,
         second: 60,
         isDisabled: false
@@ -102,19 +101,17 @@
           this.isShow_phone_msg = false,
           this.isShow_phoneCode_msg = false,
           this.isShow_code_msg = false,
-          this.isValid = true
         ];
       },
       vcodeFn() {
         this.$http
-          .get(`${this.$api}/vcode.png`)
+          .get(`${this.$api}/v1/vcode.png`)
           .then(res => {
             this.cookie_vcode = res.headers.vcode;
           })
           .catch(err => {
-
           });
-        return this.vcode = this.$api + '/vcode.png?time=' + Date.now();
+        return this.vcode = this.$api + '/v1/vcode.png?time=' + Date.now();
       },
       send() {
         if (!this.isDisabled) {
@@ -122,21 +119,20 @@
           if (this.phone == '' || this.phone == undefined) {
             this.msg = "请输入手机号码~";
             this.isShow_phone_msg = true;
-            return this.isValid = false;
+            return;
           } else if (!phValid.test(this.phone)) {
             this.msg = "请输入正确的手机号码~";
             this.isShow_phone_msg = true;
-            return this.isValid = false;
-          }
-          if (!this.isShow_phone_msg) {
+            return;
+          } else {
             var params = new URLSearchParams();
             params.append("phone", this.phone);
             this.$http
-              .post(`${this.$api}/text_msg`, params)
+              .post(`${this.$api}/v1/text_msg`, params)
               .then(res => {
                 console.log("res", res);
                 if (res.data.success == 1) {
-                  console.log(res.data.message);
+                  console.log(res.data.msg);
                   this.isDisabled = true;
                   setTimeout(this.run, 1000);
                 } else {
@@ -172,38 +168,37 @@
         if (this.username == '' || this.username == undefined) {
           this.msg = "请输入会员名~";
           this.isShow_username_msg = true;
-          return this.isValid = false;
+          return;
         } else if (!uValid.test(this.username)) {
-          this.msg = "请输入5到18位（字母，数字）~";
+          this.msg = "请输入5-18位(字母,数字)~";
           this.isShow_username_msg = true;
-          return this.isValid = false;
+          return;
         } else if (this.password == '' || this.password == undefined) {
           this.msg = "请输入密码~";
           this.isShow_password_msg = true;
-          return this.isValid = false;
+          return;
         } else if (!pValid.test(this.password)) {
-          this.msg = "请输入6到20位（字母，数字）~";
+          this.msg = "请输入6-20位(字母,数字)~";
           this.isShow_password_msg = true;
-          return this.isValid = false;
+          return;
         } else if (this.phone == '' || this.phone == undefined) {
           this.msg = "请输入手机号码~";
           this.isShow_phone_msg = true;
-          return this.isValid = false;
+          return;
         } else if (!phValid.test(this.phone)) {
           this.msg = "请输入正确的手机号码~";
           this.isShow_phone_msg = true;
-          return this.isValid = false;
+          return;
         } else if (this.phoneCode == '' || this.phoneCode == undefined) {
           this.msg = "请输入手机验证码~";
           this.isShow_phoneCode_msg = true;
-          return this.isValid = false;
+          return;
         } else if (this.code == '' || this.code == undefined) {
           this.msg = "请输入验证码~";
           this.isShow_code_msg = true;
-          return this.isValid = false;
-        }
+          return;
+        } else {
 
-        if (this.isValid) {
           var params = new URLSearchParams();
           params.append("username", this.username);
           params.append("password", this.password);
@@ -214,33 +209,28 @@
           this.$http
             .post(`${this.$api}/v1/register/phone?vcode=${this.cookie_vcode}`, params)
             .then(res => {
-              console.log("res", res);
-              if (res.data.success == true) {
-                // this.$router.push({path: '/regSuccess'})
+              var resData = res.data;
+              console.log("resData", resData);
+              if (resData.success == true) {
                 this.isShow_msg = true;
-                this.msg = res.data.message;
-                var _this = this
+                this.msg = resData.msg;
+                var _this = this;
                 setTimeout(function () {
                   _this.$router.push({path: '/login'})
-                }, 500)
+                }, 1000)
               } else {
                 this.isShow_msg = true;
-                this.msg = res.data.message;
-                var _this = this
-                setTimeout(function () {
-                  _this.isShow_msg = false;
-                  this.msg = '';
-                }, 2000)
+                this.msg = resData.msg;
               }
             })
             .catch(err => {
               this.isShow_msg = true;
-              this.msg = err.data.message;
+              this.msg = err.data.msg;
               var _this = this
               setTimeout(function () {
                 _this.isShow_msg = false;
                 this.msg = '';
-              }, 2000)
+              }, 1000)
             });
         }
       },
@@ -248,7 +238,6 @@
       showMask() {
         this.isShow_msg = false;
         this.msg = "";
-        this.isValid = true;
       },
       //返回上一页
       go_back() {
