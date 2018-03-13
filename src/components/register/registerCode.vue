@@ -1,5 +1,5 @@
 <template>
-  <div id="registerCode">
+  <div id="registerCode" class="page-wrap">
     <div class="reg-head">
       <img src="/static/img/left.png" @click="go_back"/>
       <div class="title">推广码注册</div>
@@ -31,7 +31,7 @@
       <p class="find-password">找回密码请联系客服</p>
     </div>
     <div class="mask" v-if="isShow_msg" @click="showMask"></div>
-    <div class="error-mask" v-if="isShow_msg" @click="showMask">{{msg}}</div>
+    <div class="mask-text" v-if="isShow_msg" @click="showMask"><span>{{msg}}</span></div>
   </div>
 </template>
 
@@ -49,6 +49,7 @@
         isShow_password_msg: '',
         spread_code: '',
         isShow_msg: '',
+        msg: ''
       }
     },
     created() {
@@ -83,20 +84,20 @@
         if (this.username == '' || this.username == undefined) {
           this.msg = "请输入会员名~";
           this.isShow_username_msg = true;
-          return ;
+          return;
         } else if (!uValid.test(this.username)) {
           this.msg = "请输入5-18位(字母,数字)~";
           this.isShow_username_msg = true;
-          return ;
+          return;
         } else if (this.password == '' || this.password == undefined) {
           this.msg = "请输入密码~";
           this.isShow_password_msg = true;
-          return ;
+          return;
         } else if (!pValid.test(this.password)) {
           this.msg = "请输入6-20位(字母,数字)~";
           this.isShow_password_msg = true;
-          return ;
-        } else{
+          return;
+        } else {
           var params = new URLSearchParams();
           params.append("username", this.username);
           params.append("password", this.password);
@@ -105,9 +106,11 @@
           this.$http
             .post(`${this.$api}/v1/register/invite`, params)
             .then(res => {
+              console.log('请求',11111);
               var resData = res.data;
               console.log("resData", resData);
               if (resData.success == true) {
+                console.log('成功',11111);
                 this.isShow_msg = true;
                 this.msg = resData.msg;
                 var _this = this;
@@ -115,14 +118,17 @@
                   _this.$router.push({path: '/login'})
                 }, 1000)
               } else {
+                console.log('失败',22222);
+
                 this.isShow_msg = true;
                 this.msg = resData.msg;
+
               }
             })
             .catch(err => {
               this.isShow_msg = true;
               this.msg = err.data.msg;
-              var _this = this
+              var _this = this;
               setTimeout(function () {
                 _this.isShow_msg = false;
                 this.msg = '';
