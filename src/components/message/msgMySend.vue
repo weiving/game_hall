@@ -41,7 +41,7 @@
 
 <script>
   // import {abc_WebSocket} from "../../../static/js/util";
-  import {setLocalStorage} from "../../../static/js/util";
+  import {setLocalStorage,getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "msg-send",
@@ -115,7 +115,7 @@
 
 
       initws() {
-        this.user_id = 1;
+        this.user_id = getLocalStorage('user_id');
         const wsurl = `${this.$wsurl}` + "/ws?user_id=" + this.user_id;
         this.ws = new WebSocket(wsurl);
         this.ws.onmessage = this.getMessage;

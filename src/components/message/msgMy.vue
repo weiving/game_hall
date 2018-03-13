@@ -52,16 +52,16 @@
       runws() {
         let content = '我的消息'
         if (this.ws.readyState === this.ws.OPEN) {
-          console.log('msgMy',"OPEN")
+          console.log('msgMy', "OPEN")
           this.sendMessage(content)
         } else if (this.ws.readyState === this.ws.CONNECTING) {
-          console.log('msgMy',"CONNECTING")
+          console.log('msgMy', "CONNECTING")
           let that = this
           setTimeout(function () {
             that.sendMessage(content)
           }, 300)
         } else {
-          console.log("msgMy",'initws')
+          console.log("msgMy", 'initws')
           this.initws()
           let that = this
           setTimeout(function () {
@@ -73,7 +73,7 @@
         // this.msgType = getLocalStorage("msgType");
         // this.msgType_title = getLocalStorage("msgType_title");
 
-        this.user_id = 1;
+        this.user_id = getLocalStorage('user_id');
         const wsurl = `${this.$wsurl}` + "/ws?user_id=" + this.user_id;
         this.ws = new WebSocket(wsurl);
         this.ws.onmessage = this.getMessage;

@@ -141,7 +141,7 @@
               <div class="row-detail">
                 <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
                 <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
-                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span> </div>
+                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span></div>
               </div>
             </div>
             <div class="row-item">
@@ -158,7 +158,7 @@
               <div class="row-detail">
                 <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
                 <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
-                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span> </div>
+                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span></div>
               </div>
             </div>
             <div class="row-item">
@@ -175,7 +175,7 @@
               <div class="row-detail">
                 <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
                 <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
-                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span> </div>
+                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span></div>
               </div>
             </div>
           </div>
@@ -576,13 +576,17 @@
 
       /*获取管理列表*/
       getLinkManageList() {
-        // this.$http
-        //   .post(`${this.$api}//`)
-        //   .then(res => {
-        //     var resData = res.data;
-        //
-        //
-        //   })
+        var params = new URLSearchParams();
+        params.append('', '');
+        params.append('', '');
+
+        this.$http
+          .post(`${this.$api}/v1/user/r/get_spread_code_list/${user_id}/${username}?session=${session}`, params)
+          .then(res => {
+            var resData = res.data;
+
+
+          })
       }
     }
   }
