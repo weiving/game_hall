@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import {getLocalStorage} from "../../static/js/util";
+  import {getLocalStorage} from "../../../static/js/util";
   import keyboard from '../recharge/keyboard'
   import VueQArt from 'vue-qart'
 

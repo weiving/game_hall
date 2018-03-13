@@ -126,26 +126,57 @@
           <div class="default-btn active" @click="createLinkUrl">生成</div>
         </div>
         <div class="operationType" v-if="defaultType=='linkManage'">
-          <div class="row-body">
-            <div class="row">
-              <div class="col-xs-6 text-left">用户类型</div>
-              <div class="col-xs-6 text-right">64笔数</div>
+          <div class="linkManage">
+            <div class="row-item">
+              <div class="row">
+                <div class="col-xs-l">注册链接</div>
+                <div class="col-xs-r text-right">
+                  <input type="text" value="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg"
+                         alt="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg">
+                </div>
+                <div class="qrCode">
+                  <i class="qrCode-icon"></i>
+                </div>
+              </div>
+              <div class="row-detail">
+                <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
+                <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
+                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span> </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="col-xs-6 text-left">返点信息</div>
-              <div class="col-xs-6 text-right">64笔数</div>
+            <div class="row-item">
+              <div class="row">
+                <div class="col-xs-l">注册链接</div>
+                <div class="col-xs-r text-right">
+                  <input type="text" value="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg"
+                         alt="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg">
+                </div>
+                <div class="qrCode">
+                  <i class="qrCode-icon"></i>
+                </div>
+              </div>
+              <div class="row-detail">
+                <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
+                <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
+                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span> </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="col-xs-6 text-left">备注</div>
-              <div class="col-xs-6 text-right">64笔数</div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6 text-left">注册量</div>
-              <div class="col-xs-6 text-right">64笔数</div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6 text-left">注册链接地址</div>
-              <div class="col-xs-6 text-right">64笔数</div>
+            <div class="row-item">
+              <div class="row">
+                <div class="col-xs-l">注册链接</div>
+                <div class="col-xs-r text-right">
+                  <input type="text" value="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg"
+                         alt="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg">
+                </div>
+                <div class="qrCode">
+                  <i class="qrCode-icon"></i>
+                </div>
+              </div>
+              <div class="row-detail">
+                <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
+                <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
+                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span> </div>
+              </div>
             </div>
           </div>
         </div>
@@ -230,7 +261,6 @@
         </div>
       </div>
     </transition>
-
     <transition name="slideRight">
       <div class="slide-popover gamePopover" v-show="isShowGamePopover">
         <div class="row-body">
@@ -299,7 +329,6 @@
 
   export default {
     name: "open-account",
-    props: {},
     data() {
       return {
         openAccountCenter: ['添加下级', '链接开户', '链接管理'],
@@ -331,6 +360,9 @@
         effective_times: '',
         linkUrl: ''
       }
+    },
+    created() {
+      this.getLinkManageList();
     },
     methods: {
       toggleType(type) {
@@ -531,7 +563,7 @@
                 // this.isShowMask = true;
                 // this.msg = resData.msg;
                 var code = resData.data.spread_code;
-                this.linkUrl = window.location.href+'registerCode/?code=' + code;
+                this.linkUrl = window.location.href + 'registerCode/?code=' + code;
               } else {
                 this.isShowMask = true;
                 this.msg = resData.msg;
@@ -540,6 +572,17 @@
         }
 
 
+      },
+
+      /*获取管理列表*/
+      getLinkManageList() {
+        // this.$http
+        //   .post(`${this.$api}//`)
+        //   .then(res => {
+        //     var resData = res.data;
+        //
+        //
+        //   })
       }
     }
   }

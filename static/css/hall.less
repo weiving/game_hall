@@ -541,41 +541,13 @@ html, body, #app {
 }
 
 /*register*/
-#register,#registerCode{
+#register, #registerCode {
   width: 100%;
   height: 100%;
   background-image: url('/static/img/bg.png');
   background-size: cover;
   position: relative;
   z-index: 61;
-
-  //.mask {
-  //  position: fixed;
-  //  top: 0px;
-  //  left: 0px;
-  //  width: 100%;
-  //  height: 100%;
-  //  z-index: 999;
-  //  opacity: 0.2;
-  //  filter: alpha(opacity=20);
-  //  background: #000;
-  //}
-  //.error-mask {
-  //  position: absolute;
-  //  top: 40%;
-  //  left: -webkit-calc((100vw - 180px) / 2);
-  //  left: -moz-calc((100vw - 180px) / 2);
-  //  left: calc((100vw - 180px) / 2);
-  //  height: 39px;
-  //  width: 180px;
-  //  background: rgba(0, 0, 0, 0.5);
-  //  padding: 11px 15px;
-  //  border-radius: 5px;
-  //  color: #ffff;
-  //  font-size: 16px;
-  //  z-index: 1000;
-  //  text-align: center;
-  //}
 
   .reg-head {
     padding: 20px 13px;
@@ -622,7 +594,7 @@ html, body, #app {
         height: 19px;
         margin-left: 16px;
         float: left;
-        font-size:16px;
+        font-size: 16px;
       }
 
       input:focus {
@@ -2123,7 +2095,7 @@ html, body, #app {
     z-index: 61;
     .row-body {
       height: 100%;
-      padding-bottom: 55px;
+      padding: 2px 20px 55px 20px;
       overflow: auto;
     }
     .row-footer {
@@ -2150,98 +2122,170 @@ html, body, #app {
     }
   }
 
-  .row-body {
-    background-color: #ffffff;
-    padding: 2px 20px 2px 20px;
-    .row {
-      height: 54px;
-      line-height: 54px;
-      border-bottom: solid 1px #E4E4E4;
-      .input-text {
-        height: 54px;
-        line-height: 54px;
-        text-align: right;
+  .openCenter {
+    width: 100%;
+    height: 100%;
+    .operationType {
+      width: 100%;
+      height: 100%;
+
+      .row-body {
+        //background-color: #ffffff;
+        padding: 2px 20px 2px 20px;
+        .row {
+          height: 54px;
+          line-height: 54px;
+          border-bottom: solid 1px #E4E4E4;
+          .input-text {
+            height: 54px;
+            line-height: 54px;
+            text-align: right;
+          }
+
+          .next-icon {
+            width: 7px;
+            height: 12px;
+          }
+
+          &:last-child {
+            border: none;
+          }
+
+          &.linkUrl {
+            height: 100px;
+            padding: 10px 0;
+            .col-xs-12 {
+              height: 100%;
+              .text {
+                height: 100%;
+                width: 100%;
+              }
+            }
+          }
+        }
+
       }
 
-      .next-icon {
-        width: 7px;
-        height: 12px;
-      }
+      .ordinary, .agent {
+        position: relative;
+        height: 20px;
+        line-height: 20px;
+        margin-left: 24px;
+        display: inline-block;
+        label {
+          display: block;
+          height: 20px;
+          width: 40px;
+          line-height: 20px;
+          cursor: pointer;
+        }
+        input {
+          z-inde: 3;
+          display: block;
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -24px;
+          margin: auto;
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+        .user-defined {
+          z-index: 2;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -24px;
+          margin: auto;
+          width: 24px;
+          height: 24px;
+          border: 1px solid #BEBEBE;
+          border-radius: 50%;
+          cursor: pointer;
 
-      &:last-child {
-        border: none;
-      }
-
-      &.linkUrl {
-        height: 100px;
-        padding: 10px 0;
-        .col-xs-12 {
-          height: 100%;
-          .text {
-            height: 100%;
-            width: 100%;
+          span.circle {
+            display: block;
+            width: 16px;
+            height: 16px;
+            margin-top: 3px;
+            margin-left: 3px;
+            background-color: transparent;
+            border-radius: 50%;
+          }
+          &.active {
+            border-color: #FF7F00;
+            .circle {
+              background-color: #FF7F00;
+            }
           }
         }
       }
-    }
-  }
 
-  .ordinary, .agent {
-    position: relative;
-    height: 20px;
-    line-height: 20px;
-    margin-left: 24px;
-    display: inline-block;
-    label {
-      display: block;
-      height: 20px;
-      width: 40px;
-      line-height: 20px;
-      cursor: pointer;
-    }
-    input {
-      z-inde: 3;
-      display: block;
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: -24px;
-      margin: auto;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-    }
-    .user-defined {
-      z-index: 2;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: -24px;
-      margin: auto;
-      width: 24px;
-      height: 24px;
-      border: 1px solid #BEBEBE;
-      border-radius: 50%;
-      cursor: pointer;
+      .linkManage {
+        width: 100%;
+        height: 100%;
 
-      span.circle {
-        display: block;
-        width: 16px;
-        height: 16px;
-        margin-top: 3px;
-        margin-left: 3px;
-        background-color: transparent;
-        border-radius: 50%;
-      }
-      &.active {
-        border-color: #FF7F00;
-        .circle {
-          background-color: #FF7F00;
+        .row-item {
+          width: 100%;
+          height: 86px;
+          .row {
+            height: 54px;
+            line-height: 54px;
+            padding: 0 20px;
+            background: #ffffff;
+            position: relative;
+            .col-xs-l {
+              width: 22%;
+              float: left;
+            }
+            .col-xs-r {
+              width: 68%;
+              float: left;
+              input {
+                width: 100%;
+              }
+            }
+            .qrCode {
+              width: 10%;
+              height: 54px;
+              line-height: 54px;
+              float: left;
+
+              .qrCode-icon {
+                display: block;
+                width: 18px;
+                height: 18px;
+                background: url("/static/img/qrCode.png");
+                background-size: cover;
+                margin: auto;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+            }
+          }
+          .row-detail {
+            height: 32px;
+            line-height: 32px;
+            background: #F7FBFF;
+            position: relative;
+            text-align: center;
+            color: #ADAFB1;
+            .col-value{
+              display: inline-block;
+              .text-color{
+                color: #FC6466;
+              }
+            }
+          }
         }
+
       }
     }
   }
+
 }
 
 /*下级管理*/
