@@ -39,7 +39,7 @@
       },
       getDetailMsg() {
         var info = JSON.parse(getLocalStorage("myMsgDetail"));
-        this.time = info.now;
+        this.time = info.created_at;
         this.title = info.title;
         this.body = info.body;
       }

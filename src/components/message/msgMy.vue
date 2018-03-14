@@ -9,7 +9,7 @@
     </div>
     <div class="page-content">
       <div class="message-item" v-for="(item,index) in message" v-bind:key="index">
-        <div class="time">{{item.now}}</div>
+        <div class="time">{{item.created_at}}</div>
         <div class="box-item">
           <div class="title">{{item.title}}</div>
           <div class="text">{{item.body}}</div>
@@ -37,7 +37,7 @@
         user_id: "",
         // msgType: '',
         // msgType_title: '',
-        message: '',
+        message: [],
         ws: '',
         res: '',
       }
@@ -52,16 +52,16 @@
       runws() {
         let content = '我的消息'
         if (this.ws.readyState === this.ws.OPEN) {
-          console.log('msgMy', "OPEN")
+          // console.log('msgMy', "OPEN")
           this.sendMessage(content)
         } else if (this.ws.readyState === this.ws.CONNECTING) {
-          console.log('msgMy', "CONNECTING")
+          // console.log('msgMy', "CONNECTING");
           let that = this
           setTimeout(function () {
             that.sendMessage(content)
           }, 300)
         } else {
-          console.log("msgMy", 'initws')
+          // console.log("msgMy", 'initws');
           this.initws()
           let that = this
           setTimeout(function () {
@@ -72,7 +72,6 @@
       initws() {
         // this.msgType = getLocalStorage("msgType");
         // this.msgType_title = getLocalStorage("msgType_title");
-
         this.user_id = getLocalStorage('user_id');
         const wsurl = `${this.$wsurl}` + "/ws?user_id=" + this.user_id;
         this.ws = new WebSocket(wsurl);
@@ -86,18 +85,31 @@
         if (res.length > 1) {
           this.message = res;
         } else {
-          if (res.is_read == 0) {
-            this.message.unshift(res);
+          if (res instanceof Array) {
+            var resData = res[0];
+            if (resData != undefined && resData != '') {
+              this.message.unshift(resData);
+            }
+          } else if (res instanceof Object) {
+            if (res.cmd === 'read') {
+              setLocalStorage("myMsgDetail", JSON.stringify(res));
+            } else {
+              this.message.unshift(res);
+            }
           } else {
-            setLocalStorage("myMsgDetail", JSON.stringify(res));
+            console.log('空的')
           }
+          // if (resData.is_read == 0) {
+          //   this.message.unshift(resData);
+          // } else {
+          //   setLocalStorage("myMsgDetail", JSON.stringify(resData));
+          // }
         }
       },
       sendMessage(content) {
         this.ws.send(content)
       },
       lookDetail(id) {
-        console.log(id)
         this.sendMessage('{"cmd":"read","msg_id":"' + id + '"}');
         var _this = this;
         setTimeout(function () {
