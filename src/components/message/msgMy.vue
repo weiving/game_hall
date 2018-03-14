@@ -83,7 +83,6 @@
       },
       getMessage(e) {
         const res = JSON.parse(e.data);
-        console.log("res", res);
         if (res.length > 1) {
           this.message = res;
         } else {

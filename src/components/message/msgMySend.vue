@@ -35,13 +35,13 @@
     </div>
     <div class="mask" v-show="isSelect" @click="toggleShow"></div>
     <div class="mask" v-if="isShow_msg" @click="toggleMsg"></div>
-    <div class="mask-text" v-if="isShow_msg" @click="toggleMsg">{{msg}}</div>
+    <div class="mask-text" v-if="isShow_msg" @click="toggleMsg"><span>{{msg}}</span></div>
   </div>
 </template>
 
 <script>
   // import {abc_WebSocket} from "../../../static/js/util";
-  import {setLocalStorage,getLocalStorage} from "../../../static/js/util";
+  import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "msg-send",
@@ -89,7 +89,7 @@
           } else if (this.typeIndex == 1) {
             sendMsg = '{"cmd":"send","child_name":"' + this.username + '","title":"' + this.title + '","body":"' + this.content + '"}';
           } else {
-            sendMsg = '{"cmd":"send","channels":["children"],"title":"","body":""}';
+            sendMsg = '{"cmd":"send","channels":["children"],"title":"' + this.title + '","body":"' + this.content + '"}';
           }
           if (this.ws.readyState === this.ws.OPEN) {
             console.log('send', "OPEN");

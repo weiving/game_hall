@@ -576,15 +576,20 @@
 
       /*获取管理列表*/
       getLinkManageList() {
+
+        var session = getLocalStorage('session');
+        var user_id = getLocalStorage('user_id');
+        var username = getLocalStorage('username');
+
         var params = new URLSearchParams();
-        params.append('', '');
-        params.append('', '');
+        params.append('page_size', 1);
+        params.append('page_index', 10);
 
         this.$http
           .post(`${this.$api}/v1/user/r/get_spread_code_list/${user_id}/${username}?session=${session}`, params)
           .then(res => {
             var resData = res.data;
-
+            console.log('链接数据', resData)
 
           })
       }
