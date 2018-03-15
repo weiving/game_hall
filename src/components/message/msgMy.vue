@@ -86,7 +86,6 @@
             var time = msgSerialize.created_at;
             msgSerialize.created_at = time.substr(0, 4) + '-' + time.substr(4, 2) + '-' + time.substr(6, 2) + ' ' +
               time.substr(8, 2) + ':' + time.substr(10, 2) + ':' + time.substr(12, 2);
-            console.log('created_at', msgSerialize.created_at);
             this.messages.unshift(msgSerialize);
           }
         } else {

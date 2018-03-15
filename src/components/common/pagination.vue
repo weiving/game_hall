@@ -92,12 +92,6 @@
         }
       },
       next() {
-        console.log('下一页', this.total_pages);
-        console.log('index', this.index);
-        console.log('total_pages', this.total_pages);
-        console.log('limit', this.limit);
-        console.log('size', this.size);
-
         if (this.index < this.total_pages) {
           this.go(this.index + 1)
         }

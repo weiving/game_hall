@@ -36,7 +36,6 @@
         redPacketPopover: false,
         isOpen: false,
         msgPopover: false,
-        sdfs: false
       }
     },
     methods: {

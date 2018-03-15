@@ -60,7 +60,6 @@
     },
     created() {
       this.defaultTypeFn();
-      // this.initws();
       Socket.$on("message", this.getMessage)
     },
     methods: {
@@ -95,32 +94,21 @@
         }
       },
 
+      getMessage(res) {
+        var resSerialize = JSON.parse(res);
+        if (resSerialize.success == true) {
+          this.isShow_msg = true;
+          this.msg = resSerialize.msg;
+          const that = this;
+          setTimeout(function () {
+            that.$root.Bus.$emit('toggleComponent', 'msgCenter')
+          }, 1000)
+        } else {
+          this.isShow_msg = true;
+          this.msg = resSerialize.msg;
+        }
 
-      // initws() {
-      //   this.user_id = getLocalStorage('user_id');
-      //   const wsurl = `${this.$wsurl}` + "/ws?user_id=" + this.user_id;
-      //   this.ws = new WebSocket(wsurl);
-      //   this.ws.onmessage = this.getMessage;
-      //   this.ws.onclose = '';
-      //   this.over = () => {
-      //     this.ws.close()
-      //   }
-      // },
-      // getMessage(res) {
-      //   var resSerialize = JSON.parse(res);
-      //   if (resSerialize.success == true) {
-      //     this.isShow_msg = true;
-      //     this.msg = resSerialize.msg;
-      //     const that = this;
-      //     setTimeout(function () {
-      //       that.$root.Bus.$emit('toggleComponent', 'msgCenter')
-      //     }, 1000)
-      //   } else {
-      //     this.isShow_msg = true;
-      //     this.msg = resSerialize.msg;
-      //   }
-      //
-      // }
+      }
     },
     computed: {
       disableSend: function () {
