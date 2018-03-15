@@ -1,0 +1,109 @@
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, menu, nav, section {
+  display: block;
+}
+
+
+
+body {
+  line-height: 1;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* custom */
+a {
+  color: #7e8c8d;
+  text-decoration: none;
+  -webkit-backface-visibility: hidden;
+}
+
+li {
+  list-style: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  width: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+
+::-webkit-scrollbar {
+  display: none; /*隐藏滚轮*/
+}
+
+html, body {
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+body {
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+  font-family: "微软雅黑","Microsoft YaHei", "Tahoma", "Helvetica";
+  font-size: 12px;
+}
+body{
+  font-family: "微软雅黑", "Microsoft Yahei", "Arial" !important;
+}
+input:focus {
+  outline: 0; /*去掉默认谷歌点击input边框显示蓝色  */
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #D6D6D6;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #D6D6D6;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #D6D6D6;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #D6D6D6;
+}

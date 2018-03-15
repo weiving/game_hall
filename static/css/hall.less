@@ -540,6 +540,62 @@ html, body, #app {
   }
 }
 
+.pagination-wrap {
+  width: 100%;
+  text-align: center;
+  .pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 1rem 0;
+    font-size: 0;
+    list-style: none;
+    user-select: none;
+    > .paging-item {
+      display: inline;
+      font-size: 14px;
+      position: relative;
+      padding: 6px 10px;
+      line-height: 1.42857143;
+      text-decoration: none;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      margin-left: -1px;
+      cursor: pointer;
+      color: #0275d8;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:hover {
+        background-color: #f0f0f0;
+        color: #0275d8;
+      }
+      &.paging-item--disabled,
+      &.paging-item--more {
+        background-color: #fff;
+        color: #505050;
+      }
+      //禁用
+      &.paging-item--disabled {
+        cursor: not-allowed;
+        opacity: .75;
+      }
+      &.paging-item--more,
+      &.paging-item--current {
+        cursor: default;
+      }
+      //选中
+      &.paging-item--current {
+        background-color: #0275d8;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+        border-color: #0275d8;
+      }
+    }
+  }
+
+}
+
 /*register*/
 #register, #registerCode {
   width: 100%;
@@ -2087,6 +2143,63 @@ html, body, #app {
 /*开户中心*/
 #openAccount {
 
+  .ordinary, .agent {
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 24px;
+    display: inline-block;
+    label {
+      display: block;
+      height: 20px;
+      width: 40px;
+      line-height: 20px;
+      cursor: pointer;
+    }
+    input {
+      z-inde: 3;
+      display: block;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -24px;
+      margin: auto;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .user-defined {
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -24px;
+      margin: auto;
+      width: 24px;
+      height: 24px;
+      border: 1px solid #BEBEBE;
+      border-radius: 50%;
+      cursor: pointer;
+
+      span.circle {
+        display: block;
+        width: 16px;
+        height: 16px;
+        margin-top: 3px;
+        margin-left: 3px;
+        background-color: transparent;
+        border-radius: 50%;
+      }
+      &.active {
+        border-color: #FF7F00;
+        .circle {
+          background-color: #FF7F00;
+        }
+      }
+    }
+  }
+
   .platformPopover, .gamePopover {
     width: 100%;
     height: 100%;
@@ -2166,63 +2279,6 @@ html, body, #app {
 
       }
 
-      .ordinary, .agent {
-        position: relative;
-        height: 20px;
-        line-height: 20px;
-        margin-left: 24px;
-        display: inline-block;
-        label {
-          display: block;
-          height: 20px;
-          width: 40px;
-          line-height: 20px;
-          cursor: pointer;
-        }
-        input {
-          z-inde: 3;
-          display: block;
-          opacity: 0;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: -24px;
-          margin: auto;
-          width: 24px;
-          height: 24px;
-          cursor: pointer;
-        }
-        .user-defined {
-          z-index: 2;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: -24px;
-          margin: auto;
-          width: 24px;
-          height: 24px;
-          border: 1px solid #BEBEBE;
-          border-radius: 50%;
-          cursor: pointer;
-
-          span.circle {
-            display: block;
-            width: 16px;
-            height: 16px;
-            margin-top: 3px;
-            margin-left: 3px;
-            background-color: transparent;
-            border-radius: 50%;
-          }
-          &.active {
-            border-color: #FF7F00;
-            .circle {
-              background-color: #FF7F00;
-            }
-          }
-        }
-      }
-
       .linkManage {
         width: 100%;
         height: 100%;
@@ -2243,8 +2299,12 @@ html, body, #app {
             .col-xs-r {
               width: 68%;
               float: left;
-              input {
+              .link-text {
                 width: 100%;
+                height: 54px;
+                line-height: 54px;
+                overflow: hidden;
+                text-align: left;
               }
             }
             .qrCode {
@@ -2273,16 +2333,34 @@ html, body, #app {
             position: relative;
             text-align: center;
             color: #ADAFB1;
-            .col-value{
+            .col-value {
               display: inline-block;
-              .text-color{
+              .text-color {
                 color: #FC6466;
               }
             }
           }
         }
 
+        .unLinkList {
+
+        }
       }
+    }
+  }
+
+}
+
+/*分享二维码*/
+#shareQartCode {
+
+  .page-content {
+    background-color: #141414;
+    .code-wrap {
+      text-align: center;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 

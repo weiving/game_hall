@@ -23,6 +23,7 @@ import capitalRecord from '@/components/queryCapital/capitalRecord'
 import capitalDetail from '@/components/queryCapital/capitalDetail'
 
 import openAccount from '@/components/openAccount/openAccount'
+import shareQartCode from '@/components/openAccount/shareQartCode'
 import lowerManage from '@/components/lowerManage/lowerManage'
 import lowerDetail from '@/components/lowerManage/lowerDetail'
 import shareBonus from '@/components/lowerManage/shareBonus'
@@ -173,6 +174,11 @@ export default new Router({
       path: '/openAccount/openAccount',
       name: 'openAccount',
       component: openAccount
+    },
+    {
+      path: '/openAccount/shareQartCode',
+      name: 'shareQartCode',
+      component: shareQartCode
     },
     {
       path: '/lowerManage/lowerManage',

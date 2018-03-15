@@ -1,0 +1,204 @@
+{
+  "global_conf": {
+    "title": "全局配置",
+    "version": {
+      "title": "版本号",
+      "type": "text",
+      "val": 1.1
+    },
+    "login_mode": {
+      "title": "登录模式",
+      "type": "text",
+      "val": 1
+    },
+    "open_register": {
+      "title": "开放注册",
+      "type": "checkbox",
+      "val": 0
+    },
+    "open_trial": {
+      "title": "开放免费试玩",
+      "type": "checkbox",
+      "val": 1
+    },
+    "open_google_check": {
+      "title": "使用谷歌验证",
+      "type": "checkbox",
+      "val": 1
+    },
+    "min_pay_money": {
+      "title": "最小充值金额",
+      "type": "text",
+      "val": 10.99
+    },
+    "max_pay_money": {
+      "title": "最大充值金额",
+      "type": "text",
+      "val": 99999
+    }
+  },
+  "index": {
+    "title": "首页模块",
+    "banner": {
+      "title": "轮播图",
+      "list": [
+        {
+          "title": "标题",
+          "img_src": "/static/img/ad01.png",
+          "state": 1,
+          "spec": "图片规格 1920*1080",
+          "sort": "1"
+        },
+        {
+          "title": "标题",
+          "img_src": "/static/img/ad02.png",
+          "state": 2,
+          "spec": "图片规格 1920*1080",
+          "sort": "2"
+        }
+      ]
+    },
+    "lobby": {
+      "title": "大厅",
+      "landlords": {
+        "title": "斗地主",
+        "img_src": "/static/img/ico01.png",
+        "spec": "图片规格 220*220",
+        "state": "是否显示",
+        "sort": 1
+      },
+      "chess": [
+        {
+          "title": "欢乐麻将",
+          "img_src": "/static/img/ico02.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 1
+        },
+        {
+          "title": "皇家赢三张",
+          "img_src": "/static/img/ico03.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 2
+        },
+        {
+          "title": "战机1942",
+          "img_src": "/static/img/ico04.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 3
+        },
+        {
+          "title": "输三张",
+          "img_src": "/static/img/ico05.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 4
+        },
+        {
+          "title": "美女捕鱼",
+          "img_src": "/static/img/ico06.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 5
+        },
+        {
+          "title": "比鸡",
+          "img_src": "/static/img/ico07.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 6
+        },
+        {
+          "title": "跑得快",
+          "img_src": "/static/img/ico08.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 7
+        },
+        {
+          "title": "疯狂炸翻天",
+          "img_src": "/static/img/ico09.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 8
+        },
+        {
+          "title": "欢乐麻将11",
+          "img_src": "/static/img/ico02.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 9
+        },
+        {
+          "title": "皇家赢三张11",
+          "img_src": "/static/img/ico03.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 10
+        },
+        {
+          "title": "战机194211",
+          "img_src": "/static/img/ico04.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 11
+        },
+        {
+          "title": "输三张11",
+          "img_src": "/static/img/ico05.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 12
+        },
+        {
+          "title": "美女捕鱼11",
+          "img_src": "/static/img/ico06.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 13
+        },
+        {
+          "title": "比鸡11",
+          "img_src": "/static/img/ico07.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 14
+        },
+        {
+          "title": "跑得快11",
+          "img_src": "/static/img/ico08.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 15
+        },
+        {
+          "title": "疯狂炸翻天11",
+          "img_src": "/static/img/ico09.png",
+          "spec": "图片规格 220*220",
+          "state": "是否显示",
+          "sort": 16
+        }
+      ]
+    }
+  },
+  "game_conf": {
+    "title": "游戏配置",
+    "mode": {
+      "title": "投注模式",
+      "type": "text",
+      "val": 1
+    },
+    "xxx": {
+      "title": "投注模式",
+      "type": "text",
+      "val": 1
+    },
+    "xxx1": {
+      "title": "投注模式",
+      "type": "text",
+      "val": 1
+    }
+  }
+}

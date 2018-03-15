@@ -35,17 +35,18 @@
         isShow_msg: false,
         redPacketPopover: false,
         isOpen: false,
-        msgPopover: false
-
+        msgPopover: false,
+        sdfs: false
       }
     },
     methods: {
       getOnlineNum: function () {
         this.$http
-          .post(`${this.$api}/pubsub/online`)
+          .post(`${this.$api}/v1/pubsub/r/online`)
           .then(res => {
-            if (res.data.success == 1) {
-              this.onlineNum = res.data.concurrent;
+            var resData = res.data;
+            if (resData.success == 1) {
+              this.onlineNum = resData.data.concurrent;
             } else {
               console.log('在线人数', res.data.message)
             }

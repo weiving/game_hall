@@ -8,7 +8,8 @@
     </div>
     <div class="page-content">
       <div class="secret">
-        <vue-q-art :config="config"></vue-q-art>
+        <!--<vue-q-art :config="config"></vue-q-art>-->
+        <vue-qr :text="gauth_url"></vue-qr>
       </div>
       <div class="box-item" @touchstart.stop="focus">
         <div class="col-xs-2 col-item" v-for="(pas,i) in pasDigits" :key="i">
@@ -33,13 +34,15 @@
 <script>
   import {getLocalStorage} from "../../../static/js/util";
   import keyboard from '../recharge/keyboard'
-  import VueQArt from 'vue-qart'
+  // import VueQArt from 'vue-qart'
+  import VueQr from 'vue-qr'
 
   export default {
     name: "g-Validate",
     components: {
       keyboard,
-      VueQArt
+      // VueQArt
+      VueQr
     },
     props: {
       pasDigits: {
@@ -53,13 +56,8 @@
         keyboard: false,
         val: [],
         cursorDuration: 600,
-        // gauth_url: '',
+        gauth_url: '',
         gsecret: '',
-        config: {
-          value: '',
-          imagePath: '/static/img/left.png',
-          filter: 'color'
-        },
         isShow_msg: false,
         msg: ''
       }
@@ -119,24 +117,21 @@
         this.$http
           .post(`${this.$api}/v1/userdata/w/generate_gsecret/${user_id}/${username}?session=${session}`)
           .then(res => {
-            if (res.data.success === true) {
-              console.log('总的', res.data.data);
-              this.config.value = res.data.data.gauth_url;
-              this.gsecret = res.data.data.gsecret;
-              console.log('密钥', this.gsecret);
+            var resData = res.data;
+            if (resData.success === true) {
+              this.gauth_url = resData.data.gauth_url;
+              this.gsecret = resData.data.gsecret;
             }
           })
       },
       setCode() {
         if (this.val.length === 6) {
-          console.log('进入22')
           var user_id = getLocalStorage('user_id');
           var username = getLocalStorage('username');
           var session = getLocalStorage('session');
           var params = new URLSearchParams();
           params.append('gsecret', this.gsecret);
           params.append('gcode', this.val);
-          // console.log(this.val)
           this.$http
             .post(`${this.$api}/v1/userdata/w/set_gsecret/${user_id}/${username}?session=${session}`, params)
             .then(res => {

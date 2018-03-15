@@ -40,8 +40,8 @@
 </template>
 
 <script>
-  // import {abc_WebSocket} from "../../../static/js/util";
   import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
+  import Socket from "../../socket";
 
   export default {
     name: "msg-send",
@@ -56,12 +56,12 @@
         content: '',
         msg: '',
         isShow_msg: false,
-        ws: ''
       }
     },
     created() {
       this.defaultTypeFn();
-      this.initws();
+      // this.initws();
+      Socket.$on("message", this.getMessage)
     },
     methods: {
       toComponent(component) {
@@ -91,57 +91,36 @@
           } else {
             sendMsg = '{"cmd":"send","channels":["children"],"title":"' + this.title + '","body":"' + this.content + '"}';
           }
-          if (this.ws.readyState === this.ws.OPEN) {
-            console.log('send', "OPEN");
-            this.sendMessage(sendMsg);
-          } else if (this.ws.readyState === this.ws.CONNECTING) {
-            console.log('msgMySend', "CONNECTING");
-            let that = this;
-            setTimeout(function () {
-              console.log("msgMySend", '发送');
-              that.sendMessage(sendMsg)
-            }, 300)
-          } else {
-            console.log('msgMySend', "初始化");
-            this.initws();
-            let that = this;
-            setTimeout(function () {
-              that.sendMessage(sendMsg)
-            }, 500)
-          }
-
+          Socket.send(sendMsg);
         }
       },
 
 
-      initws() {
-        this.user_id = getLocalStorage('user_id');
-        const wsurl = `${this.$wsurl}` + "/ws?user_id=" + this.user_id;
-        this.ws = new WebSocket(wsurl);
-        this.ws.onmessage = this.getMessage;
-        this.ws.onclose = '';
-        this.over = () => {
-          this.ws.close()
-        }
-      },
-      getMessage(e) {
-        const res = JSON.parse(e.data);
-        if (res.success == false && res.ret == 1) {
-          //无上级-用户不存在
-          this.isShow_msg = true;
-          this.msg = res.msg;
-        } else if (res.success == true && res.ret == 0) {
-          this.isShow_msg = true;
-          this.msg = res.msg;
-          const that = this;
-          setTimeout(function () {
-            that.$root.Bus.$emit('toggleComponent', 'msgCenter')
-          }, 1000)
-        }
-      },
-      sendMessage(content) {
-        this.ws.send(content)
-      },
+      // initws() {
+      //   this.user_id = getLocalStorage('user_id');
+      //   const wsurl = `${this.$wsurl}` + "/ws?user_id=" + this.user_id;
+      //   this.ws = new WebSocket(wsurl);
+      //   this.ws.onmessage = this.getMessage;
+      //   this.ws.onclose = '';
+      //   this.over = () => {
+      //     this.ws.close()
+      //   }
+      // },
+      // getMessage(res) {
+      //   var resSerialize = JSON.parse(res);
+      //   if (resSerialize.success == true) {
+      //     this.isShow_msg = true;
+      //     this.msg = resSerialize.msg;
+      //     const that = this;
+      //     setTimeout(function () {
+      //       that.$root.Bus.$emit('toggleComponent', 'msgCenter')
+      //     }, 1000)
+      //   } else {
+      //     this.isShow_msg = true;
+      //     this.msg = resSerialize.msg;
+      //   }
+      //
+      // }
     },
     computed: {
       disableSend: function () {
@@ -161,7 +140,7 @@
       }
     },
     beforeDestroy() {
-      this.over()
+      Socket.$off("message", this.getMessage)
     }
   }
 </script>

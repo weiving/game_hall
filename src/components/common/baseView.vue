@@ -32,6 +32,7 @@
   import capitalDetail from '@/components/queryCapital/capitalDetail'
 
   import openAccount from '@/components/openAccount/openAccount'
+  import shareQartCode from '@/components/openAccount/shareQartCode'
   import lowerManage from '@/components/lowerManage/lowerManage'
   import lowerDetail from '@/components/lowerManage/lowerDetail'
   import shareBonus from '@/components/lowerManage/shareBonus'
@@ -107,6 +108,7 @@
       capitalDetail,
 
       openAccount,
+      shareQartCode,
       lowerManage,
       lowerDetail,
       shareBonus,

@@ -127,56 +127,35 @@
         </div>
         <div class="operationType" v-if="defaultType=='linkManage'">
           <div class="linkManage">
-            <div class="row-item">
-              <div class="row">
-                <div class="col-xs-l">注册链接</div>
-                <div class="col-xs-r text-right">
-                  <input type="text" value="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg"
-                         alt="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg">
+            <template v-if="count">
+              <div class="row-item" v-for="(item,index) in linkManageList" @click="toSharePage('http://www.baidu.com')">
+                <div class="row">
+                  <div class="col-xs-l">注册链接</div>
+                  <div class="col-xs-r text-right">
+                    <div class="link-text">{{item.linkUrl}}</div>
+                  </div>
+                  <div class="qrCode">
+                    <i class="qrCode-icon"></i>
+                  </div>
                 </div>
-                <div class="qrCode">
-                  <i class="qrCode-icon"></i>
-                </div>
-              </div>
-              <div class="row-detail">
-                <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
-                <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
-                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span></div>
-              </div>
-            </div>
-            <div class="row-item">
-              <div class="row">
-                <div class="col-xs-l">注册链接</div>
-                <div class="col-xs-r text-right">
-                  <input type="text" value="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg"
-                         alt="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg">
-                </div>
-                <div class="qrCode">
-                  <i class="qrCode-icon"></i>
+                <div class="row-detail">
+                  <div class="col-value">高频彩返点：<span class="text-color">{{item.highVal}}</span></div>
+                  <div class="col-value">低频彩返点：<span class="text-color">{{item.lowVal}}</span></div>
+                  <div class="col-value">使用次数：<span class="text-color">{{item.usedVal}}</span>/<span>{{item.effectiveVal}}</span>
+                  </div>
                 </div>
               </div>
-              <div class="row-detail">
-                <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
-                <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
-                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span></div>
+              <div class="pagination-wrap">
+                <pagination
+                  :page-index="currentPage"
+                  :total="count"
+                  :page-size="pageSize"
+                  @change="pageChange">
+                </pagination>
               </div>
-            </div>
-            <div class="row-item">
-              <div class="row">
-                <div class="col-xs-l">注册链接</div>
-                <div class="col-xs-r text-right">
-                  <input type="text" value="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg"
-                         alt="http://192.168.50.151:8000/#/registerCode?code=sdafhkdsfjg">
-                </div>
-                <div class="qrCode">
-                  <i class="qrCode-icon"></i>
-                </div>
-              </div>
-              <div class="row-detail">
-                <div class="col-value">高频彩返点：<span class="text-color">7.0</span></div>
-                <div class="col-value">低频彩返点：<span class="text-color">5.0</span></div>
-                <div class="col-value">使用次数：<span class="text-color">64</span>/<span>999</span></div>
-              </div>
+            </template>
+            <div class="box-item" v-else>
+              暂无数据
             </div>
           </div>
         </div>
@@ -211,7 +190,7 @@
               <div class="col-xs-4">
                 <div class="row-label">返点信息</div>
               </div>
-              <input type="text" v-model="rebates" class="col-xs-8 input-text" placeholder="请输入内容">
+              <input type="text" v-model="rebateInfo" class="col-xs-8 input-text" placeholder="请输入内容">
             </div>
             <div class="row">
               <div class="col-xs-4">
@@ -226,24 +205,6 @@
               <input type="text" v-model="registerNum" class="col-xs-8 input-text" placeholder="请输入内容">
             </div>
           </div>
-          <!--<div class="popover-row">-->
-          <!--<div class="col-xs-4">用户类型</div>-->
-          <!--<div class="col-xs-8 text-right">-->
-          <!--请选择<img src="/static/img/wind01.png" class="next-icon">-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--<div class="popover-row">-->
-          <!--<div class="col-xs-4 text-left">返点信息</div>-->
-          <!--<input type="text" v-model="rebates" class="col-xs-8 input-text" placeholder="请输入内容">-->
-          <!--</div>-->
-          <!--<div class="popover-row">-->
-          <!--<div class="col-xs-4 text-left">备注</div>-->
-          <!--<input type="text" v-model="remark" class="col-xs-8 input-text" placeholder="请输入内容">-->
-          <!--</div>-->
-          <!--<div class="popover-row">-->
-          <!--<div class="col-xs-4 text-left">注册量</div>-->
-          <!--<input type="text" v-model="registerNum" class="col-xs-8 input-text" placeholder="请输入内容">-->
-          <!--</div>-->
         </div>
         <div class="popover-footer">
           <div class="opt-btn">重置</div>
@@ -268,50 +229,6 @@
             <div class="col-xs-8">{{item.name}}</div>
             <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值" v-model="item.code">
           </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
-          <div class="row">
-            <div class="col-xs-8">游戏11111</div>
-            <input type="text" class="col-xs-4 input-text" placeholder="请输入返点值">
-          </div>
         </div>
         <div class="row-footer">
           <div class="opt-btn">重置</div>
@@ -325,17 +242,21 @@
 </template>
 
 <script>
-  import {getLocalStorage} from "../../../static/js/util";
+  import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
+  import pagination from "../common/pagination"
 
   export default {
     name: "open-account",
+    components: {
+      pagination
+    },
     data() {
       return {
         openAccountCenter: ['添加下级', '链接开户', '链接管理'],
         openAccountType: ['addLower', 'linkOpen', 'linkManage'],
         defaultType: 'addLower',
         isShowPopover: false,
-        rebates: '',
+        rebateInfo: '',
         remark: '',
         registerNum: '',
 
@@ -358,7 +279,13 @@
         user_type: 1,
         rebates: [],
         effective_times: '',
-        linkUrl: ''
+        linkUrl: '',
+
+
+        pageSize: 10,//每页显示10条数据
+        currentPage: 1,//当前页码
+        count: 0,//总记录数
+        linkManageList: [],
       }
     },
     created() {
@@ -582,17 +509,50 @@
         var username = getLocalStorage('username');
 
         var params = new URLSearchParams();
-        params.append('page_size', 1);
-        params.append('page_index', 10);
+        var obj = {
+          page_size: this.pageSize,
+          page_index: this.currentPage
+        }
+        params.append('args', JSON.stringify(obj));
 
         this.$http
           .post(`${this.$api}/v1/user/r/get_spread_code_list/${user_id}/${username}?session=${session}`, params)
           .then(res => {
             var resData = res.data;
-            console.log('链接数据', resData)
-
+            console.log('链接数据', resData);
+            if (resData.success == true) {
+              this.count = resData.data.total;
+              var currentUrl = window.location.href;
+              console.log('currentUrl', currentUrl);
+              var list = resData.data.list;
+              var data = [];
+              for (var i = 0; i < list.length; i++) {
+                var item = {
+                  highVal: 7.0,
+                  lowVal: 5.0,
+                  usedVal: list[i].used_up_times,
+                  effectiveVal: list[i].effective_times,
+                  linkUrl: currentUrl + "?code=" + list[i].spread_code
+                }
+                data.push(item);
+              }
+              this.linkManageList = data;
+            }
           })
+      },
+
+      //从page组件传递过来的当前page
+      pageChange(page) {
+        this.currentPage = page;
+        this.getLinkManageList();
+      },
+
+      //跳转到分享二维码
+      toSharePage(linkUrl) {
+        setLocalStorage('qartCodeUrl', linkUrl);
+        this.$root.Bus.$emit('toggleComponent', 'shareQartCode')
       }
+
     }
   }
 </script>
