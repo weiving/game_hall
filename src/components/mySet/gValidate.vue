@@ -11,14 +11,22 @@
         <!--<vue-q-art :config="config"></vue-q-art>-->
         <vue-qr :text="gauth_url"></vue-qr>
       </div>
+      <div class="box-item">
+        <div class="secret-row">
+          <div class="col-xs-2">秘钥:</div>
+          <div class="col-xs-10">
+            <p class="secret-val">{{gsecret}}</p>
+          </div>
+        </div>
+      </div>
       <div class="box-item" @touchstart.stop="focus">
         <div class="col-xs-2 col-item" v-for="(pas,i) in pasDigits" :key="i">
           <input type="text" :value="val[i]" disabled>
         </div>
       </div>
-      <div class="tip-row">
-        <p>重新获取验证码(53)</p>
-      </div>
+      <!--<div class="tip-row">-->
+        <!--<p>重新获取验证码(53)</p>-->
+      <!--</div>-->
       <div class="default-btn" :class="{active:val.length===6}" @click="setCode">
         <p>下一步</p>
       </div>
@@ -92,20 +100,19 @@
         /*如果是点击删除*/
         if (value === '') {
           this.del();
-        }
-        if (value === '.') {
-          this.hideKeyboard();
-          return;
-        }
-        if (this.val.length >= 6) {
-          this.hideKeyboard();
-          return;
-        } else if (this.val.length === 5) {
-          this.val = this.val + value;
-          this.hideKeyboard();
-          return;
+        } else if (value == '.') {
+          return
         } else {
-          this.val = this.val + value;
+          if (this.val.length === 5) {
+            this.val = this.val + value;
+            this.hideKeyboard();
+            return;
+          } else if (this.val.length >= 6) {
+            this.hideKeyboard();
+            return;
+          } else {
+            this.val = this.val + value;
+          }
         }
       },
 
@@ -130,7 +137,7 @@
           var username = getLocalStorage('username');
           var session = getLocalStorage('session');
           var params = new URLSearchParams();
-          params.append('gsecret', this.gsecret);
+          // params.append('gsecret', this.gsecret);
           params.append('gcode', this.val);
           this.$http
             .post(`${this.$api}/v1/userdata/w/set_gsecret/${user_id}/${username}?session=${session}`, params)

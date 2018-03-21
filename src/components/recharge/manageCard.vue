@@ -7,24 +7,23 @@
       <div class="title">银行卡管理</div>
     </div>
     <div class="page-content">
-      <div class="box-item card-box">
-        <div class="card-logo">招商</div>
-        <div class="card-name">招商银行</div>
-        <div class="cardID">6236 **** **** 8889</div>
-        <div class="card-owner">
-          <span>持卡人:</span>
-          <div class="owner">罗**</div>
+      <div class="card-list">
+        <div class="card-item">
+          <div class="card-logo">招商</div>
+          <div class="card-name">招商银行</div>
+          <div class="cardID">6236 **** **** 8889</div>
+          <div class="card-owner">
+            <span>持卡人:</span>
+            <div class="owner">罗**</div>
+          </div>
         </div>
       </div>
-
-      <div class="box-item" @click="toComponent('bindCard')">
-        <div class="ellipsis-icon text-right">****</div>
-        <div class="ellipsis-icon text-right">****</div>
-        <div class="add-btn"></div>
-        <div class="ellipsis-icon text-left">****</div>
-        <div class="ellipsis-icon text-left">****</div>
+      <div class="bind-card" @click="toComponent('bindCard')">
+        <div class="add-btn">
+          <div class="add-icon">＋</div>
+          <div class="text">添加银行卡</div>
+        </div>
       </div>
-
       <div class="opt-box" v-show="isShow">
         <div class="box-item">
           <div class="opt-btn card-line">更换银行卡</div>
@@ -47,10 +46,11 @@
         isShow: false
       }
     },
-    methods:{
+    methods: {
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
+
     }
   }
 </script>

@@ -82,17 +82,21 @@
     </div>
     <div class="sub-content">
       <div class="progress">
-        <div class="circle"></div>
-        <div class="line"></div>
-        <div class="circle"></div>
-        <div class="line"></div>
-        <div class="circle"></div>
-        <div class="line"></div>
-        <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="line"></div>
+      <div class="circle"></div>
+      <div class="line"></div>
+      <div class="circle"></div>
+      <div class="line"></div>
+      <div class="circle"></div>
       </div>
       <div class="record-items">
         <swiper :options="swiperOption">
           <swiper-slide class="item" v-for="(item,index) in scrollNoticeList" :key="index">
+            <!--<div class="progress">-->
+              <!--<div class="circle"></div>-->
+              <!--<div class="line"></div>-->
+            <!--</div>-->
             <div class="item-time">{{item.expired_at}}</div>
             <div class="item-name">{{item.title}}</div>
             <div class="item-content">{{item.content}}</div>
@@ -382,10 +386,38 @@
           /*.record-money {*/
           /*display: inline-block;*/
           /*}*/
+
+          /*.progress {*/
+            /*float: left;*/
+            /*width: 15%;*/
+            /*!*margin-right: 10px;*!*/
+            /*!*display: inline-block;*!*/
+            /*!*width: 18px;*!*/
+            /*!*height: 105px;*!*/
+            /*.circle {*/
+              /*width: 8px;*/
+              /*height: 8px;*/
+              /*background: #278CF5;*/
+              /*border-radius: 50%;*/
+              /*margin-top: 3px;*/
+              /*margin-bottom: 5px;*/
+              /*&:first-child {*/
+                /*margin-top: 8px;*/
+              /*}*/
+            /*}*/
+
+            /*.line {*/
+              /*width: 2px;*/
+              /*height: 10px;*/
+              /*background: #278CF5;*/
+              /*margin-left: 3px;*/
+            /*}*/
+          /*}*/
+
           .item-time {
             float: left;
             color: #278CF5;
-            width: 22%;
+            width: 25%;
             overflow: hidden;
             white-space: nowrap;
           }

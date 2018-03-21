@@ -75,7 +75,8 @@
         <div class="row">
           <img src="/static/img/Validation.png" class="head01-icon" alt="谷歌验证">
           <span>谷歌验证</span>
-          <div class="next" @click="toComponent('gValidate')">
+          <div class="next" @click="toGValidate()">
+            <span class="text-red" v-show="has_gsecret">已绑定</span>
             <img src="/static/img/wind01.png" alt="">
           </div>
         </div>
@@ -114,6 +115,7 @@
         qq: '',
         weixin: '',
         email: '',
+        has_gsecret: '',
       }
     },
     methods: {
@@ -147,6 +149,7 @@
                 if (resData.data.email != undefined && resData.data.email != '') {
                   this.email = resData.data.email;
                 }
+                this.has_gsecret = resData.data.gsecret;
               } else {
                 this.$router.push({path: '/login'})
               }
@@ -163,7 +166,7 @@
         this.$http
           .post(`${this.$api}/v1/userdata/w/logout/${user_id}/${username}?session=${session}`)
           .then(res => {
-            var resData=res.data;
+            var resData = res.data;
             if (resData.success == true) {
             } else {
             }
@@ -187,6 +190,11 @@
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
+      toGValidate() {
+        if (!this.has_gsecret) {
+          this.$root.Bus.$emit('toggleComponent', 'gValidate');
+        }
+      }
     }
   }
 </script>

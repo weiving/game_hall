@@ -14,7 +14,11 @@
   import bindCard from '@/components/recharge/bindCard'
   import manageCard from '@/components/recharge/manageCard'
   import selectCard from '@/components/recharge/selectCard'
+  import onlinePay from '@/components/recharge/onlinePay'
 
+  import ordinaryPay from '@/components/recharge/ordinaryPay'
+  import ordinaryOrder from '@/components/recharge/ordinaryOrder'
+  import withdraw from '@/components/recharge/withdraw'
 
   import msgCenter from '@/components/message/msgCenter'
   import msgMy from '@/components/message/msgMy'
@@ -63,7 +67,6 @@
 
   import ranking from '@/components/ranking/ranking'
   import gameFrame from '@/components/common/gameFrame'
-  import withdrawal from '@/components/withdrawal/withdrawal'
 
   export default {
     name: "base-view",
@@ -91,6 +94,10 @@
       bindCard,
       manageCard,
       selectCard,
+      onlinePay,
+      ordinaryPay,
+      ordinaryOrder,
+      withdraw,
 
       msgCenter,
       msgMy,
@@ -137,7 +144,6 @@
 
       ranking,
       gameFrame,
-      withdrawal,
     }
   }
 </script>

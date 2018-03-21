@@ -11,7 +11,7 @@
       <div class="info-box">
         <div class="info-item">
           <span>真实姓名</span>
-          <input type="text" class="" v-model="card_user">
+          <input type="text" class="" v-model="card_user" placeholder="请输入真实姓名">
         </div>
         <!--<div class="info-item">-->
         <!--<span>身份证号</span>-->
@@ -24,7 +24,7 @@
       <div class="info-box">
         <div class="info-item">
           <span>银行卡号</span>
-          <input type="text" class="" v-model="card_no">
+          <input type="text" class="" v-model="card_no" placeholder="请输入银行卡号">
         </div>
         <div class="info-item" @click="showBankCardList">
           {{bank_name}}
@@ -32,9 +32,9 @@
             <i class="wind-icon"></i>
           </div>
         </div>
-        <div class="info-item">
+        <div class="info-item" @click="showAddressList">
           <span>开户地区</span>
-          <input type="text" class="" value="罗麟">
+          <input type="text" class="" value="福建省">
           <div class="next-side">
             <i class="wind-icon"></i>
           </div>
@@ -50,30 +50,106 @@
         <!--</div>-->
         <div class="info-item">
           <span>资金密码</span>
-          <input type="text" class="" v-model="funds_password">
+          <input type="text" class="" v-model="funds_password" placeholder="请输入资金密码">
         </div>
       </div>
       <div class="default-btn">确认绑定</div>
 
-      <transition name="slideRight">
-        <div class="slide-popover" v-show="isShowMask">
-          <div class="title">请选择储蓄卡所属银行</div>
-          <div class="bankCardList">
-            <div class="bankCard-item" v-for="(item,index) in bankCardList" :key="item.bank_id"
-                 @click="selectBankCardList(item.bank_id,item.bank_name)">
-              <img src="/static/img/pay.png" alt="">
-              <div class="bankCardInfo">
-                <div class="bankName">{{item.bank_name}}</div>
-                <div class="des">单笔限额5万,日限额5万</div>
-              </div>
-              <div class="select-radio active"><i></i></div>
-            </div>
+    </div>
+    <transition name="slideRight">
+      <div class="slide-popover" v-show="isShowBankList">
+        <div class="page-head">
+          <div class="toReturn" @click="closeBankCardList">
+            <img src="/static/img/left.png" alt="">
           </div>
         </div>
-      </transition>
+        <div class="bank-title">请选择储蓄卡所属银行</div>
+        <div class="bankCardList">
+          <div class="bankCard-item" v-for="(item,index) in bankCardList" :key="item.bank_id"
+               @click="selectBankCardList(item.bank_id,item.bank_name)">
+            <img src="/static/img/pay.png" alt="">
+            <div class="bankCardInfo">
+              <div class="bankName">{{item.bank_name}}</div>
+              <div class="des">单笔限额5万,日限额5万</div>
+            </div>
+            <div class="select-radio"><i></i></div>
+          </div>
+        </div>
+      </div>
+    </transition>
 
-    </div>
-    <!--<div class="mask" v-show="isShowMask" @click="toggleBankCardList"></div>-->
+    <transition name="slideRight">
+      <div class="slide-popover" v-show="isShowAddressList">
+        <div class="page-head">
+          <div class="toReturn" @click="closeAddressList">
+            <img src="/static/img/left.png" alt="">
+          </div>
+          <div class="title">选择省份</div>
+        </div>
+        <div class="addressList">
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">fdsafd</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">fdsafd</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">4432</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">7777</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+          <div class="address-item">
+            <div class="name">安徽iuo88887省</div>
+            <div class="select-radio"><i></i></div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -90,7 +166,8 @@
         card_no: '',
         card_user: '',
         card_addr: '',
-        isShowMask: false,
+        isShowBankList: false,
+        isShowAddressList: false,
         bankCardList: ''
       }
     },
@@ -119,14 +196,22 @@
           })
       },
       showBankCardList() {
-        this.isShowMask = true;
+        this.isShowBankList = true;
 
+      },
+      closeBankCardList() {
+        this.isShowBankList = false;
       },
       selectBankCardList(bank_id, bank_name) {
-        this.isShowMask = false;
+        this.isShowBankList = false;
         this.bank_name = bank_name;
       },
-
+      showAddressList() {
+        this.isShowAddressList = true;
+      },
+      closeAddressList() {
+        this.isShowAddressList = false;
+      }
     }
   }
 </script>

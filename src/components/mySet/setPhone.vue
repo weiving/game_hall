@@ -41,7 +41,36 @@
         isShow_msg: false
       }
     },
+    created() {
+      this.getUserInfo();
+    },
     methods: {
+      getUserInfo: function () {
+        var session = getLocalStorage("session");
+        var user_id = getLocalStorage("user_id");
+        var username = getLocalStorage("username");
+        if (session == '' || session == undefined) {
+          this.$router.push({path: '/login'})
+        } else {
+          this.$http
+            .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
+            .then(res => {
+              var resData = res.data;
+              console.log('手机号', resData);
+              if (resData.success == true) {
+                if (resData.data.qq != undefined && resData.data.qq != '') {
+                  this.phone = resData.data.phone;
+                }
+              } else {
+                this.$router.push({path: '/login'})
+              }
+            })
+            .catch(err => {
+              console.log(err)
+              this.$router.push({path: '/login'})
+            })
+        }
+      },
       send() {
         if (!this.isDisabled) {
           var params = new URLSearchParams();

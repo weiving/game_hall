@@ -39,7 +39,6 @@
 </template>
 
 <script>
-  // import {setLocalStorage, getLocalStorage, abc_WebSocket} from "../../../static/js/util";
   import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
   import Socket from '../../socket'
   import pagination from '../common/pagination'
@@ -59,7 +58,6 @@
     },
     created() {
       this.initMsg();
-      Socket.$on("message", this.handleMessage)
     },
     methods: {
       lookDetail(id) {
@@ -75,14 +73,16 @@
       },
       initMsg() {
         Socket.send('{"cmd":"page","page_index":' + this.currentPage + ',"page_size":' + this.pageSize + '}');
+        Socket.$on("message", this.handleMessage);
       },
       handleMessage(msg) {
         var msgSerialize = JSON.parse(msg);
-        console.log('msgSerialize', msgSerialize)
+        // console.log('msgSerialize', msgSerialize);
         if (msgSerialize.list == undefined || msgSerialize == '') {
           if (msgSerialize.cmd === 'read') {
             setLocalStorage("myMsgDetail", JSON.stringify(msgSerialize));
           } else {
+            console.log('1122',118);
             var time = msgSerialize.created_at;
             msgSerialize.created_at = time.substr(0, 4) + '-' + time.substr(4, 2) + '-' + time.substr(6, 2) + ' ' +
               time.substr(8, 2) + ':' + time.substr(10, 2) + ':' + time.substr(12, 2);

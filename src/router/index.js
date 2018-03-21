@@ -6,6 +6,9 @@ import recharge from '@/components/recharge/recharge'
 import bindCard from '@/components/recharge/bindCard'
 import manageCard from '@/components/recharge/manageCard'
 import selectCard from '@/components/recharge/selectCard'
+// import ordinaryPay from '@/components/recharge/ordinaryPay'
+// import ordinaryOrder from '@/components/recharge/ordinaryOrder'
+
 
 import msgCenter from '@/components/message/msgCenter'
 import msgMy from '@/components/message/msgMy'
@@ -101,7 +104,16 @@ export default new Router({
       name: 'selectCard',
       component: selectCard
     },
-
+    // {
+    //   path: '/recharge/ordinaryPay',
+    //   name: 'ordinaryPay',
+    //   component: ordinaryPay
+    // },
+    // {
+    //   path: '/recharge/ordinaryOrder',
+    //   name: 'ordinaryOrder',
+    //   component: ordinaryOrder
+    // },
 
     {
       path: '/message/msgCenter',

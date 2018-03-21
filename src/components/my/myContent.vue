@@ -7,7 +7,7 @@
       </div>
       <div class="assets-num" v-if="isShowAssets==1"><span class="amount">{{amount}}</span>元</div>
       <div class="assets-num" v-else>******</div>
-      <div class="withdrawal-btn" @click="toComponent('withdrawal')">提现</div>
+      <div class="withdrawal-btn" @click="toComponent('withdraw')">提现</div>
       <div class="recharge-btn" @click="toComponent('recharge')">充值</div>
     </div>
     <div class="my-detail">

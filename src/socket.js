@@ -1,8 +1,9 @@
 import Vue from "vue"
 import {getLocalStorage} from "../static/js/util";
 
-this.user_id = getLocalStorage('user_id');
-const wsurl = "ws://192.168.50.124/v1/pubsub/ws?user_id=" + this.user_id;
+const user_id = getLocalStorage('user_id');
+
+const wsurl = "ws://192.168.50.124/v1/pubsub/ws?user_id=" + user_id;
 
 const socket = new WebSocket(wsurl);
 
@@ -17,7 +18,7 @@ const emitter = new Vue({
 
 socket.onmessage = function (msg) {
   var msgData = msg.data;
-  console.log('socketjs的接受的数据', msgData);
+  // console.log('socketjs数据', msgData);
   emitter.$emit("message", msgData);
 }
 socket.onerror = function (err) {

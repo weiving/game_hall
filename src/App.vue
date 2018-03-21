@@ -11,15 +11,12 @@
   export default {
     name: 'app',
     data() {
-      return {
-      }
+      return {}
     },
     components: {
       iFooter: iFooter
     },
-    methods: {
-
-    }
+    methods: {}
   }
 </script>
 

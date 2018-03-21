@@ -127,7 +127,7 @@
         </div>
         <div class="operationType" v-if="defaultType=='linkManage'">
           <div class="linkManage">
-            <template v-if="count">
+            <template v-if="total">
               <div class="row-item" v-for="(item,index) in linkManageList" @click="toSharePage('http://www.baidu.com')">
                 <div class="row">
                   <div class="col-xs-l">注册链接</div>
@@ -148,7 +148,8 @@
               <div class="pagination-wrap">
                 <pagination
                   :page-index="currentPage"
-                  :total="count"
+                  :pages="pages"
+                  :total="total"
                   :page-size="pageSize"
                   @change="pageChange">
                 </pagination>
@@ -194,12 +195,6 @@
             </div>
             <div class="row">
               <div class="col-xs-4">
-                <div class="row-label">备注</div>
-              </div>
-              <input type="text" v-model="remark" class="col-xs-8 input-text" placeholder="请输入内容">
-            </div>
-            <div class="row">
-              <div class="col-xs-4">
                 <div class="row-label">注册量</div>
               </div>
               <input type="text" v-model="registerNum" class="col-xs-8 input-text" placeholder="请输入内容">
@@ -208,7 +203,7 @@
         </div>
         <div class="popover-footer">
           <div class="opt-btn">重置</div>
-          <div class="opt-btn sure-btn">确定</div>
+          <div class="opt-btn sure-btn" @click="filterFn">确定</div>
         </div>
       </div>
     </transition>
@@ -281,10 +276,10 @@
         effective_times: '',
         linkUrl: '',
 
-
-        pageSize: 10,//每页显示10条数据
         currentPage: 1,//当前页码
-        count: 0,//总记录数
+        pages: 1,
+        pageSize: 5,//每页显示10条数据
+        total: 0,//总记录数
         linkManageList: [],
       }
     },
@@ -521,9 +516,13 @@
             var resData = res.data;
             console.log('链接数据', resData);
             if (resData.success == true) {
-              this.count = resData.data.total;
+
+              this.currentPage = resData.data.page_index;
+              this.pages = resData.data.pages;
+              this.pageSize = resData.data.page_size;
+              this.total = resData.data.total;
+
               var currentUrl = window.location.href;
-              console.log('currentUrl', currentUrl);
               var list = resData.data.list;
               var data = [];
               for (var i = 0; i < list.length; i++) {
@@ -551,6 +550,10 @@
       toSharePage(linkUrl) {
         setLocalStorage('qartCodeUrl', linkUrl);
         this.$root.Bus.$emit('toggleComponent', 'shareQartCode')
+      },
+
+      //筛选条件
+      filterFn() {
       }
 
     }

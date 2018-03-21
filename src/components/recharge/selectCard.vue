@@ -1,27 +1,51 @@
 <template>
   <div id="selectCard" class="page-wrap">
     <div class="page-head">
-      <div class="toReturn" @click="toComponent('recharge')">
+      <div class="toReturn" @click="toComponent('withdraw')">
         <img src="/static/img/left.png" alt="">
       </div>
       <div class="title">选择银行卡</div>
     </div>
     <div class="page-content">
-      <div class="box-item card-box" v-for="(item,index) in cardList">
-        <div class="card-logo">招商</div>
-        <div class="card-name">招商银行</div>
-        <div class="cardID">6236 **** **** 8889</div>
-        <div class="card-owner">
-          <span>持卡人:</span>
-          <div class="owner">罗**</div>
+      <div class="card-list">
+        <div class="card-item">
+          <div class="card-logo">招商</div>
+          <div class="card-name">招商银行</div>
+          <div class="cardID">6236 **** **** 8889</div>
+          <div class="card-owner">
+            <span>持卡人:</span>
+            <div class="owner">罗**</div>
+          </div>
         </div>
-      </div>
-      <div class="box-item" @click="toComponent('bindCard')">
-        <div class="ellipsis-icon text-right">****</div>
-        <div class="ellipsis-icon text-right">****</div>
-        <div class="add-btn"></div>
-        <div class="ellipsis-icon text-left">****</div>
-        <div class="ellipsis-icon text-left">****</div>
+
+        <div class="card-item">
+          <div class="card-logo">建设</div>
+          <div class="card-name">建设银行</div>
+          <div class="cardID">6236 **** **** 8889</div>
+          <div class="card-owner">
+            <span>持卡人:</span>
+            <div class="owner">罗**</div>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-logo">建设</div>
+          <div class="card-name">建设银行</div>
+          <div class="cardID">6236 **** **** 8889</div>
+          <div class="card-owner">
+            <span>持卡人:</span>
+            <div class="owner">罗**</div>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-logo">建设</div>
+          <div class="card-name">建设银行</div>
+          <div class="cardID">6236 **** **** 8889</div>
+          <div class="card-owner">
+            <span>持卡人:</span>
+            <div class="owner">罗**</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
