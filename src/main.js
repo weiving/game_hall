@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
-import store from './store'
+// import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {DateTime} from 'vue-ydui/dist/lib.rem/datetime'
@@ -38,7 +38,6 @@ const Bus = new Vue()
 new Vue({
   el: '#app',
   router,
-  store,
   data: {
     Bus
   },
