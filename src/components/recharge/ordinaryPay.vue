@@ -43,11 +43,13 @@
       </div>
       <keyboard :show="keyboard" @typing="typing" @complete="blur"></keyboard>
     </div>
+    <div class="mask" v-show="isShowMask" @click="hideMask"></div>
+    <div class="mask-text" v-show="isShowMask"><span>{{msg}}</span></div>
   </div>
 </template>
 
 <script>
-  import {getLocalStorage} from "../../../static/js/util";
+  import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
   import keyboard from './keyboard';
 
   export default {
@@ -75,8 +77,9 @@
 
         payMin: '',
         payMax: '',
-        payer: ''
-
+        payer: '',
+        isShowMask: false,
+        msg: '',
       }
     },
     methods: {
@@ -224,8 +227,46 @@
       /*提交并前往充值*/
       toOrdinaryOrder() {
         if (this.val != '' && this.payer.trim().length > 0) {
-          this.$root.Bus.$emit('toggleComponent', 'ordinaryOrder');
+          var user_id = getLocalStorage('user_id');
+          var username = getLocalStorage('username');
+          var session = getLocalStorage('session');
+
+          var payInfo = JSON.parse(getLocalStorage('payInfo'));
+          var pay_account_id = payInfo.account_id;
+          // var pay_alias = payInfo.pay_alias;
+          var params = new URLSearchParams();
+          params.append('money', this.val);
+          params.append('pay_account_id', pay_account_id);
+          // params.append('deposit_bank', pay_alias);
+          // params.append('deposit_user', this.payer);
+
+          this.$http
+            .get(`${this.$api}/v1/pay/w/create_pay_order/${user_id}/${username}?session=${session}`, params)
+            .then(res => {
+              var resData = res.data;
+              console.log(resData);
+              if (resData.success == true) {
+                var order = {
+                  rechargeNumber: '',
+                  rechargeAmount: '',
+                  payer: '',
+                  createdTime: ''
+                };
+                setLocalStorage('order', JSON.stringify(order));
+                this.$root.Bus.$emit('toggleComponent', 'ordinaryOrder');
+
+              } else {
+                this.isShowMask = true;
+                this.msg = resData.msg;
+              }
+            });
+          // this.$root.Bus.$emit('toggleComponent', 'ordinaryOrder');
         }
+      },
+
+      /*隐藏*/
+      hideMask() {
+        this.isShowMask = false;
       }
 
     }

@@ -64,6 +64,8 @@
   import setWeChat from '@/components/mySet/setWeChat'
   import setEmail from '@/components/mySet/setEmail'
   import gValidate from '@/components/mySet/gValidate'
+  import setName from '@/components/mySet/setName'
+
 
   import ranking from '@/components/ranking/ranking'
   import gameFrame from '@/components/common/gameFrame'
@@ -141,6 +143,7 @@
       setWeChat,
       setEmail,
       gValidate,
+      setName,
 
       ranking,
       gameFrame,

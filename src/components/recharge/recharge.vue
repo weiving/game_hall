@@ -55,14 +55,17 @@
           <!--</div>-->
           <!--<div class="selected"></div>-->
           <!--</div>-->
-          <div class="payment-item" v-for="(item,index) in payAccountList" :key="index"
+          <div class="payment-item" v-for="(item,index) in onlinePayTypeList" :key="index"
                :class="{active:isSelectIndex==index&&selectPayType=='online'}" @click="selectIndex('online',index)">
             <img src="/static/img/pay.png"/>
             <div class="payment">
               <div class="title">{{item.pay_alias}}</div>
-              <div class="des">单笔限额{{item.pay_max}}万，单日限额5万</div>
+              <div class="des">单笔最小金额{{item.pay_min}}万，最大金额{{item.pay_max}}万</div>
             </div>
             <div class="selected"></div>
+          </div>
+          <div class="no-pay" v-if="onlinePayTypeList.length==0">
+            暂无支付方式
           </div>
         </div>
         <div class="payment-title">普通入款</div>
@@ -91,15 +94,18 @@
           <!--</div>-->
           <!--<div class="selected"></div>-->
           <!--</div>-->
-          <div class="payment-item" v-for="(item,index) in payAccountList" :key="index"
+          <div class="payment-item" v-for="(item,index) in otherPayTypeList" :key="index"
                :class="{active:isSelectIndex==index && selectPayType=='unOnline'}"
                @click="selectIndex('unOnline',index)">
             <img src="/static/img/pay.png"/>
             <div class="payment">
               <div class="title">{{item.pay_alias}}</div>
-              <div class="des">单笔限额{{item.pay_max}}万，单日限额5万</div>
+              <div class="des">单笔最小金额{{item.pay_min}}万，最大金额{{item.pay_max}}万</div>
             </div>
             <div class="selected"></div>
+          </div>
+          <div class="no-pay" v-if="otherPayTypeList.length==0">
+            暂无支付方式
           </div>
         </div>
       </div>
@@ -118,7 +124,8 @@
     },
     data() {
       return {
-        payAccountList: '',
+        onlinePayTypeList: '',//payAccountList
+        otherPayTypeList: '',
         isSelectIndex: 0,
         selectPayType: 'online',
       }
@@ -134,7 +141,17 @@
             var resData = res.data;
             console.log('支付列表', resData)
             if (resData.success == true) {
-              this.payAccountList = resData.data;
+              var onlineList = [];
+              var otherList = [];
+              for (var i = 0; i < resData.data.length; i++) {
+                if (resData.data[i].pay_type == "2") {
+                  onlineList.push(resData.data[i]);//在线支付
+                } else {
+                  otherList.push(resData.data[i]);
+                }
+              }
+              this.onlinePayTypeList = onlineList;
+              this.otherPayTypeList = otherList;
             }
           })
       },
@@ -149,7 +166,7 @@
       /*选择支付*/
       toNext() {
         if (this.selectPayType == 'online') {
-          var this_pay = this.payAccountList[this.isSelectIndex];
+          var this_pay = this.onlinePayTypeList[this.isSelectIndex];
           setLocalStorage('pay_url', this_pay.pay_url);
           setLocalStorage('pay_min', this_pay.pay_min);
           setLocalStorage('pay_max', this_pay.pay_max);
@@ -199,11 +216,18 @@
           //   //未分类
           // }
         } else {
-
-          var this_pay = this.payAccountList[this.isSelectIndex];
-          setLocalStorage('pay_url', this_pay.aid);
-          setLocalStorage('pay_min', this_pay.pay_min);
-          setLocalStorage('pay_max', this_pay.pay_max);
+          var this_pay = JSON.stringify(this.otherPayTypeList[this.isSelectIndex]);
+          console.log('普通入款', this_pay);
+          // var obj = {
+          //   pay_id: this_pay.pay_id,
+          //   account: this_pay.account,
+          //   account_user: this_pay.account_user,
+          //   address: this_pay.address,
+          //   pay_alias: this_pay.pay_alias,
+          //   pay_min: this_pay.pay_min,
+          //   pay_max: this_pay.pay_max,
+          // }
+          setLocalStorage('payInfo', this_pay);
           this.$root.Bus.$emit('toggleComponent', 'ordinaryPay')
         }
       },

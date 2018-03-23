@@ -21,7 +21,17 @@
             <span class="username">{{nickname}}</span>
             <img src="/static/img/wind01.png" alt="">
           </div>
+          <div class="row-line"></div>
         </div>
+        <div class="row">
+          <img src="/static/img/Edition.png" class="head01-icon" alt="真实姓名">
+          <span>真实姓名</span>
+          <div class="next" @click="toComponent('setName')">
+            <span class="username">{{name}}</span>
+            <img src="/static/img/wind01.png" alt="">
+          </div>
+        </div>
+
       </div>
 
       <div class="mySet-row">
@@ -65,7 +75,7 @@
           <img src="/static/img/bank-icon.png" class="head01-icon" alt="绑定银行卡">
           <span>绑定银行卡</span>
           <div class="next" @click="toComponent('manageCard')">
-            <span class="text-red">3张</span>
+            <span class="text-red">{{bank_count}}张</span>
             <img src="/static/img/wind01.png" alt="">
           </div>
         </div>
@@ -106,6 +116,7 @@
     name: "my-set",
     created() {
       this.getUserInfo();
+      this.getBankCardNum();
     },
     data() {
       return {
@@ -116,6 +127,8 @@
         weixin: '',
         email: '',
         has_gsecret: '',
+        name: '',
+        bank_count: 0,
       }
     },
     methods: {
@@ -133,9 +146,11 @@
               var resData = res.data;
               if (resData.success == true) {
                 // this.portrait=res.data.portrait;
-                console.log('用户信息', resData);
                 if (resData.data.nickname != undefined && resData.data.nickname != '') {
                   this.nickname = resData.data.nickname;
+                }
+                if (resData.data.name != undefined && resData.data.name != '') {
+                  this.name = resData.data.name;
                 }
                 if (resData.data.phone != undefined && resData.data.phone != '') {
                   this.phone = resData.data.phone;
@@ -158,6 +173,21 @@
               this.$router.push({path: '/login'})
             })
         }
+      },
+      getBankCardNum: function () {
+        var session = getLocalStorage("session");
+        var user_id = getLocalStorage("user_id");
+        var username = getLocalStorage("username");
+        this.$http
+          .post(`${this.$api}/v1/bank/r/get_user_bank_count/${user_id}/${username}?session=${session}`)
+          .then(res => {
+            var resData = res.data;
+            if (resData.success == true) {
+              this.bank_count = resData.data.bank_count;
+            } else {
+
+            }
+          })
       },
       esc_login: function () {
         var session = getLocalStorage("session");
@@ -195,6 +225,7 @@
           this.$root.Bus.$emit('toggleComponent', 'gValidate');
         }
       }
+
     }
   }
 </script>

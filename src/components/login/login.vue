@@ -106,19 +106,20 @@
             .then(res => {
               var resData = res.data;
               console.log('login', resData)
-
               if (resData.success == true) {
 
                 setLocalStorage("session", resData.data.session);
                 setLocalStorage("user_id", resData.data.user_id);
                 setLocalStorage("user_type", resData.data.user_type);
                 setLocalStorage("username", resData.data.username);
+                setLocalStorage("isPopUp", true);
 
                 setCookie("session", resData.data.session, 1);
                 setCookie("user_id", resData.data.user_id, 1);
                 setCookie("user_type", resData.data.user_type, 1);
                 setCookie("username", resData.data.username, 1);
                 // this.$root.Bus.$emit('toggleComponent', 'hall');
+
                 this.$router.push({path: '/'})
               } else {
                 this.isShow_login_msg = true;

@@ -60,17 +60,17 @@
     name: "select-card",
     data() {
       return {
-        cardList: [],
+        bankCardList: [],
       }
     },
     created() {
-      this.getCardList();
+      this.getBankCardList();
     },
     methods: {
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
-      getCardList() {
+      getBankCardList() {
         var user_id = getLocalStorage('user_id');
         var username = getLocalStorage('username');
         var session = getLocalStorage('session');
@@ -80,7 +80,7 @@
           .then(res => {
             console.log('33', res.data);
             if (res.data.success == true) {
-              this.cardList = res.data.data;
+              this.bankCardList = res.data.data;
             }
           })
       },

@@ -1263,6 +1263,13 @@ html, body, #app {
             border: none;
           }
         }
+
+        .no-pay {
+          height: 60px;
+          line-height: 60px;
+          width: 100%;
+          position: relative;
+        }
       }
       //margin-top: 20px;
       //background: #ffffff;
@@ -1303,14 +1310,22 @@ html, body, #app {
       &:last-child {
         border-bottom: none;
       }
+      .bankName {
+        width: 80%;
+      }
       span {
         display: inline-block;
-        width: 60px;
+        width: 20%;
         color: #C8C8C8;
         margin-right: 20px;
       }
       input {
         display: inline-block;
+        width: 60%;
+      }
+      .address {
+        display: inline-block;
+        width: 60%;
       }
       .get-code {
         width: 100px;
@@ -1365,7 +1380,7 @@ html, body, #app {
         width: calc(~"100vw - 28px");
         height: 58px;
         border-bottom: 1px solid #F3F3F3;
-        margin:0 14px;
+        margin: 0 14px;
         position: relative;
         padding-top: 12px;
         padding-left: 42px;
@@ -1426,19 +1441,19 @@ html, body, #app {
       }
     }
 
-    .addressList{
+    .addressList {
       width: 100%;
       height: -webkit-calc(~"100vh - 50px");
       height: calc(~"100vh - 50px");
       overflow: auto;
       background: #ffffff;
-      .address-item{
+      .address-item {
         width: -webkit-calc(~"100vw - 28px");
         width: calc(~"100vw - 28px");
         height: 58px;
         line-height: 58px;
         border-bottom: 1px solid #F3F3F3;
-        margin:0 14px;
+        margin: 0 14px;
         position: relative;
         .select-radio {
           position: absolute;
@@ -1462,6 +1477,8 @@ html, body, #app {
               font-size: 0;
               vertical-align: bottom;
               -webkit-transform: rotate(45deg) translateY(-30%) translateX(-10%);
+              position: absolute;
+              top: 10px;
               &:after {
                 content: '/';
                 display: block;
@@ -2669,6 +2686,10 @@ html, body, #app {
         margin-top: 10px;
       }
     }
+  }
+
+  #my-content {
+    margin-bottom: 50px;
   }
 }
 

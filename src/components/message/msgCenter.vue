@@ -15,7 +15,7 @@
           <div class="time">2017年12月27日</div>
         </div>
       </div>
-      <div class="box-item" v-for="(item,index) in noticeTypeList" v-if="index!=0&&index!=2" @click="toTypeList(index)">
+      <div class="box-item" v-for="(item,index) in noticeTypeList" @click="toTypeList(item.notice_type)">
         <div class="flag-icon"></div>
         <div class="item-content">
           <div class="title">{{item.type_name}}</div>
@@ -73,17 +73,21 @@
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
-      toTypeList(index) {
+      toTypeList(notice_type) {
         var noticeTitle = '';
-        if (index == 1) {
+        if (notice_type == 1) {
+          noticeTitle = '滚动公告';
+        } else if (notice_type == 2) {
           noticeTitle = '首页公告';
-        } else if (index == 3) {
+        } else if (notice_type == 3) {
+          noticeTitle = '立即弹窗公告';
+        } else if (notice_type == 4) {
           noticeTitle = '系统公告';
-        } else if (index == 4) {
+        } else if (notice_type == 5) {
           noticeTitle = '游戏公告';
         }
         setLocalStorage('noticeTitle', noticeTitle);
-        setLocalStorage('noticeType', index);
+        setLocalStorage('noticeType', notice_type);
         this.$root.Bus.$emit('toggleComponent', 'msgTypeList')
       }
     }

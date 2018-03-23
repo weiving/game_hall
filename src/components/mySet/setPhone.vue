@@ -60,6 +60,9 @@
               if (resData.success == true) {
                 if (resData.data.qq != undefined && resData.data.qq != '') {
                   this.phone = resData.data.phone;
+                  if (this.phone) {
+                    this.isDisabled = true;
+                  }
                 }
               } else {
                 this.$router.push({path: '/login'})
@@ -87,6 +90,9 @@
             }).catch(err => {
             console.log(err)
           })
+        }else{
+          this.isShow_msg = true;
+          this.msg = "已绑定无需在修改~";
         }
       },
       run() {
