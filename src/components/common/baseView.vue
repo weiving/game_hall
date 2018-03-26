@@ -49,6 +49,7 @@
 
 
   import register from '@/components/register/register'
+  import phoneRegister from '@/components/register/phoneRegister'
   import regSuccess from '@/components/register/regSuccess'
   import login from '@/components/login/login'
   import loginRecord from '@/components/login/loginRecord'
@@ -65,7 +66,7 @@
   import setEmail from '@/components/mySet/setEmail'
   import gValidate from '@/components/mySet/gValidate'
   import setName from '@/components/mySet/setName'
-
+  import updateFundsPwd from '@/components/mySet/updateFundsPwd'
 
   import ranking from '@/components/ranking/ranking'
   import gameFrame from '@/components/common/gameFrame'
@@ -129,6 +130,7 @@
       sendPacket,
 
       register,
+      phoneRegister,
       regSuccess,
       login,
       loginRecord,
@@ -144,6 +146,7 @@
       setEmail,
       gValidate,
       setName,
+      updateFundsPwd,
 
       ranking,
       gameFrame,

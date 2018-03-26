@@ -81,44 +81,24 @@
       </div>
     </div>
     <div class="sub-content">
-      <div class="progress">
-      <div class="circle"></div>
-      <div class="line"></div>
-      <div class="circle"></div>
-      <div class="line"></div>
-      <div class="circle"></div>
-      <div class="line"></div>
-      <div class="circle"></div>
-      </div>
+      <!--<div class="progress">-->
+      <!--<div class="circle"></div>-->
+      <!--<div class="line"></div>-->
+      <!--<div class="circle"></div>-->
+      <!--&lt;!&ndash;<div class="line"></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="circle"></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="line"></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="circle"></div>&ndash;&gt;-->
+      <!--</div>-->
       <div class="record-items">
         <swiper :options="swiperOption">
           <swiper-slide class="item" v-for="(item,index) in scrollNoticeList" :key="index">
-            <!--<div class="progress">-->
-              <!--<div class="circle"></div>-->
-              <!--<div class="line"></div>-->
-            <!--</div>-->
+            <div class="item-title">{{item.title}}</div>
+            <div class="item-content">
+              <p class="text">{{item.content}}</p>
+            </div>
             <div class="item-time">{{item.expired_at}}</div>
-            <div class="item-name">{{item.title}}</div>
-            <div class="item-content">{{item.content}}</div>
           </swiper-slide>
-          <!--<swiper-slide class="item">-->
-          <!--<div class="item-time">38分钟前</div>-->
-          <!--<div class="item-name">cinv***2690</div>-->
-          <!--<div class="item-game-name">趣味应三张</div>-->
-          <!--<div class="record-money">已充值<span class="num">￥432.00</span></div>-->
-          <!--</swiper-slide>-->
-          <!--<swiper-slide class="item">-->
-          <!--<div class="item-time">46分钟前</div>-->
-          <!--<div class="item-name">22***2690</div>-->
-          <!--<div class="item-game-name">多尔夫</div>-->
-          <!--<div class="record-money">已充值<span class="num">￥200.00</span></div>-->
-          <!--</swiper-slide>-->
-          <!--<swiper-slide class="item">-->
-          <!--<div class="item-time">25分钟前</div>-->
-          <!--<div class="item-name">123***2690</div>-->
-          <!--<div class="item-game-name">反间谍</div>-->
-          <!--<div class="record-money">已充值<span class="num">￥32.00</span></div>-->
-          <!--</swiper-slide>-->
         </swiper>
       </div>
     </div>
@@ -140,7 +120,7 @@
         itemList: "",
         swiperOption: {
           direction: 'vertical',
-          slidesPerView: 4,
+          slidesPerView: 2,
           spaceBetween: 0,
           mousewheel: true,
           loop: true,
@@ -361,81 +341,60 @@
         flex: 1;
         width: 100%;
         .swiper-container {
-          height: 105px;
+          height: 160px;
           width: 100%;
         }
 
         .item {
-          padding-top: 5px;
-          /*.item-time {*/
-          /*display: inline-block;*/
-          /*color: #278CF5;*/
-          /*width: 60px;*/
-          /*}*/
-
-          /*.item-name {*/
-          /*display: inline-block;*/
-          /*width: 65px !important;*/
-          /*margin-right: 10px;*/
-          /*}*/
-
-          /*.item-game-name {*/
-          /*display: inline-block;*/
-          /*}*/
-
-          /*.record-money {*/
-          /*display: inline-block;*/
-          /*}*/
-
-          /*.progress {*/
-            /*float: left;*/
-            /*width: 15%;*/
-            /*!*margin-right: 10px;*!*/
-            /*!*display: inline-block;*!*/
-            /*!*width: 18px;*!*/
-            /*!*height: 105px;*!*/
-            /*.circle {*/
-              /*width: 8px;*/
-              /*height: 8px;*/
-              /*background: #278CF5;*/
-              /*border-radius: 50%;*/
-              /*margin-top: 3px;*/
-              /*margin-bottom: 5px;*/
-              /*&:first-child {*/
-                /*margin-top: 8px;*/
-              /*}*/
-            /*}*/
-
-            /*.line {*/
-              /*width: 2px;*/
-              /*height: 10px;*/
-              /*background: #278CF5;*/
-              /*margin-left: 3px;*/
-            /*}*/
-          /*}*/
-
-          .item-time {
-            float: left;
+          position: relative;
+          padding-left: 20px;
+          .item-title {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
             color: #278CF5;
-            width: 25%;
-            overflow: hidden;
-            white-space: nowrap;
-          }
-          .item-name {
-            float: left;
-            width: 25%;
-            margin-left: 5%;
-            overflow: hidden;
-            white-space: nowrap;
+            position: relative;
+            &:before {
+              content: '';
+              width: 10px;
+              height: 10px;
+              display: block;
+              background: #278CF5;
+              border-radius: 50%;
+              position: absolute;
+              top: 10px;
+              left: -20px;
+            }
           }
           .item-content {
-            float: left;
-            width: 35%;
-            height: 13px;
-            margin-left: 5%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            width: 100%;
+            min-height: 20px;
+            max-height: 40px;
+            line-height: 20px;
+            position: relative;
+            .text {
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              overflow: hidden;
+            }
+
+            &:after {
+              content: '';
+              width: 2px;
+              height: 100%;
+              display: block;
+              background: #278CF5;
+              position: absolute;
+              top: 0px;
+              left: -15px;
+            }
+          }
+          .item-time {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #b2b2b2;
           }
         }
 

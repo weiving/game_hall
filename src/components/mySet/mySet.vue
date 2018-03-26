@@ -95,8 +95,15 @@
       <div class="mySet-row">
         <div class="row">
           <img src="/static/img/modify.png" class="head01-icon" alt="修改密码">
-          <span>修改密码</span>
+          <span>修改登录密码</span>
           <div class="next" @click="toComponent('updatePwd')">
+            <img src="/static/img/wind01.png" alt="">
+          </div>
+        </div>
+        <div class="row">
+          <img src="/static/img/modify.png" class="head01-icon" alt="修改资金密码">
+          <span>修改资金密码</span>
+          <div class="next" @click="toComponent('updateFundsPwd')">
             <img src="/static/img/wind01.png" alt="">
           </div>
         </div>

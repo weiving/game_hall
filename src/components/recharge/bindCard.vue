@@ -54,7 +54,10 @@
           <input type="text" class="" v-model="funds_password" placeholder="请输入资金密码">
         </div>
       </div>
-      <div class="default-btn" @click="sureBind">确认绑定</div>
+      <div class="default-btn" @click="sureBind"
+           :class="{active:funds_password.length>0&&bank_id.length>0&&bank_name.length>0&&card_no.length>0&&name.length>0&&address.length>0}">
+        确认绑定
+      </div>
 
     </div>
     <transition name="slideRight">
@@ -68,7 +71,7 @@
         <div class="bankCardList">
           <div class="bankCard-item" v-for="(item,index) in bankCardList" :key="item.bank_id"
                @click="selectBankCardList(item.bank_id,item.bank_name)">
-            <img src="/static/img/pay.png" alt="">
+            <img :src="'/static/img/bank/bank-'+item.bank_id+'.png'" :alt=item.bank_name>
             <div class="bankCardInfo">
               <div class="bankName">{{item.bank_name}}</div>
               <div class="des">单笔限额5万,日限额5万</div>
@@ -178,7 +181,6 @@
               }
             })
             .catch(err => {
-              console.log(err)
               this.$router.push({path: '/login'})
             })
         }
@@ -192,7 +194,6 @@
           .post(`${this.$api}/v1/bank/r/find_bank_list/${user_id}/${username}?session=${session}`)
           .then(res => {
             var resData = res.data;
-            console.log('银行列表', resData);
             if (resData.success == true) {
               this.bankCardList = resData.data;
             }
@@ -202,7 +203,6 @@
       },
       getAddressList() {
         this.addressList = this.$address;
-        console.log('地址列表', this.addressList);
       },
 
       //显示银行卡弹窗
@@ -279,8 +279,6 @@
           this.msg = '请填写资金密码~';
           return;
         } else {
-          console.log('进来绑定');
-
           var user_id = getLocalStorage('user_id');
           var username = getLocalStorage('username');
           var session = getLocalStorage('session');
@@ -294,23 +292,19 @@
           params.append('card_addr', this.address);
           params.append('is_lock', 0);
 
-          var obj = {
-            funds_password: this.funds_password,
-            bank_id: this.bank_id,
-            bank_name: this.bank_name,
-            card_no: this.card_no,
-            card_user: this.name,
-            card_addr: this.address,
-            is_lock: 0
-          }
-          console.log('obj', obj);
           this.$http
             .post(`${this.$api}/v1/bank/w/add_user_bank/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
-              console.log(resData);
               if (resData.success == true) {
-
+                this.isShowMask = true;
+                this.msg = resData.msg;
+                var that = this;
+                setTimeout(function () {
+                  this.isShowMask = false;
+                  this.msg = '';
+                  that.$root.Bus.$emit("toggleComponent", "manageCard");
+                }, 1500)
               } else {
                 this.isShowMask = true;
                 this.msg = resData.msg;

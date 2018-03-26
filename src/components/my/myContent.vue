@@ -173,7 +173,7 @@
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {
-              this.amount = resData.balance;
+              this.amount = resData.data.balance;
             } else {
 
             }

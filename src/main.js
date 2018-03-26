@@ -18,6 +18,7 @@ import '../static/css/hall.less'
 // const url = 'http://192.168.1.108:8333' //本地
 // const url = 'http://192.168.50.124:8333';
 const url = 'http://192.168.50.154:8333';
+// const url = 'http://192.168.50.124:8333';
 
 // const url = 'http://120.78.173.153:8333' //线上
 // const wsurl = 'ws://192.168.50.124/v1/pubsub';//websocket连接

@@ -241,7 +241,7 @@
           // params.append('deposit_user', this.payer);
 
           this.$http
-            .get(`${this.$api}/v1/pay/w/create_pay_order/${user_id}/${username}?session=${session}`, params)
+            .post(`${this.$api}/v1/pay/w/create_pay_order/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
               console.log(resData);

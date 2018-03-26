@@ -165,68 +165,25 @@
       },
       /*选择支付*/
       toNext() {
+
+        var session = getLocalStorage("session");
+        var user_id = getLocalStorage("user_id");
+        var username = getLocalStorage("username");
+        this.$http
+          .post(`${this.$api}/v1/pay/r/find_pay_account_list/${user_id}/${username}?session=${session}`)
+          .then(res => {
+            var resData=res.data;
+          })
+
         if (this.selectPayType == 'online') {
           var this_pay = this.onlinePayTypeList[this.isSelectIndex];
           setLocalStorage('pay_url', this_pay.pay_url);
           setLocalStorage('pay_min', this_pay.pay_min);
           setLocalStorage('pay_max', this_pay.pay_max);
           this.$root.Bus.$emit('toggleComponent', 'onlinePay')
-
-
-          // console.log('在线充值')
-          // /*哪种支付*/
-          // var this_pay = this.payAccountList[this.isSelectIndex];
-          //
-          // var pay_type = this_pay.pay_type;
-          // var pay_url = this_pay.pay_url;
-          //
-          // var money = this.val;
-          // var pay_account_id = this_pay.aid;
-          //
-          // var user_id = getLocalStorage('user_id');
-          // var username = getLocalStorage('username');
-          // var session = getLocalStorage('session');
-          //
-          //
-          // if (pay_type == 2) {//银行支付
-          //   console.log('银行支付');
-          //
-          // } else if (pay_type == 1) {//第三方
-          //   console.log('第三方支付');
-          //
-          //   this.toPayPage = false;
-          //   this.payUrl = pay_url;
-          //   this.payUrl = 'http://baidu.com';
-          //   var params = new URLSearchParams();
-          //   params.append('money', money);
-          //   params.append('pay_account_id', pay_account_id);
-          //
-          //   this.$http
-          //     .post(`${this.$api}/v1/pay/r/create_pay_order/${user_id}/${username}?session=${session}`, params)
-          //     .then(res => {
-          //       var resData = res.data;
-          //       console.log('第三方创建支付订单', resData);
-          //       if (resData.success == true) {
-          //         console.log('创建订单成功', resData.data.msg);
-          //       } else {
-          //         console.log('创建订单失败', resData.data.msg);
-          //       }
-          //     })
-          // } else {
-          //   //未分类
-          // }
         } else {
           var this_pay = JSON.stringify(this.otherPayTypeList[this.isSelectIndex]);
           console.log('普通入款', this_pay);
-          // var obj = {
-          //   pay_id: this_pay.pay_id,
-          //   account: this_pay.account,
-          //   account_user: this_pay.account_user,
-          //   address: this_pay.address,
-          //   pay_alias: this_pay.pay_alias,
-          //   pay_min: this_pay.pay_min,
-          //   pay_max: this_pay.pay_max,
-          // }
           setLocalStorage('payInfo', this_pay);
           this.$root.Bus.$emit('toggleComponent', 'ordinaryPay')
         }

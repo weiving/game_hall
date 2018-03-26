@@ -25,7 +25,7 @@
       <div class="box-item" v-if="messages.length==0">
         <p>暂无数据</p>
       </div>
-      <div class="pagination-wrap">
+      <div class="pagination-wrap" v-if="pages>=1">
         <pagination
           :page-index="currentPage"
           :pages="pages"
@@ -77,12 +77,12 @@
       },
       handleMessage(msg) {
         var msgSerialize = JSON.parse(msg);
-        // console.log('msgSerialize', msgSerialize);
+        console.log('msgSerialize', msgSerialize);
         if (msgSerialize.list == undefined || msgSerialize == '') {
           if (msgSerialize.cmd === 'read') {
             setLocalStorage("myMsgDetail", JSON.stringify(msgSerialize));
           } else {
-            console.log('1122',118);
+            console.log('1122', 118);
             var time = msgSerialize.created_at;
             msgSerialize.created_at = time.substr(0, 4) + '-' + time.substr(4, 2) + '-' + time.substr(6, 2) + ' ' +
               time.substr(8, 2) + ':' + time.substr(10, 2) + ':' + time.substr(12, 2);
