@@ -151,6 +151,7 @@
             .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
             .then(res => {
               var resData = res.data;
+              // console.log('用户',resData)
               if (resData.success == true) {
                 // this.portrait=res.data.portrait;
                 if (resData.data.nickname != undefined && resData.data.nickname != '') {

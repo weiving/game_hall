@@ -105,7 +105,6 @@
             .post(`${this.$api}/v1/login/account`, params)
             .then(res => {
               var resData = res.data;
-              console.log('login', resData)
               if (resData.success == true) {
 
                 setLocalStorage("session", resData.data.session);

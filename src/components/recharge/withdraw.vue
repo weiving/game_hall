@@ -8,24 +8,29 @@
       <div class="page-head-btn" @click="toComponent('capitalRecord')">资金流水</div>
     </div>
     <div class="page-content">
-      <div class="withdraw-bank" @click="toComponent('selectCard')">
+      <div class="withdraw-bank" v-if="defaultBank" @click="toComponent('selectCard')">
         <div class="bank-logo">
-          <div class="logo-icon"></div>
+          <div class="logo-icon">
+            <img :src="'/static/img/bank/bank-'+defaultBank.bank_id+'.png'" alt="">
+          </div>
         </div>
         <div class="bankInfo">
-          <div class="bankName">中国招商银行</div>
-          <div class="bankCardCode">****8899</div>
-          <div class="username">张国荣</div>
+          <div class="bankName">{{defaultBank.bank_name}}</div>
+          <div class="bankCardCode">{{defaultBank.card_no}}</div>
+          <div class="username">{{defaultBank.card_user}}</div>
         </div>
         <div class="select-more">
           <div class="more-icon"></div>
         </div>
       </div>
+      <div class="unBankCard" v-else>
+        暂无绑定银行卡, 去<span class="toBind" @click="toComponent('bindCard')">绑定</span>
+      </div>
       <div class="withdraw-money">
         <div class="balance">
           <div class="text">可提现余额：￥</div>
-          <div class="number">8514.23</div>
-          <div class="all-btn">全部</div>
+          <div class="number">{{balance}}</div>
+          <div class="all-btn" @click="selectAllBalance">全部</div>
         </div>
         <div class="input-box" @touchstart.stop="focus">
           <div class="text">￥</div>
@@ -38,10 +43,11 @@
         </div>
         <div class="input-pas">
           <div class="label">资金密码</div>
-          <input type="password" class="fun-password" placeholder="请输入密码">
+          <input type="password" v-model="funds_password" class="fun-password" placeholder="请输入密码">
         </div>
       </div>
-      <div class="default-btn">提现</div>
+      <div class="default-btn" :class="{active:val.length>0 && funds_password.length>0}" @click="withdrawBalance">提现
+      </div>
       <div class="prompt-box">
         <div class="title">温馨提示：</div>
         <p>1.提现需达投注量：9210.00;</p>
@@ -51,10 +57,13 @@
       </div>
       <keyboard :show="keyboard" @typing="typing" @complete="blur"></keyboard>
     </div>
+    <div class="mask" v-show="isShowMask" @click="hideMask"></div>
+    <div class="mask-text" v-show="isShowMask" @click="hideMask"><span>{{msg}}</span></div>
   </div>
 </template>
 
 <script>
+  import {getLocalStorage, removeLocalStorage} from "../../../static/js/util";
   import keyboard from './keyboard'
 
   export default {
@@ -65,7 +74,9 @@
     created() {
       document.addEventListener('touchstart', () => {
         this.blur();
-      })
+      });
+      this.getBankCard();
+      this.getBalance();
     },
     data() {
       return {
@@ -76,6 +87,15 @@
         cursorDuration: 600,
         inter: 8,
         decimal: 2,
+        user_id: getLocalStorage('user_id'),
+        username: getLocalStorage('username'),
+        session: getLocalStorage('session'),
+        defaultBank: '',
+        uid: '',
+        balance: '',
+        funds_password: '',
+        isShowMask: false,
+        msg: '',
       }
     },
     methods: {
@@ -83,7 +103,6 @@
         this.$root.Bus.$emit('toggleComponent', component)
       },
       focus() {
-        console.log("focus")
         /*显示键盘*/
         this.showKeyboard();
         /*显示光标*/
@@ -177,6 +196,11 @@
           this.val = oldValue;
           return;
         }
+        /*提现金额不能大于余额*/
+        if (parseFloat(this.val) > this.balance) {
+          this.val = oldValue;
+          return;
+        }
         /*为了让外界同步输入，需要发送事件*/
         this.notify();
       },
@@ -215,6 +239,84 @@
         }
         return true;
       },
+
+      getBankCard() {
+        var selectedBankCard = getLocalStorage('selectedBankCard');
+        if (selectedBankCard == undefined || selectedBankCard == '') {
+          this.$http
+            .post(`${this.$api}/v1/bank/r/find_user_bank_list/${this.user_id}/${this.username}?session=${this.session}`)
+            .then(res => {
+              var resData = res.data;
+              if (resData.success == true) {
+                for (var i = 0; i < resData.data.length; i++) {
+                  if (resData.data[i].is_default == 1) {
+                    this.defaultBank = resData.data[i];
+                    this.uid = resData.data[i].uid;
+                    // console.log('默认', this.defaultBank);
+                  }
+                }
+              }
+            })
+        } else {
+          var bankData = JSON.parse(selectedBankCard);
+          this.defaultBank = bankData;
+          this.uid = bankData.uid;
+        }
+      },
+
+      getBalance: function () {
+        this.$http
+          .post(`${this.$api}/v1/wallet/r/get_user_balance/${this.user_id}/${this.username}?session=${this.session}`)
+          .then(res => {
+            var resData = res.data;
+            if (resData.success == true) {
+              this.balance = resData.data.balance;
+            } else {
+              this.isShowMask = false;
+              this.msg = resData.msg;
+            }
+          })
+      },
+
+      selectAllBalance() {
+        this.val = this.balance;
+      },
+
+      withdrawBalance() {
+        var params = new URLSearchParams();
+        params.append('funds_password', this.funds_password);
+        params.append('money', this.val);
+        params.append('uid', this.uid);
+
+        this.$http
+          .post(`${this.$api}/v1/draw/w/create_draw_order/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .then(res => {
+            var resData = res.data;
+            // console.log('提现', resData);
+            if (resData.success == true) {
+              this.isShowMask = true;
+              this.msg = resData.msg;
+              var that = this;
+              setTimeout(function () {
+                that.$root.Bus.$emit('toggleComponent', 'my')
+              }, 1500)
+            } else {
+              this.isShowMask = true;
+              this.msg = resData.msg;
+            }
+          }).catch(err => {
+          this.isShowMask = true;
+          this.msg = err.data.msg;
+        })
+      },
+
+      hideMask() {
+        this.isShowMask = false;
+        this.msg = '';
+      }
+    },
+    destroyed() {
+      removeLocalStorage('selectedBankCard')
     }
   }
 </script>

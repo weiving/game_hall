@@ -135,7 +135,6 @@
             .post(`${this.$api}/v1/userdata/w/bind_phone/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
-              console.log('手机', resData);
               if (resData.success == true) {
                 this.isShow_msg = true;
                 this.msg = resData.msg;

@@ -121,13 +121,14 @@
         swiperOption: {
           direction: 'vertical',
           slidesPerView: 2,
+          // slidesPerGroup:2,
           spaceBetween: 0,
           mousewheel: true,
-          loop: true,
           autoplay: {
             delay: 2500,
             disableOnInteraction: false
-          }
+          },
+          // loop: true,
         },
         click_times: 0,
         h_val: 240,
@@ -387,7 +388,7 @@
               background: #278CF5;
               position: absolute;
               top: 0px;
-              left: -15px;
+              left: -16px;
             }
           }
           .item-time {

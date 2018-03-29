@@ -32,12 +32,15 @@
 </template>
 
 <script>
-  import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
+  import {setLocalStorage, getLocalStorage, removeLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "msg-Type-List",
     data() {
       return {
+        session: getLocalStorage('session'),
+        user_id: getLocalStorage('user_id'),
+        user_name: getLocalStorage('user_name'),
         noticeTitle: '',
         msgList: '',
       }
@@ -49,8 +52,6 @@
       getMsgList() {
         this.noticeTitle = getLocalStorage('noticeTitle');
 
-        var user_id = getLocalStorage('user_id');
-        var user_name = getLocalStorage('user_name');
         var noticeType = getLocalStorage('noticeType');
 
         var params = new URLSearchParams();
@@ -67,9 +68,9 @@
         //首页公告-无需登陆
           .post(`${this.$api}/v1/notice/r/get_index_notice/1/1`)
           .then(res => {
-            console.log('公告列表', res.data);
+            // console.log('公告列表', res.data);
             if (res.data.success == true) {
-              console.log('msgList', res.data.data)
+              // console.log('msgList', res.data.data)
               this.msgList = res.data.data;
             }
           })
@@ -81,6 +82,10 @@
         setLocalStorage('notice_id', notice_id);
         this.$root.Bus.$emit('toggleComponent', 'msgTypeDetail')
       }
+    },
+    destroyed() {
+      removeLocalStorage('noticeTitle');
+      removeLocalStorage('noticeType')
     }
   }
 </script>

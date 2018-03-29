@@ -65,6 +65,9 @@
     },
     data() {
       return {
+        user_id: getLocalStorage('user_id'),
+        username: getLocalStorage('username'),
+        session: getLocalStorage('session'),
         cursor: false,
         keyboard: false,
         val: '',
@@ -75,6 +78,7 @@
         inter: 8,
         decimal: 2,
 
+        orderInfo: {},
         payMin: '',
         payMax: '',
         payer: '',
@@ -84,9 +88,10 @@
     },
     methods: {
       getOrdinaryePayInfo() {
-        this.payUrl = getLocalStorage('pay_url');
-        this.payMin = getLocalStorage('pay_min');
-        this.payMax = getLocalStorage('pay_max');
+        this.orderInfo = JSON.parse(getLocalStorage('orderInfo'));
+        this.payUrl = this.orderInfo.pay_url;
+        this.payMin = this.orderInfo.pay_min;
+        this.payMax = this.orderInfo.pay_max;
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
@@ -227,40 +232,35 @@
       /*提交并前往充值*/
       toOrdinaryOrder() {
         if (this.val != '' && this.payer.trim().length > 0) {
-          var user_id = getLocalStorage('user_id');
-          var username = getLocalStorage('username');
-          var session = getLocalStorage('session');
 
-          var payInfo = JSON.parse(getLocalStorage('payInfo'));
-          var pay_account_id = payInfo.account_id;
-          // var pay_alias = payInfo.pay_alias;
+          var pay_account_id = this.orderInfo.account_id;
+          var pay_alias = this.orderInfo.pay_alias;
           var params = new URLSearchParams();
           params.append('money', this.val);
           params.append('pay_account_id', pay_account_id);
-          // params.append('deposit_bank', pay_alias);
-          // params.append('deposit_user', this.payer);
+          params.append('deposit_bank', pay_alias);
+          params.append('deposit_user', this.payer);
 
           this.$http
-            .post(`${this.$api}/v1/pay/w/create_pay_order/${user_id}/${username}?session=${session}`, params)
+            .post(`${this.$api}/v1/pay/w/create_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
-              console.log(resData);
+              // console.log('提交订单', resData);
               if (resData.success == true) {
-                var order = {
-                  rechargeNumber: '',
-                  rechargeAmount: '',
-                  payer: '',
-                  createdTime: ''
-                };
-                setLocalStorage('order', JSON.stringify(order));
+                this.orderInfo.order_no = resData.data.order_no;
+                // this.orderInfo.money = resData.data.money;
+                // this.orderInfo.payer = resData.data.payer;
+                // this.orderInfo.created_at = resData.data.created_at;
+                this.orderInfo.money = this.val;
+                this.orderInfo.deposit_user = this.payer;
+                this.orderInfo.created_at = (new Date()).toLocaleString();
+                setLocalStorage('orderInfo', JSON.stringify(this.orderInfo));
                 this.$root.Bus.$emit('toggleComponent', 'ordinaryOrder');
-
               } else {
                 this.isShowMask = true;
                 this.msg = resData.msg;
               }
             });
-          // this.$root.Bus.$emit('toggleComponent', 'ordinaryOrder');
         }
       },
 

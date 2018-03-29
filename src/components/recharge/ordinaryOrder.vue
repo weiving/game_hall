@@ -10,6 +10,7 @@
     <div class="page-content">
       <div class="payee-item">
         <div class="bank-logo">
+          <img :src="'/static/img/bank/bank-'+pay_id+'.png'" alt="logo">
         </div>
         <div class="payee-info">
           <div class="row">
@@ -17,15 +18,15 @@
           </div>
           <div class="row">
             <div class="label">银行卡号：</div>
-            <div class="bankCard">{{account}}</div>
+            <div class="bankCard">{{pay_account}}</div>
           </div>
           <div class="row">
             <div class="label">收款人：</div>
-            <div class="payee">{{account_user}}</div>
+            <div class="payee">{{pay_account_user}}</div>
           </div>
           <div class="row">
             <div class="label">开户网点：</div>
-            <div class="openAddress">{{address}}</div>
+            <div class="openAddress">{{pay_account_addr}}</div>
           </div>
           <div class="row">
             <div class="label">充值码：</div>
@@ -57,43 +58,50 @@
       <div class="order-content">
         <div class="order-item">
           <div class="label-name">充值单号：</div>
-          <div class="order-val">212345648945632</div>
+          <div class="order-val">{{order_no}}</div>
         </div>
         <div class="order-item">
           <div class="label-name">充值金额：</div>
-          <div class="order-val text-red">20.99元</div>
+          <div class="order-val text-red">{{money}}元</div>
         </div>
         <div class="order-item">
           <div class="label-name">付款人：</div>
-          <div class="order-val">陈二狗</div>
+          <div class="order-val">{{deposit_user}}</div>
         </div>
         <div class="order-item">
           <div class="label-name">申请时间：</div>
-          <div class="order-val">2018-03-16 18:10:22</div>
+          <div class="order-val">{{created_at}}</div>
         </div>
       </div>
-      <div class="default-btn active">完成</div>
-      <div class="default-btn">撤销</div>
+      <div class="default-btn active" @click="finishedOrder">完成</div>
+      <div class="default-btn" @click="cancelOrder">撤销</div>
     </div>
+    <div class="mask" v-show="isShowMask" @click="hideMask"></div>
+    <div class="mask-text" v-show="isShowMask" @click="hideMask"><span>{{msg}}</span></div>
   </div>
 </template>
 
 <script>
-  import {getLocalStorage} from "../../../static/js/util";
+  import {getLocalStorage, removeLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "ordinary-order",
     data() {
       return {
+        session: getLocalStorage('session'),
+        user_id: getLocalStorage('user_id'),
+        username: getLocalStorage('username'),
+        pay_id: '',
         pay_alias: '',
-        account: '',
-        account_user: '',
-        address: '',
-        rechargeNumber: '',
-        rechargeAmount: '',
-        payer: '',
-        createdTime: '',
-
+        pay_account: '',
+        pay_account_user: '',
+        pay_account_addr: '',
+        order_no: '',
+        money: '',
+        deposit_user: '',
+        created_at: '',
+        isShowMask: false,
+        msg: '',
       }
     },
     created() {
@@ -101,22 +109,53 @@
     },
     methods: {
       getPayInfo() {
-        var payInfo = JSON.parse(getLocalStorage('payInfo'));
-        this.pay_alias = payInfo.pay_alias;
-        this.account = payInfo.account;
-        this.account_user = payInfo.account_user;
-        this.address = payInfo.address;
-
-        // var order = JSON.parse(getLocalStorage('order'));
-        // console.log('order', order);
-        // this.rechargeNumber = order.rechargeNumber;
-        // this.rechargeAmount = order.rechargeAmount;
-        // this.payer = order.payer;
-        // this.createdTime = order.createdTime;
+        var unPayOrder = JSON.parse(getLocalStorage('orderInfo'));
+        this.pay_id = unPayOrder.pay_id;
+        this.pay_alias = unPayOrder.pay_alias;
+        this.pay_account = unPayOrder.pay_account;
+        this.pay_account_user = unPayOrder.pay_account_user;
+        this.pay_account_addr = unPayOrder.pay_account_addr;
+        this.order_no = unPayOrder.order_no;
+        this.money = unPayOrder.money;
+        this.deposit_user = unPayOrder.deposit_user;
+        this.created_at = unPayOrder.created_at;
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
+      },
+      cancelOrder() {
+        var params = new URLSearchParams();
+        params.append('order_no', this.order_no);
+        var that = this;
+        this.$http
+          .post(`${this.$api}/v1/pay/w/revoke_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .then(res => {
+            var resData = res.data;
+            console.log('撤销', resData);
+            if (resData.success == true) {
+              this.isShowMask = true;
+              this.msg = '您成功撤销一笔支付订单';
+              setTimeout(function () {
+                that.$root.Bus.$emit('toggleComponent', 'recharge');
+                that.isShowMask = false;
+                that.msg = '';
+              }, 1000);
+            } else {
+              this.isShowMask = true;
+              this.msg = resData.msg;
+            }
+          })
+      },
+      finishedOrder() {
+
+      },
+      hideMask() {
+        this.isShowMask = false;
+        this.msg = '';
       }
+    },
+    destroyed() {
+      removeLocalStorage('orderInfo');
     }
   }
 </script>

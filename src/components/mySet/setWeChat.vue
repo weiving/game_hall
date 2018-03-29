@@ -31,6 +31,9 @@
     },
     data() {
       return {
+        session: getLocalStorage("session"),
+        user_id: getLocalStorage("user_id"),
+        username: getLocalStorage("username"),
         WeChat: '',
         msg: '',
         isShow_msg: false,
@@ -38,19 +41,16 @@
     },
     methods: {
       getUserInfo: function () {
-        var session = getLocalStorage("session");
-        var user_id = getLocalStorage("user_id");
-        var username = getLocalStorage("username");
-        if (session == '' || session == undefined) {
+        if (this.session == '' || this.session == undefined) {
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
+            .post(`${this.$api}/v1/userdata/r/user_info/${this.user_id}/${this.username}?session=${this.session}`)
             .then(res => {
-              var resData=res.data;
+              var resData = res.data;
               if (resData.success == true) {
-                if (resData.data.WeChat != undefined && resData.data.WeChat != '') {
-                  this.WeChat = resData.data.WeChat;
+                if (resData.data.weixin != undefined && resData.data.weixin != '') {
+                  this.WeChat = resData.data.weixin;
                 }
               } else {
                 this.$router.push({path: '/login'})
@@ -70,26 +70,22 @@
         } else {
           var params = new URLSearchParams();
           params.append('weixin', this.WeChat);
-
-          var _this = this;
-          var session = getLocalStorage("session");
-          var user_id = getLocalStorage("user_id");
-          var username = getLocalStorage("username");
-          // this.$http
-          //   .post(`${this.$api}/v1/userdata/w/bind_weChat/${user_id}/${username}?session=${session}`, params)
-          //   .then(res => {
-          //     var resData=res.data;
-          //     if (resData.success == true) {
-          //       this.isShow_msg = true;
-          //       this.msg = resData.msg;
-          //       setTimeout(function () {
-          //         _this.$root.Bus.$emit('toggleComponent', 'mySet')
-          //       }, 500)
-          //     } else {
-          //       this.isShow_msg = true;
-          //       this.msg = resData.msg;
-          //     }
-          //   })
+          var that = this;
+          this.$http
+            .post(`${this.$api}/v1/userdata/w/bind_weixin/${this.user_id}/${this.username}?session=${this.session}`, params)
+            .then(res => {
+              var resData = res.data;
+              if (resData.success == true) {
+                this.isShow_msg = true;
+                this.msg = resData.msg;
+                setTimeout(function () {
+                  that.$root.Bus.$emit('toggleComponent', 'mySet')
+                }, 500)
+              } else {
+                this.isShow_msg = true;
+                this.msg = resData.msg;
+              }
+            })
         }
 
 
