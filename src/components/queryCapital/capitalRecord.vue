@@ -70,7 +70,7 @@
                   <div class="col-name">审核状态</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(1,defaultType)">
+                  <div class="text-detail" @click="enter_detail(item.order_no,defaultType)">
                     <i class="more-detail"></i>
                   </div>
                 </div>
@@ -280,11 +280,11 @@
       //从pageu组件传递过来的当前page
       pageChange(page) {
         this.currentPage = page;
-        if (this.capitalType == "withdrawal") {
+        if (this.defaultType == "withdrawal") {
           this.getDrawOrderList();
-        } else if (this.capitalType == "transfer") {
+        } else if (this.defaultType == "transfer") {
 
-        } else if (this.capitalType == "inOrOut") {
+        } else if (this.defaultType == "inOrOut") {
 
         } else {
           this.getPayOrderList();

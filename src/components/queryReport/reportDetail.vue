@@ -96,7 +96,7 @@
 </template>
 
 <script>
-  import {getLocalStorage} from "../../../static/js/util";
+  import {getLocalStorage,removeLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "report-detail",
@@ -133,6 +133,10 @@
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
+    },
+    destroyed(){
+      removeLocalStorage('reportDetailId')
+      removeLocalStorage('reportType')
     }
   }
 </script>

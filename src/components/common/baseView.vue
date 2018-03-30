@@ -29,6 +29,7 @@
 
   import my from '@/components/my/my'
   import reportRecord from '@/components/queryReport/reportRecord'
+  import reportUserGame from '@/components/queryReport/reportUserGame'
   import reportDetail from '@/components/queryReport/reportDetail'
   import record from '@/components/queryRecord/record'
   import recordDetail from '@/components/queryRecord/recordDetail'
@@ -111,6 +112,7 @@
 
       my,
       reportRecord,
+      reportUserGame,
       reportDetail,
       record,
       recordDetail,

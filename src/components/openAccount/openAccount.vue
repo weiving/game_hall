@@ -247,6 +247,10 @@
     },
     data() {
       return {
+        session: getLocalStorage('session'),
+        user_id: getLocalStorage('user_id'),
+        username: getLocalStorage('username'),
+
         openAccountCenter: ['添加下级', '链接开户', '链接管理'],
         openAccountType: ['addLower', 'linkOpen', 'linkManage'],
         defaultType: 'addLower',
@@ -410,10 +414,6 @@
           return
         } else {
 
-          var session = getLocalStorage('session');
-          var user_id = getLocalStorage('user_id');
-          var username = getLocalStorage('username');
-
           var rebates = JSON.stringify(this.rebates);
           console.log("rebates", rebates);
           var params = new URLSearchParams();
@@ -422,17 +422,18 @@
           params.append('user_type', this.user_type);
           params.append('rebates', rebates);
 
+          var that = this;
           this.$http
-            .post(`${this.$api}/v1/user/w/add/${user_id}/${username}?session=${session}`, params)
+            .post(`${this.$api}/v1/user/w/add/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
-              console.log("添加下级", resData);
               if (resData.success == true) {
                 this.isShowMask = true;
                 this.msg = resData.msg;
                 setTimeout(function () {
-                  this.isShowMask = false;
-                  this.msg = '';
+                  that.isShowMask = false;
+                  that.msg = '';
+                  that.$root.Bus.$emit('toggleComponent', 'my');
                 }, 1000)
               } else {
                 this.isShowMask = true;
@@ -460,24 +461,16 @@
           this.msg = "请选择游戏";
           return
         } else {
-          var session = getLocalStorage('session');
-          var user_id = getLocalStorage('user_id');
-          var username = getLocalStorage('username');
-
-
           var obj = {
-            id: parseInt(user_id),
+            id: parseInt(this.user_id),
             sub_user_type: this.user_type,
             effective_times: parseInt(this.effective_times),
             rebates: this.rebates
           };
           var params = new URLSearchParams();
           params.append('args', JSON.stringify(obj));
-
-          console.log('args', JSON.stringify(obj));
-
           this.$http
-            .post(`${this.$api}/v1/user/w/gen_spread_code/${user_id}/${username}?session=${session}`, params)
+            .post(`${this.$api}/v1/user/w/gen_spread_code/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
               console.log("推广码", resData);
@@ -498,11 +491,6 @@
 
       /*获取管理列表*/
       getLinkManageList() {
-
-        var session = getLocalStorage('session');
-        var user_id = getLocalStorage('user_id');
-        var username = getLocalStorage('username');
-
         var params = new URLSearchParams();
         var obj = {
           page_size: this.pageSize,
@@ -511,7 +499,7 @@
         params.append('args', JSON.stringify(obj));
 
         this.$http
-          .post(`${this.$api}/v1/user/r/get_spread_code_list/${user_id}/${username}?session=${session}`, params)
+          .post(`${this.$api}/v1/user/r/get_spread_code_list/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             console.log('链接数据', resData);
@@ -525,15 +513,17 @@
               var currentUrl = window.location.href;
               var list = resData.data.list;
               var data = [];
-              for (var i = 0; i < list.length; i++) {
-                var item = {
-                  highVal: 7.0,
-                  lowVal: 5.0,
-                  usedVal: list[i].used_up_times,
-                  effectiveVal: list[i].effective_times,
-                  linkUrl: currentUrl + "?code=" + list[i].spread_code
+              if (list != null) {
+                for (var i = 0; i < list.length; i++) {
+                  var item = {
+                    highVal: 7.0,
+                    lowVal: 5.0,
+                    usedVal: list[i].used_up_times,
+                    effectiveVal: list[i].effective_times,
+                    linkUrl: currentUrl + "?code=" + list[i].spread_code
+                  }
+                  data.push(item);
                 }
-                data.push(item);
               }
               this.linkManageList = data;
             }
