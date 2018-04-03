@@ -69,6 +69,7 @@
   import setName from '@/components/mySet/setName'
   import updateFundsPwd from '@/components/mySet/updateFundsPwd'
 
+  import gameActivity from '@/components/activity/gameActivity'
   import ranking from '@/components/ranking/ranking'
   import gameFrame from '@/components/common/gameFrame'
 
@@ -150,6 +151,7 @@
       setName,
       updateFundsPwd,
 
+      gameActivity,
       ranking,
       gameFrame,
     }

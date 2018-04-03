@@ -99,6 +99,7 @@
           <div class="next" @click="toComponent('updatePwd')">
             <img src="/static/img/wind01.png" alt="">
           </div>
+          <div class="row-line"></div>
         </div>
         <div class="row">
           <img src="/static/img/modify.png" class="head01-icon" alt="修改资金密码">

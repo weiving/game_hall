@@ -1,7 +1,7 @@
 <template>
   <div id="navbar">
     <div class="navbar-wrap">
-      <div class="game-item">
+      <div class="game-item" @click="toComponent('gameActivity')">
         <i class="icon game-icon"></i>
         <span class="nav-title">游戏活动</span>
       </div>

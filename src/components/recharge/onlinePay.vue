@@ -50,7 +50,7 @@
 </template>
 
 <script>
-  import {getLocalStorage} from "../../../static/js/util";
+  import {getLocalStorage,removeLocalStorage} from "../../../static/js/util";
   import keyboard from './keyboard';
 
   export default {
@@ -74,9 +74,9 @@
         inter: 8,
         decimal: 2,
         toPayPage: true,
-        payUrl: 'http://www.baidu.com',
-        payMin: '11',
-        payMax: '100',
+        payUrl: '',
+        payMin: '0.00',
+        payMax: '0.00',
       }
     },
     methods: {
@@ -234,6 +234,11 @@
         this.toPayPage = true;
       }
 
+    },
+    destroyed(){
+      removeLocalStorage('pay_url');
+      removeLocalStorage('pay_min');
+      removeLocalStorage('pay_max');
     }
   }
 </script>

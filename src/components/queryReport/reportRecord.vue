@@ -18,7 +18,7 @@
           <div class="record-list">
             <div class="row" v-for="(item,index) in gameReportList">
               <div class="row-title">用户账号 <span class="number">{{item.user_name}}</span></div>
-              <div class="row-content">
+              <div class="row-content" @click="enter_detail(item.user_id,defaultType)">
                 <div class="col-xs-4 text-left">
                   <div class="col-data text-orange">{{parseFloat(item.bet).toFixed(2)}}</div>
                   <div class="col-name">总下注额</div>
@@ -32,7 +32,7 @@
                   <div class="col-name">实际盈亏</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(item.user_id,defaultType)">
+                  <div class="text-detail">
                     <i class="more-detail"></i>
                   </div>
                 </div>
@@ -56,7 +56,7 @@
           <div class="record-list">
             <div class="row" v-for="(item,index) in personalReportList">
               <div class="row-title">用户账号 <span class="number">{{item.user_name}}</span></div>
-              <div class="row-content">
+              <div class="row-content" @click="enter_detail(item.user_id,defaultType)">
                 <div class="col-xs-4 text-left">
                   <div class="col-data text-orange">{{parseFloat(item.bet).toFixed(2)}}</div>
                   <div class="col-name">总下注额</div>
@@ -70,7 +70,7 @@
                   <div class="col-name">实际盈亏</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(item.user_id,defaultType)">
+                  <div class="text-detail">
                     <i class="more-detail"></i>
                   </div>
                 </div>
@@ -137,6 +137,9 @@
     name: "report-record",
     data() {
       return {
+        // reportName: ["游戏报表", "个人报表", "平台报表"],
+        // reportType: ['gameReport', 'personalReport', 'platformReport'],
+
         reportName: ["游戏报表", "个人报表"],
         reportType: ['gameReport', 'personalReport'],
         defaultType: 'gameReport',
@@ -152,9 +155,10 @@
         username: getLocalStorage('username'),
         gameReportList: [],
         personalReportList: [],
+        platformReportList: [],
 
         currentPage: 1,
-        pages: 1,
+        pages: 0,
         pageSize: 5,
         total: 0,
 
@@ -180,7 +184,7 @@
       toggleType(type) {
         this.defaultType = type;
         this.currentPage = 1;
-        this.pages = 1;
+        this.pages = 0;
         this.pageSize = 5;
         this.total = 0;
         this.isFilter = false;
@@ -283,6 +287,36 @@
             }
           })
       },
+
+      // getPlatformReportList() {
+      //   var minDay = this.getTime('').minDay;
+      //   var maxDay = this.getTime('').maxDay;
+      //
+      //   var params = new URLSearchParams();
+      //   var obj = {
+      //     start_time: minDay,
+      //     end_time: maxDay,
+      //     page_index: this.currentPage,
+      //     page_size: this.pageSize,
+      //     operator_id: this.user_id
+      //   }
+      //   params.append('args', JSON.stringify(obj));
+      //   this.$http
+      //     .post(`${this.$api}/v1/report/r/platform/${this.user_id}/${this.username}?session=${this.session}`, params)
+      //     .then(res => {
+      //       var resData = res.data;
+      //       console.log('平台', resData);
+      //       if (resData.success == true) {
+      //         this.platformReportList = resData.data.list;
+      //         this.currentPage = parseInt(resData.data.page_index);
+      //         this.pages = parseInt(resData.data.pages);
+      //         this.pageSize = parseInt(resData.data.page_size);
+      //         this.total = parseInt(resData.data.total);
+      //       } else {
+      //
+      //       }
+      //     })
+      // },
 
       //选择报表类型
       selectReportType(type) {

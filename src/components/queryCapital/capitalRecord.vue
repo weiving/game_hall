@@ -18,7 +18,7 @@
           <div class="record-list">
             <div class="row" v-for="(item,index) in payOrderList">
               <div class="row-title">申请时间 <span class="number">{{item.created_at}}</span></div>
-              <div class="row-content">
+              <div class="row-content" @click="enter_detail(item.order_no,defaultType)">
                 <div class="col-xs-4 text-left">
                   <div class="col-data text-orange">{{item.money}}</div>
                   <div class="col-name">活动金额</div>
@@ -32,7 +32,7 @@
                   <div class="col-name">订单状态</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(item.order_no,defaultType)">
+                  <div class="text-detail">
                     <i class="more-detail"></i>
                   </div>
                 </div>
@@ -56,7 +56,7 @@
           <div class="record-list">
             <div class="row" v-for="(item,index) in drawOrderList">
               <div class="row-title">申请时间<span class="number">{{item.created_at}}</span></div>
-              <div class="row-content">
+              <div class="row-content" @click="enter_detail(item.order_no,defaultType)">
                 <div class="col-xs-4 text-left">
                   <div class="col-data text-orange">{{item.money}}</div>
                   <div class="col-name">活动金额</div>
@@ -70,7 +70,7 @@
                   <div class="col-name">审核状态</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(item.order_no,defaultType)">
+                  <div class="text-detail">
                     <i class="more-detail"></i>
                   </div>
                 </div>
@@ -94,7 +94,7 @@
           <div class="record-list">
             <div class="row" v-for="(item,index) in transferOrderList">
               <div class="row-title">申请时间<span class="number">{{item.created_at}}</span></div>
-              <div class="row-content">
+              <div class="row-content" @click="enter_detail(1,defaultType)">
                 <div class="col-xs-4 text-left">
                   <div class="col-data text-orange">{{item.money}}</div>
                   <div class="col-name">活动金额</div>
@@ -108,7 +108,7 @@
                   <div class="col-name">审核状态</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(1,defaultType)">
+                  <div class="text-detail">
                     <i class="more-detail"></i>
                   </div>
                 </div>
@@ -132,7 +132,7 @@
           <div class="record-list">
             <div class="row" v-for="(item,index) in inOrOutOrderList">
               <div class="row-title">申请时间<span class="number">{{item.created_at}}</span></div>
-              <div class="row-content">
+              <div class="row-content" @click="enter_detail(1,defaultType)">
                 <div class="col-xs-4 text-left">
                   <div class="col-data text-orange">{{item.money}}</div>
                   <div class="col-name">活动金额</div>
@@ -146,7 +146,7 @@
                   <div class="col-name">审核状态</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(1,defaultType)">
+                  <div class="text-detail" >
                     <i class="more-detail"></i>
                   </div>
                 </div>

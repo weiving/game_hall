@@ -12,7 +12,7 @@
           <div class="record-list">
             <div class="row" v-for="(item,index) in userGameList">
               <div class="row-title">用户账号 <span class="number">{{item.user_name}}</span></div>
-              <div class="row-content">
+              <div class="row-content" @click="enter_detail(item.user_id,'gameReport')">
                 <div class="col-xs-4 text-left">
                   <div class="col-data text-orange">{{parseFloat(item.bet).toFixed(2)}}</div>
                   <div class="col-name">总下注额</div>
@@ -26,7 +26,7 @@
                   <div class="col-name">实际盈亏</div>
                 </div>
                 <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(item.user_id,'gameReport')">
+                  <div class="text-detail">
                     <i class="more-detail"></i>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
         userGameList: [],
 
         currentPage: 1,
-        pages: 1,
+        pages: 0,
         pageSize: 5,
         total: 0,
       }
@@ -76,7 +76,7 @@
     },
     methods: {
       getUserGameList() {
-        var userGameId = getLocalStorage('userGameId');
+        var userGameId = parseInt(getLocalStorage('userGameId'));
         var params = new URLSearchParams();
         var obj = {
           user_id: userGameId,
@@ -89,6 +89,7 @@
           .post(`${this.$api}/v1/report/r/game_daily/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
+            // console.log('游戏单个', resData);
             if (resData.success == true) {
               this.userGameList = resData.data.list;
               this.currentPage = parseInt(resData.data.page_index);

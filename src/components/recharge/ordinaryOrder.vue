@@ -1,7 +1,7 @@
 <template>
   <div id="ordinaryOrder" class="page-wrap">
     <div class="page-head">
-      <div class="toReturn" @click="toComponent('ordinaryPay')">
+      <div class="toReturn" @click="toComponent('recharge')">
         <img src="/static/img/left.png" alt="">
       </div>
       <div class="title">充值订单</div>
