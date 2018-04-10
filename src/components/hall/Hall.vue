@@ -102,7 +102,7 @@
             .post(`${this.$api}/v1/notice/r/get_login_index_notice/${user_id}/${user_name}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
-              console.log('弹窗', resData);
+              // console.log('弹窗', resData);
               if (resData.success == true) {
                 this.popUpList = resData.data;
                 if (this.popUpList.length > 0) {

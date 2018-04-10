@@ -40,14 +40,16 @@
 
 <script>
   import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
-  import Socket from '../../socket'
+  import Socket from '../../../static/js/socket'
   import pagination from '../common/pagination'
 
   export default {
     name: "msg-My",
     data() {
       return {
-        user_id: "",
+        user_id: getLocalStorage('user_id'),
+        user_name: getLocalStorage('user_name'),
+        session: getLocalStorage('session'),
         messages: [],
 
         currentPage: 1,//当前页码,
@@ -61,7 +63,6 @@
     },
     methods: {
       lookDetail(id) {
-        // this.sendMessage('{"cmd":"read","msg_id":"' + id + '"}');
         Socket.send('{"cmd":"read","msg_id":"' + id + '"}');
         var _this = this;
         setTimeout(function () {
@@ -72,17 +73,32 @@
         this.$root.Bus.$emit('toggleComponent', component)
       },
       initMsg() {
-        Socket.send('{"cmd":"page","page_index":' + this.currentPage + ',"page_size":' + this.pageSize + '}');
-        Socket.$on("message", this.handleMessage);
+        if (this.session == '' || this.session == undefined) {
+          this.$router.push({path: '/login'})
+        } else {
+          this.$http
+            .post(`${this.$api}/v1/userdata/r/user_info/${this.user_id}/${this.username}?session=${this.session}`)
+            .then(res => {
+              var resData = res.data;
+              if (resData.success == true) {
+                Socket.send('{"cmd":"page","page_index":' + this.currentPage + ',"page_size":' + this.pageSize + '}');
+                Socket.$on("message", this.handleMessage);
+              } else {
+                this.$router.push({path: '/login'})
+              }
+            })
+            .catch(err => {
+              this.$router.push({path: '/login'})
+            })
+        }
       },
       handleMessage(msg) {
         var msgSerialize = JSON.parse(msg);
-        console.log('msgSerialize', msgSerialize);
+        // console.log('msgSerialize', msgSerialize);
         if (msgSerialize.list == undefined || msgSerialize == '') {
           if (msgSerialize.cmd === 'read') {
             setLocalStorage("myMsgDetail", JSON.stringify(msgSerialize));
           } else {
-            console.log('1122', 118);
             var time = msgSerialize.created_at;
             msgSerialize.created_at = time.substr(0, 4) + '-' + time.substr(4, 2) + '-' + time.substr(6, 2) + ' ' +
               time.substr(8, 2) + ':' + time.substr(10, 2) + ':' + time.substr(12, 2);

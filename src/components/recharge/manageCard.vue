@@ -90,15 +90,10 @@
     },
     methods: {
       getBankCardList() {
-        var user_id = getLocalStorage('user_id');
-        var username = getLocalStorage('username');
-        var session = getLocalStorage('session');
-
         this.$http
-          .post(`${this.$api}/v1/bank/r/find_user_bank_list/${user_id}/${username}?session=${session}`)
+          .post(`${this.$api}/v1/bank/r/find_user_bank_list/${this.user_id}/${this.username}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
-            console.log('用户银行卡列表', resData);
             if (resData.success == true) {
               this.bankCardList = resData.data;
             }
@@ -177,7 +172,6 @@
           .then(res => {
             var resData = res.data;
             this.isShowFundsPwd = false;
-            console.log('res', resData);
             if (resData.success == true) {
               this.isShowMask = true;
               this.msg = resData.msg;
@@ -185,6 +179,7 @@
               setTimeout(function () {
                 that.isShowMask = false;
                 that.msg = '';
+                that.getBankCardList();
               }, 1000)
             } else {
               this.isShowMask = true;

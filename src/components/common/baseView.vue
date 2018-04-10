@@ -72,6 +72,8 @@
   import gameActivity from '@/components/activity/gameActivity'
   import ranking from '@/components/ranking/ranking'
   import gameFrame from '@/components/common/gameFrame'
+  import teamStatistics from '@/components/teamStatistics/teamStatistics'
+  import gameStatistics from '@/components/teamStatistics/gameStatistics'
 
   export default {
     name: "base-view",
@@ -154,6 +156,8 @@
       gameActivity,
       ranking,
       gameFrame,
+      teamStatistics,
+      gameStatistics,
     }
   }
 </script>

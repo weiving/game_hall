@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {getLocalStorage} from "../../../static/js/util";
+  import {getLocalStorage, removeLocalStorage} from "../../../static/js/util";
 
   export default {
     name: "msg-My-Detail",
@@ -44,7 +44,9 @@
         this.body = info.body;
       }
     },
-
+    destroyed() {
+      removeLocalStorage('myMsgDetail')
+    }
   }
 </script>
 

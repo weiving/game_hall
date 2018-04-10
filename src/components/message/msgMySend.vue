@@ -41,7 +41,7 @@
 
 <script>
   import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
-  import Socket from "../../socket";
+  import Socket from "../../../static/js/socket";
 
   export default {
     name: "msg-send",
@@ -60,7 +60,6 @@
     },
     created() {
       this.defaultTypeFn();
-      Socket.$on("message", this.getMessage)
     },
     methods: {
       toComponent(component) {
@@ -91,6 +90,7 @@
             sendMsg = '{"cmd":"send","channels":["children"],"title":"' + this.title + '","body":"' + this.content + '"}';
           }
           Socket.send(sendMsg);
+          Socket.$on("message", this.getMessage)
         }
       },
 

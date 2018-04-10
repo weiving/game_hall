@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "echarts": "^4.0.4",
+    "v-charts": "^1.16.8",
     "vue": "^2.5.2",
     "vue-awesome-swiper": "^3.0.6",
     "vue-axios": "^2.0.2",

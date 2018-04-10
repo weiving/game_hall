@@ -42,7 +42,7 @@
       },
       getActiveList() {
         this.$http
-          .post(`${this.$api}/v1/activity/r/get_activity_list/${this.user_id}/${this.username}?session=${this.session}`)
+          .post(`${this.$api}/v1/activity/r/get_activity_list/1/1`)
           .then(res => {
             var resData = res.data;
             console.log('活动列表', resData);

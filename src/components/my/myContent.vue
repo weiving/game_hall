@@ -55,7 +55,7 @@
 
     <div class="agent-manege" v-if="user_type==2">
       <div class="detail-line">
-        <div class="item">
+        <div class="item" @click="toComponent('teamStatistics')">
           <img src="/static/img/Statistics.png" alt="团队统计">
           <div class="item-info">
             <div class="title">团队统计</div>

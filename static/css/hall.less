@@ -210,6 +210,7 @@ html, body, #app {
     width: 100%;
     background: #ffffff;
     z-index: 100;
+
     .popover-body {
       padding: 2px 12px 12px 12px;
 
@@ -337,16 +338,18 @@ html, body, #app {
 
   .row-body {
     background-color: #ffffff;
-    font-size: 16px;
+    //font-size: 14px;
     .row {
       height: 54px;
       line-height: 54px;
       border-bottom: solid 1px #E4E4E4;
 
       &.row-head {
-        height: 110px;
+        height: 100px;
         .title {
           height: 30px;
+          line-height: 30px;
+          font-weight: 600;
         }
       }
 
@@ -358,9 +361,25 @@ html, body, #app {
 
       }
       .row-content {
-        padding-top: 13px;
-        padding-bottom: 8px;
-        .row-btn {
+        padding: 8px 0px;
+        .row-btn-3 {
+          width: 27%;
+          height: 37px;
+          line-height: 37px;
+          text-align: center;
+          border: solid 1px #D7D7D7;
+          border-radius: 5px;
+          display: inline-block;
+          margin-right: 5%;
+          margin-bottom: 10px;
+          &.active {
+            border: solid 1px #5D97F9;
+            background: #D0E7FF;
+            color: #5D97F9;
+          }
+        }
+
+        .row-btn-4 {
           width: 20%;
           height: 37px;
           line-height: 37px;
@@ -369,13 +388,15 @@ html, body, #app {
           border-radius: 5px;
           display: inline-block;
           margin-right: 5%;
-          margin-bottom: 17px;
+          margin-bottom: 10px;
           &.active {
             border: solid 1px #5D97F9;
             background: #D0E7FF;
             color: #5D97F9;
           }
+
         }
+
       }
 
       .input-text {
@@ -3398,6 +3419,7 @@ html, body, #app {
   }
 }
 
+/*活动*/
 #gameActivity {
   .box-item {
     padding: unset;
@@ -3521,6 +3543,60 @@ html, body, #app {
     }
 
   }
+}
+
+/*游戏*/
+#teamStatistics, #gameStatistics {
+  .page-content {
+    //background: #ffffff;
+    .row-data {
+      margin-top: 20px;
+      .game-title {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+      }
+      .row {
+        height: 85px;
+        background-color: #ffffff;
+        border-bottom: solid 1px #F2F2F2;
+        &:last-child {
+          border-bottom: none;
+        }
+        .item {
+          height: 100%;
+          text-align: center;
+          border-right: solid 1px #F2F2F2;
+          &:last-child {
+            border-right: none;
+          }
+          .number {
+            margin-top: 18px;
+          }
+          .label {
+            margin-top: 15px;
+            color: #A9A9A9;
+          }
+        }
+      }
+    }
+
+    .row-charts {
+      margin-top: 20px;
+    }
+
+  }
+  .gameList {
+    width: 50%;
+    height: 37px;
+    line-height: 37px;
+    padding-left: 15px;
+    border: solid 1px #D7D7D7;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
 }
 
 #footer {

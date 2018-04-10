@@ -223,7 +223,6 @@
       },
       toggleType(type) {
         this.defaultType = type;
-        this.defaultType = type;
         this.currentPage = 1;
         this.pages = 0;
         this.pageSize = 5;

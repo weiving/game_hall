@@ -119,6 +119,7 @@
 
 <script>
   import {delCookie, getLocalStorage, removeLocalStorage} from "../../../static/js/util";
+  import Socket from '../../../static/js/socket'
 
   export default {
     name: "my-set",
@@ -207,6 +208,7 @@
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {
+              Socket.close();
             } else {
             }
           })

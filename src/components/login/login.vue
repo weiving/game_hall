@@ -53,6 +53,7 @@
 
 <script>
   import {setLocalStorage, setCookie} from "../../../static/js/util";
+  import Socket from '../../../static/js/socket'
 
 
   export default {
@@ -119,6 +120,8 @@
                 setCookie("username", resData.data.username, 1);
                 // this.$root.Bus.$emit('toggleComponent', 'hall');
 
+                Socket.initSocket(resData.data.user_id);
+
                 this.$router.push({path: '/'})
               } else {
                 this.isShow_login_msg = true;
@@ -145,7 +148,7 @@
       //返回上一页
       go_back() {
         this.$router.go(-1);
-      }
+      },
     }
   }
 </script>

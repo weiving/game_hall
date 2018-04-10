@@ -23,34 +23,21 @@
           <div class="time">2017年12月27日</div>
         </div>
       </div>
-
-      <!--<div class="box-item" @click="toComponent('msgSystem')">-->
-      <!--<div class="horn-icon"></div>-->
-      <!--<div class="item-content">-->
-      <!--<div class="title">系统公告</div>-->
-      <!--<div class="text">大家好！充值平台已于12月18日...</div>-->
-      <!--<div class="time">2017年12月27日</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class="box-item">-->
-      <!--<div class="flag-icon"></div>-->
-      <!--<div class="item-content">-->
-      <!--<div class="title">系统消息</div>-->
-      <!--<div class="text">亲爱的玩家您可以点击选择官网充值...</div>-->
-      <!--<div class="time">2017年12月27日</div>-->
-      <!--</div>-->
-      <!--</div>-->
     </div>
   </div>
 </template>
 
 <script>
   import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
+  import Socket from '../../../static/js/socket'
 
   export default {
     name: "msg-center",
     data() {
       return {
+        user_id: getLocalStorage('user_id'),
+        user_name: getLocalStorage('user_name'),
+        session: getLocalStorage('session'),
         noticeTypeList: ''
       }
     },
@@ -59,19 +46,25 @@
     },
     methods: {
       getNoticeType() {
-        var user_id = getLocalStorage('user_id');
-        var user_name = getLocalStorage('user_name');
-        var session = getLocalStorage('session');
-
         this.$http
-          .post(`${this.$api}/v1/notice/r/find_notice_type_list/${user_id}/${user_name}?session=${session}`)
+          .post(`${this.$api}/v1/notice/r/find_notice_type_list/${this.user_id}/${this.user_name}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
             this.noticeTypeList = resData.data;
           })
       },
       toComponent(component) {
-        this.$root.Bus.$emit('toggleComponent', component)
+        if (component == 'msgMy') {
+          if (Socket.websock == null || Socket.websock.readyState != 1) {
+            this.$router.push({path: '/login'})
+          } else {
+            this.$root.Bus.$emit('toggleComponent', component)
+          }
+        } else {
+          this.$root.Bus.$emit('toggleComponent', component)
+        }
+
+
       },
       toTypeList(notice_type) {
         var noticeTitle = '';
