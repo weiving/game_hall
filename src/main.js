@@ -8,11 +8,13 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {DateTime} from 'vue-ydui/dist/lib.rem/datetime'
+
+
 import confJson from '../static/conf_pack.json'
 import address from '../static/address'
-// import VCharts from 'v-charts'
 
-import 'swiper/dist/css/swiper.css'
+
+// import 'swiper/dist/css/swiper.css'
 import "vue-ydui/dist/ydui.base.css"
 import '../static/css/hall.less'
 
@@ -23,14 +25,13 @@ const url = 'http://192.168.50.154:8333';
 Vue.prototype.$api = `${url}`;
 Vue.prototype.$confJson = confJson;
 Vue.prototype.$address = address;
-// Vue.prototype.$wsurl = 'ws://192.168.50.154/v1/pubsub/ws?user_id=1';
 
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 Vue.component(DateTime.name, DateTime);
-// Vue.use(VCharts);
+
 
 
 var Bus = new Vue();

@@ -50,6 +50,7 @@
           .post(`${this.$api}/v1/notice/r/find_notice_type_list/${this.user_id}/${this.user_name}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
+            console.log(resData)
             this.noticeTypeList = resData.data;
           })
       },

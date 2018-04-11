@@ -38,7 +38,7 @@
         <div class="row">
           <img src="/static/img/phone.png" class="head01-icon" alt="绑定手机">
           <span>绑定手机</span>
-          <div class="next" @click="toComponent('setPhone')">
+          <div class="next" @click="toValidComponent('setPhone')">
             <span class="text-red" v-show="phone.length>0">已绑定</span>
             <img src="/static/img/wind01.png" alt="">
           </div>
@@ -85,7 +85,7 @@
         <div class="row">
           <img src="/static/img/Validation.png" class="head01-icon" alt="谷歌验证">
           <span>谷歌验证</span>
-          <div class="next" @click="toGValidate()">
+          <div class="next" @click="toValidComponent('gValidate')">
             <span class="text-red" v-show="has_gsecret">已绑定</span>
             <img src="/static/img/wind01.png" alt="">
           </div>
@@ -231,12 +231,14 @@
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
       },
-      toGValidate() {
-        if (!this.has_gsecret) {
-          this.$root.Bus.$emit('toggleComponent', 'gValidate');
+
+      toValidComponent(component) {
+        if (component == 'setPhone' && !this.phone) {
+          this.$root.Bus.$emit('toggleComponent', component);
+        } else if (component == 'gValidate' && !this.has_gsecret) {
+          this.$root.Bus.$emit('toggleComponent', component);
         }
       }
-
     }
   }
 </script>

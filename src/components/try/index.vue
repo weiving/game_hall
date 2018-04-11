@@ -1,31 +1,72 @@
 <template>
-  <div>
-    <span>{{msg}}</span>
-    <button @click="fun">获取数据</button>
+  <!--<md-card>-->
+  <!--<md-card-actions>-->
+  <!--<div class="md-subhead">-->
+  <!--<span>Mousewheel Control</span>-->
+  <!--<span>（</span>-->
+  <!--<span>鼠标控制 / 聚焦后滚轮</span>-->
+  <!--<span>）</span>-->
+  <!--</div>-->
+  <!--<md-button class="md-icon-button"-->
+  <!--target="_blank"-->
+  <!--href="https://github.com/surmon-china/vue-awesome-swiper/blob/master/examples/27-mousewheel-control.vue">-->
+  <!--<md-icon>code</md-icon>-->
+  <!--</md-button>-->
+  <!--</md-card-actions>-->
+  <!--<md-card-media>-->
+  <!--&lt;!&ndash; swiper &ndash;&gt;-->
+  <!--</md-card-media>-->
+  <!--</md-card>-->
+  <div class="hwap">
+    <swiper :options="swiperOption">
+      <swiper-slide>Slide 1</swiper-slide>
+      <swiper-slide>Slide 2</swiper-slide>
+      <swiper-slide>Slide 3</swiper-slide>
+      <swiper-slide>Slide 4</swiper-slide>
+      <swiper-slide>Slide 5</swiper-slide>
+      <swiper-slide>Slide 6</swiper-slide>
+      <swiper-slide>Slide 7</swiper-slide>
+      <swiper-slide>Slide 8</swiper-slide>
+      <swiper-slide>Slide 9</swiper-slide>
+      <swiper-slide>Slide 10</swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+    </swiper>
   </div>
+
 </template>
 
 
-
 <script>
-  import Vue from 'vue';
-  import {mapActions, mapGetters} from 'vuex';
+  import 'swiper/dist/css/swiper.css'
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
+
 
   export default {
     name: "index",
-    methods: {
-      ...mapActions([ // 从store上绑定的action中载入需要的到此组件中
-        'fun', // 我们稍后在src/store/actions.js中创建一个名为fun的方法
-      ]),
+    data() {
+      return {
+        swiperOption: {
+          direction: 'vertical',
+          slidesPerView: 1,
+          spaceBetween: 30,
+          mousewheel: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          }
+        }
+      }
     },
-    computed: {
-      ...mapGetters([ // 从store上绑定的getters中载入需要的到此组件中
-        'msg' // 我们稍后在src/store/getters.js中创建一个名为msg的方法
-      ]),
+    components: {
+      swiper,
+      swiperSlide
     }
   }
 </script>
 
 <style scoped>
-
+  .hwap {
+    height: 300px;
+    width: 100%;
+  }
 </style>

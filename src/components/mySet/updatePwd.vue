@@ -11,10 +11,14 @@
         <div class="row">
           <input type="password" class="old-password" v-model="oldPwd" placeholder="请输入旧登录密码">
         </div>
-        <div class="row last">
+        <div class="row">
           <input type="password" class="new-password" v-model="newPwd" placeholder="请输入新登录密码">
         </div>
-        <div class="default-btn" @click="update" :class="{active:oldPwd.trim().length>0&&newPwd.trim().length>0}">
+        <div class="row last">
+          <input type="password" class="again-password" v-model="againPwd" placeholder="再次输入新登录密码">
+        </div>
+        <div class="default-btn" @click="update"
+             :class="{active:oldPwd.trim().length>0&&newPwd.trim().length>0&&againPwd.trim().length>0}">
           <p>确认修改</p>
         </div>
       </div>
@@ -33,6 +37,7 @@
       return {
         oldPwd: "",
         newPwd: "",
+        againPwd: '',
         msg: "",
         isShow_msg: false,
       }
@@ -50,6 +55,14 @@
         } else if (this.newPwd == '' || this.newPwd == undefined) {
           this.isShow_msg = true;
           this.msg = "新密码不能为空~";
+          return;
+        } else if (this.againPwd == '' || this.againPwd == undefined) {
+          this.isShow_msg = true;
+          this.msg = "再次输入新密码~";
+          return;
+        } else if (this.againPwd != this.newPwd) {
+          this.isShow_msg = true;
+          this.msg = "两次密码不一致~";
           return;
         } else {
           var params = new URLSearchParams();

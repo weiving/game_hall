@@ -15,7 +15,7 @@
             <img src="/static/img/bank/bank-122.png" v-else="item.category==4" alt="财付通"/>
             <div class="payment">
               <div class="title">{{item.pay_alias}}</div>
-              <div class="des">单笔最小金额{{item.pay_min}}万，最大金额{{item.pay_max}}万</div>
+              <div class="des">单笔最小金额{{item.pay_min}}元，最大金额{{item.pay_max}}元</div>
             </div>
             <div class="selected"></div>
           </div>
@@ -31,7 +31,7 @@
             <img :src="'/static/img/bank/bank-'+item.pay_id+'.png'"/>
             <div class="payment">
               <div class="title">{{item.pay_alias}}</div>
-              <div class="des">单笔最小金额{{item.pay_min}}万，最大金额{{item.pay_max}}万</div>
+              <div class="des">单笔最小金额{{item.pay_min}}元，最大金额{{item.pay_max}}元</div>
             </div>
             <div class="selected"></div>
           </div>

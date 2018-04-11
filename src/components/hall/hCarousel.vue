@@ -3,19 +3,13 @@
     <swiper-slide v-for="(item,index) in slideList" :key="index">
       <img :src="item.img_src" :alt="item.title">
     </swiper-slide>
-    <!--<swiper-slide>-->
-    <!--<img src="/static/img/ad01.png" alt="">-->
-    <!--</swiper-slide>-->
-    <!--<swiper-slide>-->
-    <!--<img src="/static/img/ad02.png" alt="">-->
-    <!--</swiper-slide>-->
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
 
 </template>
 
 <script>
-  import {swiper, swiperSlide} from 'vue-awesome-swiper'
+  // import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
   export default {
     created() {
@@ -35,7 +29,7 @@
             el: '.swiper-pagination',
             clickable: true
           },
-          slideList: ""
+          slideList: []
         }
       }
     },
@@ -44,10 +38,10 @@
         this.slideList = this.$confJson.index.banner.list;
       }
     },
-    components: {
-      swiper,
-      swiperSlide
-    }
+    // components: {
+    //   swiper,
+    //   swiperSlide
+    // },
   }
 </script>
 

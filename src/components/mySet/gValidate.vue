@@ -13,8 +13,8 @@
       </div>
       <div class="box-item">
         <div class="secret-row">
-          <div class="col-xs-2">秘钥:</div>
-          <div class="col-xs-10">
+          <div class="col-12">秘钥:</div>
+          <div class="col-88">
             <p class="secret-val">{{gsecret}}</p>
           </div>
         </div>
@@ -25,7 +25,7 @@
         </div>
       </div>
       <!--<div class="tip-row">-->
-        <!--<p>重新获取验证码(53)</p>-->
+      <!--<p>重新获取验证码(53)</p>-->
       <!--</div>-->
       <div class="default-btn" :class="{active:val.length===6}" @click="setCode">
         <p>下一步</p>
@@ -60,6 +60,9 @@
     },
     data() {
       return {
+        user_id: getLocalStorage('user_id'),
+        username: getLocalStorage('username'),
+        session: getLocalStorage('session'),
         cursor: false,
         keyboard: false,
         val: [],
@@ -117,12 +120,8 @@
       },
 
       getSecret() {
-        var user_id = getLocalStorage('user_id');
-        var username = getLocalStorage('username');
-        var session = getLocalStorage('session');
-
         this.$http
-          .post(`${this.$api}/v1/userdata/w/generate_gsecret/${user_id}/${username}?session=${session}`)
+          .post(`${this.$api}/v1/userdata/w/generate_gsecret/${this.user_id}/${this.username}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success === true) {
@@ -132,22 +131,25 @@
           })
       },
       setCode() {
+        var that = this;
         if (this.val.length === 6) {
-          var user_id = getLocalStorage('user_id');
-          var username = getLocalStorage('username');
-          var session = getLocalStorage('session');
           var params = new URLSearchParams();
           // params.append('gsecret', this.gsecret);
           params.append('gcode', this.val);
           this.$http
-            .post(`${this.$api}/v1/userdata/w/set_gsecret/${user_id}/${username}?session=${session}`, params)
+            .post(`${this.$api}/v1/userdata/w/set_gsecret/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
-              console.log('返回', res.data);
-              if (res.data.success === true) {
-
+              var resData = res.data;
+              if (resData.success === true) {
+                this.isShow_msg = true;
+                this.msg = resData.msg;
+                setTimeout(function () {
+                  that.$root.Bus.$emit('toggleComponent', 'mySet');
+                }, 1500)
+              } else {
+                this.isShow_msg = true;
+                this.msg = resData.msg;
               }
-              this.isShow_msg = true;
-              this.msg = res.data.msg;
             })
         }
       },
