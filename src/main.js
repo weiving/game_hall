@@ -13,7 +13,6 @@ import {DateTime} from 'vue-ydui/dist/lib.rem/datetime'
 import confJson from '../static/conf_pack.json'
 import address from '../static/address'
 
-
 // import 'swiper/dist/css/swiper.css'
 import "vue-ydui/dist/ydui.base.css"
 import '../static/css/hall.less'

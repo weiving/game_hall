@@ -49,12 +49,11 @@
   import sendPacket from '@/components/redPacket/sendPacket'
 
 
-  import register from '@/components/register/register'
-  import phoneRegister from '@/components/register/phoneRegister'
-  import regSuccess from '@/components/register/regSuccess'
-  import login from '@/components/login/login'
-  import loginRecord from '@/components/login/loginRecord'
-  import loginTryPlay from '@/components/login/loginTryPlay'
+  // import register from '@/components/register/register'
+  // import phoneRegister from '@/components/register/phoneRegister'
+  // import login from '@/components/login/login'
+  // import loginRecord from '@/components/login/loginRecord'
+  // import loginTryPlay from '@/components/login/loginTryPlay'
   import maintenance from '@/components/login/maintenance'
 
 
@@ -134,12 +133,11 @@
       packetManageDetail,
       sendPacket,
 
-      register,
-      phoneRegister,
-      regSuccess,
-      login,
-      loginRecord,
-      loginTryPlay,
+      // register,
+      // phoneRegister,
+      // login,
+      // loginRecord,
+      // loginTryPlay,
       maintenance,
 
       mySet,
