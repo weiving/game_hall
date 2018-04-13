@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import {getLocalStorage} from "../../../static/js/util";
+  import {getLocalStorage} from "static/js/util";
 
   export default {
     name: "game-activity",

@@ -10,12 +10,12 @@ import VueAxios from 'vue-axios'
 import {DateTime} from 'vue-ydui/dist/lib.rem/datetime'
 
 
-import confJson from '../static/conf_pack.json'
-import address from '../static/address'
+import confJson from 'static/conf_pack.json'
+import address from 'static/address'
 
 // import 'swiper/dist/css/swiper.css'
 import "vue-ydui/dist/ydui.base.css"
-import '../static/css/hall.less'
+import 'static/css/hall.less'
 
 const url = 'http://192.168.50.154:8333';
 // const url = 'http://192.168.50.124:8333';

@@ -52,8 +52,8 @@
 </template>
 
 <script>
-  import {setLocalStorage, setCookie} from "../../../static/js/util";
-  import Socket from '../../../static/js/socket'
+  import {setLocalStorage, setCookie} from "static/js/util";
+  import Socket from 'static/js/socket'
 
 
   export default {
