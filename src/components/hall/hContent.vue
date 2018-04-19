@@ -24,46 +24,6 @@
           <div class="title">{{item.title}}</div>
         </div>
 
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico02.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">3.6万人</span>在玩</div>-->
-        <!--<div class="title">欢乐麻将</div>-->
-        <!--</div>-->
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico03.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">3.2万人</span>在玩</div>-->
-        <!--<div class="title">皇家赢三张</div>-->
-        <!--</div>-->
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico04.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">1.1万人</span>在玩</div>-->
-        <!--<div class="title">战机1942</div>-->
-        <!--</div>-->
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico05.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">2.2万人</span>在玩</div>-->
-        <!--<div class="title">输三张</div>-->
-        <!--</div>-->
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico06.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">0.7万人</span>在玩</div>-->
-        <!--<div class="title">美女捕鱼</div>-->
-        <!--</div>-->
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico07.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">4.8万人</span>在玩</div>-->
-        <!--<div class="title">比鸡</div>-->
-        <!--</div>-->
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico08.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">3.6万人</span>在玩</div>-->
-        <!--<div class="title">跑得快</div>-->
-        <!--</div>-->
-        <!--<div class="item-game">-->
-        <!--<img src="/static/img/ico09.png" alt="">-->
-        <!--<div class="play-online"><span class="text-orange">1.6万人</span>在玩</div>-->
-        <!--<div class="title">疯狂炸翻天</div>-->
-        <!--</div>-->
       </div>
       <div class="hall-footer">
         <a href="#" class="" @click="get_more">{{text}}</a>
