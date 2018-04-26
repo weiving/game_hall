@@ -7,12 +7,14 @@
       <div class="title">开户中心</div>
       <div class="page-head-btn" @click="togglePopover">筛选</div>
     </div>
-    <div class="page-content">
+    <div class="page-nav">
       <ul class="nav-tabs record-nav">
         <li class="col-xs-4" v-for="(item,index) in openAccountType">
           <a :class="{'active':defaultType==item}" @click="toggleType(item)">{{openAccountCenter[index]}}</a>
         </li>
       </ul>
+    </div>
+    <div class="page-content">
       <div class="tabs-content openCenter">
         <div class="operationType" v-if="defaultType=='addLower'">
           <div class="row-body">
@@ -127,7 +129,14 @@
         </div>
         <div class="operationType" v-if="defaultType=='linkManage'">
           <div class="linkManage">
-            <template v-if="total">
+            <div class="box-item" v-if="linkManageList==null||linkManageList.length==0">
+              <p>暂无数据</p>
+            </div>
+            <cube-scroll class="record-list" ref="scroll" v-else
+                         :data="linkManageList"
+                         :options="options"
+                         @pulling-down="onPullingDown"
+                         @pulling-up="onPullingUp">
               <div class="row-item" v-for="(item,index) in linkManageList" @click="toSharePage('http://www.baidu.com')">
                 <div class="row">
                   <div class="col-xs-l">注册链接</div>
@@ -145,19 +154,7 @@
                   </div>
                 </div>
               </div>
-              <div class="pagination-wrap">
-                <pagination
-                  :page-index="currentPage"
-                  :pages="pages"
-                  :total="total"
-                  :page-size="pageSize"
-                  @change="pageChange">
-                </pagination>
-              </div>
-            </template>
-            <div class="box-item" v-else>
-              暂无数据
-            </div>
+            </cube-scroll>
           </div>
         </div>
       </div>
@@ -238,13 +235,10 @@
 
 <script>
   import {setLocalStorage, getLocalStorage} from "../../../static/js/util";
-  import pagination from "../common/pagination"
 
   export default {
     name: "open-account",
-    components: {
-      pagination
-    },
+
     data() {
       return {
         session: getLocalStorage('session'),
@@ -281,13 +275,26 @@
         linkUrl: '',
 
         currentPage: 1,//当前页码
-        pages: 1,
         pageSize: 5,//每页显示10条数据
-        total: 0,//总记录数
         linkManageList: [],
+
+        options: {
+          pullDownRefresh: {
+            threshold: 90,
+            stop: 40,
+            txt: '刷新成功'
+          },
+          pullUpLoad: {
+            thresholds: 0,
+            txt: {
+              more: '加载更多',
+              noMore: '没有更多数据了'
+            }
+          }
+        },
       }
     },
-    created() {
+    mounted() {
       this.getLinkManageList();
     },
     methods: {
@@ -305,6 +312,7 @@
         this.selectGameStatus = false;
         this.gameList = [];
         this.user_type = 1;
+
       },
       /*筛选*/
       togglePopover() {
@@ -415,7 +423,6 @@
         } else {
 
           var rebates = JSON.stringify(this.rebates);
-          console.log("rebates", rebates);
           var params = new URLSearchParams();
           params.append('username', this.lower_username);
           params.append('password', this.lower_password);
@@ -502,39 +509,35 @@
           .post(`${this.$api}/v1/user/r/get_spread_code_list/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
-            console.log('链接数据', resData);
             if (resData.success == true) {
-
-              this.currentPage = resData.data.page_index;
-              this.pages = resData.data.pages;
-              this.pageSize = resData.data.page_size;
-              this.total = resData.data.total;
-
-              var currentUrl = window.location.href;
               var list = resData.data.list;
-              var data = [];
-              if (list != null) {
-                for (var i = 0; i < list.length; i++) {
-                  var item = {
-                    highVal: 7.0,
-                    lowVal: 5.0,
-                    usedVal: list[i].used_up_times,
-                    effectiveVal: list[i].effective_times,
-                    linkUrl: currentUrl + "?code=" + list[i].spread_code
+              if (list != undefined && list != null && list != '') {
+                var currentUrl = window.location.href;
+                var data = [];
+                if (list != null) {
+                  for (var i = 0; i < list.length; i++) {
+                    var item = {
+                      highVal: 7.0,
+                      lowVal: 5.0,
+                      usedVal: list[i].used_up_times,
+                      effectiveVal: list[i].effective_times,
+                      linkUrl: currentUrl + "?code=" + list[i].spread_code
+                    }
+                    data.push(item);
                   }
-                  data.push(item);
+                }
+                this.linkManageList = this.linkManageList.concat(data);
+                this.currentPage = parseInt(resData.data.page_index);
+              } else {
+                if (this.linkManageList.length != 0) {
+                  this.currentPage = this.currentPage - 1;
+                  this.$refs.scroll.forceUpdate()
                 }
               }
-              this.linkManageList = data;
             }
           })
       },
 
-      //从page组件传递过来的当前page
-      pageChange(page) {
-        this.currentPage = page;
-        this.getLinkManageList();
-      },
 
       //跳转到分享二维码
       toSharePage(linkUrl) {
@@ -544,12 +547,232 @@
 
       //筛选条件
       filterFn() {
-      }
+      },
 
+
+      //下拉刷新
+      onPullingDown() {
+        setTimeout(() => {
+          this.$refs.scroll.forceUpdate()
+        }, 1000)
+      },
+
+      //上拉加载
+      onPullingUp() {
+        setTimeout(() => {
+          this.currentPage = this.currentPage + 1;
+          this.getLinkManageList();
+        }, 1000)
+      }
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #openAccount {
+    .ordinary, .agent {
+      position: relative;
+      height: 20px;
+      line-height: 20px;
+      margin-left: 24px;
+      display: inline-block;
+      label {
+        display: block;
+        height: 20px;
+        width: 40px;
+        line-height: 20px;
+        cursor: pointer;
+      }
+      input {
+        z-inde: 3;
+        display: block;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -24px;
+        margin: auto;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+      .user-defined {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -24px;
+        margin: auto;
+        width: 24px;
+        height: 24px;
+        border: 1px solid #BEBEBE;
+        border-radius: 50%;
+        cursor: pointer;
 
+        span.circle {
+          display: block;
+          width: 16px;
+          height: 16px;
+          margin-top: 3px;
+          margin-left: 3px;
+          background-color: transparent;
+          border-radius: 50%;
+        }
+        &.active {
+          border-color: #FF7F00;
+          .circle {
+            background-color: #FF7F00;
+          }
+        }
+      }
+    }
+    .platformPopover, .gamePopover {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      padding-top: 50px;
+      z-index: 61;
+      .row-body {
+        height: 100%;
+        padding: 2px 20px 55px 20px;
+        overflow: auto;
+      }
+      .row-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        .opt-btn {
+          width: 50%;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          float: left;
+          border-top: solid 1px #E4E4E4;
+          border-bottom: solid 1px #E4E4E4;
+          background: #ffffff;
+          &.sure-btn {
+            border: none;
+            color: #ffffff;
+            background: #FF6634;
+          }
+        }
+      }
+    }
+    .openCenter {
+      width: 100%;
+      height: 100%;
+      .operationType {
+        width: 100%;
+        height: 100%;
+
+        .row-body {
+          //background-color: #ffffff;
+          padding: 2px 20px 2px 20px;
+          .row {
+            height: 54px;
+            line-height: 54px;
+            border-bottom: solid 1px #E4E4E4;
+            .input-text {
+              height: 54px;
+              line-height: 54px;
+              text-align: right;
+            }
+
+            .next-icon {
+              width: 7px;
+              height: 12px;
+            }
+
+            &:last-child {
+              border: none;
+            }
+
+            &.linkUrl {
+              height: 100px;
+              padding: 10px 0;
+              .col-xs-12 {
+                height: 100%;
+                .text {
+                  height: 100%;
+                  width: 100%;
+                }
+              }
+            }
+          }
+
+        }
+
+        .linkManage {
+          width: 100%;
+          height: 100%;
+
+          .row-item {
+            width: 100%;
+            height: 86px;
+            .row {
+              height: 54px;
+              line-height: 54px;
+              padding: 0 20px;
+              background: #ffffff;
+              position: relative;
+              margin-bottom: 0px;
+              .col-xs-l {
+                width: 22%;
+                float: left;
+              }
+              .col-xs-r {
+                width: 68%;
+                float: left;
+                .link-text {
+                  width: 100%;
+                  height: 54px;
+                  line-height: 54px;
+                  overflow: hidden;
+                  text-align: left;
+                }
+              }
+              .qrCode {
+                width: 10%;
+                height: 54px;
+                line-height: 54px;
+                float: left;
+
+                .qrCode-icon {
+                  display: block;
+                  width: 18px;
+                  height: 18px;
+                  background: url("/static/img/qrCode.png");
+                  background-size: cover;
+                  margin: auto;
+                  position: relative;
+                  top: 50%;
+                  transform: translateY(-50%);
+                }
+              }
+            }
+            .row-detail {
+              height: 32px;
+              line-height: 32px;
+              background: #F7FBFF;
+              position: relative;
+              text-align: center;
+              color: #ADAFB1;
+              .col-value {
+                display: inline-block;
+                .text-color {
+                  color: #FC6466;
+                }
+              }
+            }
+          }
+
+          .unLinkList {
+
+          }
+        }
+      }
+    }
+  }
 </style>

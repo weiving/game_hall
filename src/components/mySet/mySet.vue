@@ -243,6 +243,64 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #mySet {
+    .page-content {
+      margin-bottom: 50px;
+      .mySet-row {
+        width: 94vw;
+        margin: 16px 3vw 0 3vw;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 0 3px 3px #F4FAFF;
 
+        .row {
+          height: 60px;
+          padding: 22px 10px 0px 55px;
+          position: relative;
+
+          .row-line {
+            padding-top: 22px;
+            border-bottom: 1px solid #EBEBEB;
+          }
+
+          .head01-icon {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 20px;
+            left: 25px;
+          }
+
+          .head-icon {
+            width: 42px;
+            height: 42px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+          }
+
+          .next {
+            color: #999999;
+            position: absolute;
+            top: 0px;
+            right: 10px;
+            width: 190px;
+            height: 60px;
+            line-height: 60px;
+            text-align: right;
+
+            .text-red {
+              color: red;
+            }
+
+            img {
+              width: 7px;
+              height: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
 </style>

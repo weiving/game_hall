@@ -133,6 +133,89 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #msgMySend {
+    .box-item {
+      vertical-align: middle;
+      .select-title {
+        height: 16px;
+        line-height: 16px;
+        width: 100px;
+        color: #666666;
+        //float: left;
+        display: inline-block;
+      }
+      .select-value {
+        //float: left;
+        display: inline-block;
+      }
+      .select-btn {
+        width: 60px;
+        height: 56px;
+        line-height: 56px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        .select-icon {
+          display: block;
+          width: 12px;
+          height: 6px;
+          background: url("/static/img/do.png");
+          background-size: cover;
+          margin: 25px auto;
+        }
+      }
+      .selectType {
+        width: -webkit-calc(~"100vw - 180px");
+        width: calc(~"100vw - 180px");
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        background: #ffffff;
+        padding: 15px 10px;
+        -webkit-box-shadow: 0 0 2px 2px #e9f4ff;
+        box-shadow: 0 0 2px 2px #e9f4ff;
+        z-index: 100;
+        .item {
+          height: 30px;
+          line-height: 30px;
+          color: #666666;
+        }
+      }
 
+      .account-number {
+        width: -webkit-calc(~"100vw - 44px");
+        width: calc(~"100vw - 44px");
+        height: 30px;
+        border-bottom: solid 1px #EBEBEB;
+        margin-bottom: 15px;
+        input {
+          width: 100%;
+        }
+      }
+      .msg-title {
+        width: -webkit-calc(~"100vw - 44px");
+        width: calc(~"100vw - 44px");
+        height: 30px;
+        border-bottom: solid 1px #EBEBEB;
+        input {
+          width: 100%;
+        }
+      }
+      .msg-text {
+        margin: 15px 0;
+        color: #D1D1D1;
+        textarea {
+          width: -webkit-calc(~"100vw - 44px");
+          width: calc(~"100vw - 44px");
+          min-height: 230px;
+          outline: none;
+          border: none;
+          font-size: 16px;
+          resize: none;
+        }
+      }
+    }
+  }
 </style>
+

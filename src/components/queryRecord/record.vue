@@ -7,127 +7,112 @@
       <div class="title">记录查询</div>
       <div class="page-head-btn" @click="togglePopover">筛选</div>
     </div>
-    <div class="page-content">
+    <div class="page-nav">
       <ul class="nav-tabs record-nav">
         <li class="col-xs-4" v-for="(item,index) in recordType">
           <a :class="{'active':defaultType==item}" @click="toggleType(item)">{{recordName[index]}}</a>
         </li>
       </ul>
-      <div class="tabs-content">
-        <div class="recordType" v-if="defaultType=='fundRecord'">
-          <div class="record-list">
-            <div class="row" v-for="(item,index) in funRecordList">
-              <div class="row-title">用户账号<span class="number">{{item.name}}</span></div>
-              <div class="row-content" @click="enter_detail(item.id,defaultType)">
-                <div class="col-xs-4 text-left">
-                  <div class="col-data text-orange">{{item.p_name}}</div>
-                  <div class="col-name">父代理账号</div>
-                </div>
-                <div class="col-xs-3 text-center">
-                  <div class="col-data">{{item.rebate}}</div>
-                  <div class="col-name">返点比例</div>
-                </div>
-                <div class="col-xs-4 text-right">
-                  <div class="col-data text-red">{{item.money}}</div>
-                  <div class="col-name">佣金金额</div>
-                </div>
-                <div class="col-xs-1">
-                  <div class="text-detail">
-                    <i class="more-detail"></i>
-                  </div>
+    </div>
+    <div class="page-content">
+      <div class="tabs-content" v-if="defaultType=='fundRecord'">
+        <div class="box-item" v-if="funRecordList==null || funRecordList.length==0">
+          <p>暂无数据</p>
+        </div>
+        <cube-scroll class="record-list" ref="scroll" v-else
+                     :data="funRecordList"
+                     :options="options"
+                     @pulling-down="onPullingDown"
+                     @pulling-up="onPullingUp">
+          <div class="row" v-for="(item,index) in funRecordList">
+            <div class="row-title">用户账号<span class="number">{{item.name}}</span></div>
+            <div class="row-content" @click="enter_detail(item.id,defaultType)">
+              <div class="col-xs-4 text-left">
+                <div class="col-data text-orange">{{item.p_name}}</div>
+                <div class="col-name">父代理账号</div>
+              </div>
+              <div class="col-xs-3 text-center">
+                <div class="col-data">{{item.rebate}}</div>
+                <div class="col-name">返点比例</div>
+              </div>
+              <div class="col-xs-4 text-right">
+                <div class="col-data text-red">{{item.money}}</div>
+                <div class="col-name">佣金金额</div>
+              </div>
+              <div class="col-xs-1">
+                <div class="text-detail">
+                  <i class="more-detail"></i>
                 </div>
               </div>
             </div>
           </div>
-          <div class="box-item" v-if="funRecordList==null || funRecordList==''">
-            <p>暂无数据</p>
-          </div>
-          <div class="pagination-wrap" v-if="pages>=1">
-            <pagination
-              :page-index="currentPage"
-              :pages="pages"
-              :total="total"
-              :page-size="pageSize"
-              @change="pageChange">
-            </pagination>
-          </div>
+        </cube-scroll>
+      </div>
+      <div class="tabs-content" v-if="defaultType=='accountRecord'">
+        <div class="box-item" v-if="accountRecordList==null || accountRecordList.length==0">
+          <p>暂无数据</p>
         </div>
-        <div class="recordType" v-if="defaultType=='accountRecord'">
-          <div class="record-list">
-            <div class="row" v-for="(item,index) in accountRecordList">
-              <div class="row-title">出款金额 <span class="number">27笔数</span></div>
-              <div class="row-content">
-                <div class="col-xs-4 text-left">
-                  <div class="col-data text-orange">15617.65</div>
-                  <div class="col-name">活动金额</div>
-                </div>
-                <div class="col-xs-3 text-center">
-                  <div class="col-data">0.8</div>
-                  <div class="col-name">返点</div>
-                </div>
-                <div class="col-xs-4 text-right">
-                  <div class="col-data text-red">-963.65</div>
-                  <div class="col-name">实际盈亏</div>
-                </div>
-                <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(1,defaultType)">
-                    <i class="more-detail"></i>
-                  </div>
+        <cube-scroll class="record-list" ref="scroll" v-else
+                     :data="accountRecordList"
+                     :options="options"
+                     @pulling-down="onPullingDown"
+                     @pulling-up="onPullingUp">
+          <div class="row" v-for="(item,index) in accountRecordList">
+            <div class="row-title">用户账号<span class="number">{{item.name}}</span></div>
+            <div class="row-content" @click="enter_detail(item.id,defaultType)">
+              <div class="col-xs-4 text-left">
+                <div class="col-data text-orange">{{item.p_name}}</div>
+                <div class="col-name">父代理账号</div>
+              </div>
+              <div class="col-xs-3 text-center">
+                <div class="col-data">{{item.rebate}}</div>
+                <div class="col-name">返点比例</div>
+              </div>
+              <div class="col-xs-4 text-right">
+                <div class="col-data text-red">{{item.money}}</div>
+                <div class="col-name">佣金金额</div>
+              </div>
+              <div class="col-xs-1">
+                <div class="text-detail">
+                  <i class="more-detail"></i>
                 </div>
               </div>
             </div>
           </div>
-          <div class="box-item" v-if="accountRecordList==null || accountRecordList==''">
-            <p>暂无数据</p>
-          </div>
-          <div class="pagination-wrap" v-if="pages>=1">
-            <pagination
-              :page-index="currentPage"
-              :pages="pages"
-              :total="total"
-              :page-size="pageSize"
-              @change="pageChange">
-            </pagination>
-          </div>
+        </cube-scroll>
+      </div>
+      <div class="tabs-content" v-if="defaultType=='agentRecord'">
+        <div class="box-item" v-if="agentRecordList==null || agentRecordList.length==0">
+          <p>暂无数据</p>
         </div>
-        <div class="recordType" v-if="defaultType=='agentRecord'">
-          <div class="record-list">
-            <div class="row" v-for="(item,index) in agentRecordList">
-              <div class="row-title">佣金记录 <span class="number">2</span></div>
-              <div class="row-content">
-                <div class="col-xs-4 text-left">
-                  <div class="col-data text-orange">15617.65</div>
-                  <div class="col-name">变动金额</div>
-                </div>
-                <div class="col-xs-3 text-center">
-                  <div class="col-data">0.8</div>
-                  <div class="col-name">变动类型</div>
-                </div>
-                <div class="col-xs-4 text-right">
-                  <div class="col-data text-red">-963.65</div>
-                  <div class="col-name">变动后余额</div>
-                </div>
-                <div class="col-xs-1">
-                  <div class="text-detail" @click="enter_detail(1,defaultType)">
-                    <i class="more-detail"></i>
-                  </div>
+        <cube-scroll class="record-list" ref="scroll" v-else
+                     :data="agentRecordList"
+                     :options="options"
+                     @pulling-down="onPullingDown"
+                     @pulling-up="onPullingUp">
+          <div class="row" v-for="(item,index) in agentRecordList">
+            <div class="row-title">用户账号<span class="number">{{item.name}}</span></div>
+            <div class="row-content" @click="enter_detail(item.id,defaultType)">
+              <div class="col-xs-4 text-left">
+                <div class="col-data text-orange">{{item.p_name}}</div>
+                <div class="col-name">父代理账号</div>
+              </div>
+              <div class="col-xs-3 text-center">
+                <div class="col-data">{{item.rebate}}</div>
+                <div class="col-name">返点比例</div>
+              </div>
+              <div class="col-xs-4 text-right">
+                <div class="col-data text-red">{{item.money}}</div>
+                <div class="col-name">佣金金额</div>
+              </div>
+              <div class="col-xs-1">
+                <div class="text-detail">
+                  <i class="more-detail"></i>
                 </div>
               </div>
             </div>
           </div>
-          <div class="box-item" v-if="agentRecordList==null || agentRecordList==''">
-            <p>暂无数据</p>
-          </div>
-          <div class="pagination-wrap" v-if="pages>=1">
-            <pagination
-              :page-index="currentPage"
-              :pages="pages"
-              :total="total"
-              :page-size="pageSize"
-              @change="pageChange">
-            </pagination>
-          </div>
-        </div>
+        </cube-scroll>
       </div>
     </div>
     <transition name="slideDown">
@@ -177,7 +162,6 @@
 
 <script>
   import {setLocalStorage, getLocalStorage, formatDate} from "../../../static/js/util";
-  import pagination from '../common/pagination'
 
   export default {
     name: "record",
@@ -201,19 +185,31 @@
         agentRecordList: [],
 
         currentPage: 1,
-        pages: 0,
         pageSize: 5,
-        total: 0,
 
         selectType: 'fundRecord',
         isFilter: false,
         searchUserId: '',
         searchTypeNameList: ['单个', '直属', '全部'],
         searchType: 3,
+        options: {
+          pullDownRefresh: {
+            threshold: 90,
+            stop: 40,
+            txt: '刷新成功'
+          },
+          pullUpLoad: {
+            thresholds: 0,
+            txt: {
+              more: '加载更多',
+              noMore: '没有更多数据了'
+            }
+          }
+        },
       }
     },
-    created() {
-      this.getFundRecordList();
+    mounted() {
+      this.getDataList();
     },
     methods: {
       enter_detail(id, type) {
@@ -224,32 +220,18 @@
       toggleType(type) {
         this.defaultType = type;
         this.currentPage = 1;
-        this.pages = 0;
         this.pageSize = 5;
-        this.total = 0;
         this.isFilter = false;
-        if (type == "accountRecord") {
-
-        } else if (type == "agentRecord") {
-
-        } else {
-          this.getFundRecordList();
-        }
+        this.funRecordList = [];
+        this.accountRecordList = [];
+        this.agentRecordList = [];
+        this.getDataList();
       },
       togglePopover() {
         this.isShowPopover = !this.isShowPopover;
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
-      },
-      //从pageu组件传递过来的当前page
-      pageChange(page) {
-        this.currentPage = page;
-        if (this.defaultType == "personalReport") {
-          this.getPersonalReportList();
-        } else {
-          this.getGameReportList();
-        }
       },
 
       getTime() {
@@ -272,11 +254,10 @@
         return date
       },
 
-      getFundRecordList() {
+      getDataList() {
         var minDay = this.getTime('').minDay;
         var maxDay = this.getTime('').maxDay;
 
-        console.log()
         var params = new URLSearchParams();
         var obj = {
           id: parseInt(this.searchUserId),
@@ -288,20 +269,46 @@
           operator_id: this.user_id
         };
         params.append('args', JSON.stringify(obj));
-        this.$http
-          .post(`${this.$api}/v1/record/r/bill/${this.user_id}/${this.username}?session=${this.session}`, params)
-          .then(res => {
-            var resData = res.data;
-            if (resData.success == true) {
-              this.funRecordList = resData.data.list;
-              this.currentPage = parseInt(resData.data.page_index);
-              this.pages = parseInt(resData.data.pages);
-              this.pageSize = parseInt(resData.data.page_size);
-              this.total = parseInt(resData.data.total);
-            } else {
 
+        var url = '';
+        if (this.defaultType == 'accountRecord') {
+
+        } else if (this.defaultType == 'agentRecord') {
+
+        } else {
+          url = `${this.$api}/v1/record/r/bill/${this.user_id}/${this.username}?session=${this.session}`;
+        }
+        if (url != '') {
+          this.$http
+            .post(url, params)
+            .then(res => {
+              var resData = res.data;
+              this.response(resData);
+            })
+        }
+
+      },
+
+      response(resData) {
+        if (resData.success == true) {
+          const list = resData.data.list;
+          if (list != undefined && list != null && list != '') {
+            if (this.defaultType == 'accountRecord') {
+              this.accountRecordList = this.accountRecordList.concat(list);
+            } else if (this.defaultType == 'agentRecord') {
+              this.agentRecordList = this.agentRecordList.concat(list);
+            } else {
+              this.funRecordList = this.funRecordList.concat(list);
             }
-          })
+            this.currentPage = parseInt(resData.data.page_index);
+          } else {
+            if (this.accountRecordList.length != 0 || this.agentRecordList.length != 0 || this.funRecordList.length != 0) {
+              this.currentPage = this.currentPage - 1;
+              this.$refs.scroll.forceUpdate()
+            }
+          }
+        }
+
       },
 
       //选择报表类型
@@ -311,7 +318,6 @@
 
       selectSearchTypeFn(type) {
         this.searchType = type;
-        console.log('类型', this.searchType)
       },
       //重置
       reset() {
@@ -325,23 +331,28 @@
       filter() {
         this.isFilter = true;
         this.currentPage = 1;
-        this.pageSize = 5;
-        if (this.selectType == "accountRecord") {
-          // this.getPersonalReportList();
-          this.isShowPopover = false;
-          this.defaultType = this.selectType;
-        } else if (this.selectType == "agentRecord") {
-
-        } else {
-          this.getFundRecordList();
-          this.isShowPopover = false;
-          this.defaultType = this.selectType;
-        }
-
+        this.funRecordList = [];
+        this.accountRecordList = [];
+        this.agentRecordList = [];
+        this.isShowPopover = false;
+        this.defaultType = this.selectType;
+        this.getDataList();
       },
-    },
-    components: {
-      pagination
+
+      //下拉刷新
+      onPullingDown() {
+        setTimeout(() => {
+          this.$refs.scroll.forceUpdate()
+        }, 1000)
+      },
+
+      //上拉加载
+      onPullingUp() {
+        setTimeout(() => {
+          this.currentPage = this.currentPage + 1;
+          this.getDataList();
+        }, 1000)
+      }
     }
   }
 </script>

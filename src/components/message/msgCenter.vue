@@ -85,7 +85,52 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #msgCenter {
 
+    .box-item {
+      height: 80px;
+      overflow: hidden;
+      .horn-icon {
+        width: 35px;
+        height: 35px;
+        background: url("/static/img/horn-icon.png");
+        background-size: cover;
+        float: left;
+      }
+      .bell-icon {
+        width: 35px;
+        height: 35px;
+        background: url("/static/img/bell-icon.png");
+        background-size: cover;
+        float: left;
+      }
+      .flag-icon {
+        width: 35px;
+        height: 35px;
+        background: url("/static/img/flag-icon.png");
+        background-size: cover;
+        float: left;
+      }
+      .item-content {
+        margin-left: 63px;
+        .title {
+          font-weight: 500;
+        }
+        .text {
+          margin-top: 10px;
+          color: #A3A3A3;
+          font-size: 14px;
+        }
+        .time {
+          position: absolute;
+          top: 20px;
+          right: 23px;
+          color: #A3A3A3;
+          font-size: 14px;
 
+        }
+      }
+    }
+  }
 </style>

@@ -225,7 +225,97 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #ranking {
+    .page-content {
+      .sub-nav {
+        width: 100vw;
+        height: 57px;
+        padding: 0 50px;
+        font-size: 16px;
+        color: #5D97F9;
+        text-align: center;
 
+        .nav-li {
+          display: inline-block;
+          width: 60px;
+          height: 57px;
+          line-height: 57px;
+          text-align: center;
+          margin: 0 15px;
+          &.active {
+            color: #FF7F00;
+            border-bottom: 2px solid #FF7F00;
+          }
+        }
+      }
 
+      .rank-list {
+        flex: 1;
+        margin: 0 9px;
+        background: #ffffff;
+        border-radius: 6px;
+
+        .rank-item {
+          height: 80px;
+          margin: 20px 4px 9px 30px;
+          border-bottom: 1px solid #EBEBEB;
+          position: relative;
+          font-size: 14px;
+          .num {
+            position: absolute;
+            top: 20px;
+            left: -25px;
+            width: 19px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            font-size: 16px;
+            color: #666666;
+            img {
+              width: 19px;
+              height: 24px;
+            }
+          }
+
+          .item-icon {
+            width: 60px;
+            height: 60px;
+            margin-left: 7px;
+            float: left;
+          }
+
+          .item-title {
+            margin-top: 15px;
+            margin-left: 12px;
+            float: left;
+
+            .online {
+              margin-top: 6px;
+              color: #888888;
+
+              .text-orange {
+                margin-right: 7px;
+                color: #FF991D;
+              }
+            }
+          }
+
+          .play-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #5D97F9;
+            border-radius: 4px;
+            color: #5D97F9;
+          }
+        }
+      }
+
+    }
+  }
 </style>

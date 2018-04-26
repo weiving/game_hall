@@ -142,6 +142,69 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #msgMy {
+    .message-item {
+      .time {
+        margin-top: 20px;
+        margin-bottom: 18px;
+        text-align: center;
+        color: #CDD0D4;
+      }
+      .box-item {
+        padding: 12px 14px 0 14px;
+        &.lookMore {
+          max-height: none;
+        }
+        .title {
+          color: #000000;
+        }
 
+        .text {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          color: #666666;
+          line-height: 20px;
+          overflow: hidden;
+          font-size: 14px;
+          &.lookMore {
+            max-height: none;
+          }
+        }
+
+        .more {
+          display: block;
+          border-top: 1px solid #EBEBEB;
+          color: #9F9F9F;
+          text-align: center;
+          /*padding-top: 10px;*/
+          height: 35px;
+          line-height: 35px;
+          position: relative;
+          .more-icon {
+            width: 12px;
+            height: 6px;
+            background: url("/static/img/do.png");
+            background-size: cover;
+            position: absolute;
+            top: 14px;
+            left: 61%;
+          }
+        }
+
+        .news-tip {
+          position: absolute;
+          top: 0;
+          right: 0;
+          .tip-icon {
+            display: block;
+            width: 34px;
+            height: 34px;
+            background: url("/static/img/ico_tip.png");
+            background-size: cover;
+          }
+        }
+      }
+    }
+  }
 </style>

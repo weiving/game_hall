@@ -204,6 +204,145 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #manageCard {
+    .card-list {
+      .card-item {
+        margin: 18px auto;
+        border-radius: 10px;
+        font-size: 18px;
+        width: 353px;
+        height: 176px;
+        background: url("/static/img/bankbg.png");
+        background-size: cover;
+        position: relative;
+        color: #ffffff;
+        .card-logo {
+          width: 45px;
+          height: 45px;
+          line-height: 45px;
+          background: #ffffff;
+          border-radius: 50%;
+          text-align: center;
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .card-name {
+          width: 100px;
+          height: 45px;
+          line-height: 45px;
+          margin-left: 5px;
+          position: absolute;
+          top: 20px;
+          left: 80px;
+        }
+        .cardID {
+          margin-left: 5px;
+          position: absolute;
+          top: 80px;
+          left: 80px;
+        }
+        .card-owner {
+          position: absolute;
+          bottom: 20px;
+          left: 20px;
+          span {
+            display: inline-block;
+          }
+          .owner {
+            display: inline-block;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
 
+    .bind-card {
+      margin: 28px auto;
+      border-radius: 10px;
+      font-size: 18px;
+      width: 353px;
+      height: 100px;
+      background: #ffffff;
+      border: 1px dashed #C3C5C8;
+      color: #C3C5C8;
+      .add-btn {
+        width: 130px;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        top: 50%;
+        margin: -15px auto;
+        .add-icon {
+          height: 30px;
+          line-height: 30px;
+          font-size: 30px;
+          float: left;
+          margin-top: -2px;
+        }
+        .text {
+          float: left;
+        }
+      }
+
+    }
+
+    .opt-box {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      color: #5D97F9;
+      z-index: 101;
+      .box-item {
+        margin: 18px 10px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        font-size: 16px;
+        position: relative;
+        padding: 0;
+        text-align: center;
+        .card-line {
+          border-bottom: solid 1px #ECECEE;
+        }
+        .opt-btn {
+          height: 50px;
+          line-height: 50px;
+        }
+
+      }
+    }
+
+    .del-card {
+      width: 100%;
+      position: absolute;
+      top: 40%;
+      z-index: 101;
+      font-size: 16px;
+      .box-item {
+        background: #fff;
+        border-radius: 10px;
+        width: 320px;
+        padding: 0 12px;
+        margin: 0 auto;
+        .title {
+          height: 50px;
+          line-height: 50px;
+        }
+        .row {
+          height: 50px;
+          line-height: 50px;
+        }
+      }
+
+      .btn {
+        text-align: center;
+      }
+    }
+  }
 </style>

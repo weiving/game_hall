@@ -165,6 +165,57 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #gValidate {
+    .secret {
+      margin: 20px auto;
+      text-align: center;
+    }
+    .box-item {
+      height: 60px;
+      padding: 10px 10px;
+      .col-item {
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-right: 1px solid #D5D5D7;
 
+        input {
+          height: 100%;
+          width: 100%;
+          font-size: 35px;
+          text-align: center;
+        }
+        .num {
+          height: 100%;
+          width: 100%;
+          font-size: 35px;
+          text-align: center;
+        }
+        &:last-child {
+          border-right: none;
+
+        }
+      }
+
+      .secret-row {
+        height: 40px;
+        line-height: 40px;
+        .col-12 {
+          width: 12%;
+          float: left;
+        }
+        .col-88 {
+          width: 88%;
+          float: left;
+        }
+      }
+    }
+
+    .tip-row {
+      text-align: center;
+      color: #7F8182;
+      font-size: 16px;
+    }
+  }
 </style>

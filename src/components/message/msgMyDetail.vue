@@ -50,6 +50,36 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #msgMyDetail {
+    .msgDetail-item {
+      .time {
+        margin-top: 20px;
+        margin-bottom: 18px;
+        text-align: center;
+        color: #CDD0D4;
+      }
+      .content {
+        margin-left: 10px;
+        margin-right: 10px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        font-size: 14px;
+        padding: 12px 14px;
+        box-shadow: 0 0 5px 2px #e9f4ff;
+        position: relative;
 
+        .title {
+
+        }
+
+        .text {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          color: #666666;
+          line-height: 20px;
+        }
+      }
+    }
+  }
 </style>

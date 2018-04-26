@@ -73,6 +73,62 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  #selectCard {
+    .card-list {
+      .card-item {
+        margin: 18px auto;
+        border-radius: 10px;
+        font-size: 18px;
+        width: 353px;
+        height: 176px;
+        background: url("/static/img/bankbg.png");
+        background-size: cover;
+        position: relative;
+        color: #ffffff;
+        .card-logo {
+          width: 45px;
+          height: 45px;
+          line-height: 45px;
+          background: #ffffff;
+          border-radius: 50%;
+          text-align: center;
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .card-name {
+          width: 100px;
+          height: 45px;
+          line-height: 45px;
+          margin-left: 5px;
+          position: absolute;
+          top: 20px;
+          left: 80px;
+        }
+        .cardID {
+          margin-left: 5px;
+          position: absolute;
+          top: 80px;
+          left: 80px;
+        }
+        .card-owner {
+          position: absolute;
+          bottom: 20px;
+          left: 20px;
+          span {
+            display: inline-block;
+          }
+          .owner {
+            display: inline-block;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
 </style>

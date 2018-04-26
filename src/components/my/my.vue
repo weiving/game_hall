@@ -64,6 +64,11 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  #home {
+    height: 100%;
+    background-color: #F7FBFF;
+    overflow: auto;
+    padding: 8px 10px;
+  }
 </style>

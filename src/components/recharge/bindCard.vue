@@ -323,6 +323,216 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #bindCard {
+    .info-title {
+      height: 46px;
+      padding: 15px 13px;
+      font-size: 16px;
+      position: relative;
+      .tips {
+        position: absolute;
+        top: 17px;
+        right: 10px;
+        font-size: 14px;
+        color: #5D97F9;
+      }
+    }
+    .info-box {
+      //height: 120px;
+      background: #ffffff;
+      .info-item {
+        height: 60px;
+        line-height: 60px;
+        margin: 0 13px;
+        border-bottom: solid 1px #EBEBEB;
+        position: relative;
+        &:last-child {
+          border-bottom: none;
+        }
+        .bankName {
+          width: 80%;
+        }
+        span {
+          display: inline-block;
+          width: 20%;
+          color: #C8C8C8;
+          margin-right: 20px;
+        }
+        input {
+          display: inline-block;
+          width: 60%;
+        }
+        .address {
+          display: inline-block;
+          width: 60%;
+        }
+        .get-code {
+          width: 100px;
+          height: 30px;
+          line-height: 30px;
+          background: #2CD694;
+          color: #ffffff;
+          text-align: center;
+          border-radius: 50px;
+          box-shadow: 3px 3px 10px #B1F0D7;
+          position: absolute;
+          top: 15px;
+          right: 0px;
+        }
+        .next-side {
+          width: 60px;
+          height: 60px;
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          .wind-icon {
+            display: block;
+            width: 7px;
+            height: 13px;
+            background: url("/static/img/wind01.png");
+            background-size: cover;
+            margin: 23px auto;
+          }
+        }
+      }
+    }
+    .slide-popover {
+      z-index: 102;
+      background: #F1F5FD;
+      .bank-title {
+        height: 46px;
+        padding: 15px 13px;
+        font-size: 16px;
+        color: #666666;
+        position: relative;
+      }
 
+      .bankCardList {
+        width: 100%;
+        height: -webkit-calc(~"100vh - 96px");
+        height: calc(~"100vh - 96px");
+        overflow: auto;
+        background: #ffffff;
+        .bankCard-item {
+          width: -webkit-calc(~"100vw - 28px");
+          width: calc(~"100vw - 28px");
+          height: 58px;
+          border-bottom: 1px solid #F3F3F3;
+          margin: 0 14px;
+          position: relative;
+          padding-top: 12px;
+          padding-left: 42px;
+          background: #ffffff;
+          img {
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            top: 12px;
+            left: 0px;
+          }
+          .bankCardInfo {
+            .bankName {
+              font-size: 14px;
+            }
+            .des {
+              margin-top: 10px;
+              font-size: 12px;
+              color: #C4C4C4;
+            }
+          }
+
+          .select-radio {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            width: 19px;
+            height: 19px;
+            border: 1px solid #C4C4C4;
+            border-radius: 50%;
+
+            &.active {
+              background: #5D97F9;
+              border-color: #5D97F9;
+              padding-left: 2px;
+              i {
+                display: inline-block;
+                width: 6px;
+                height: 2px;
+                background: #ffffff;
+                line-height: 0;
+                font-size: 0;
+                vertical-align: bottom;
+                -webkit-transform: rotate(45deg) translateY(-30%) translateX(-10%);
+                &:after {
+                  content: '/';
+                  display: block;
+                  width: 10px;
+                  height: 2px;
+                  background: #ffffff;
+                  //-webkit-transform: rotate(-90deg) translateY(-50%) translateX(50%);
+                  -webkit-transform: rotate(-90deg) translateY(30%) translateX(50%);
+                }
+              }
+            }
+
+          }
+        }
+      }
+
+      .addressList {
+        width: 100%;
+        height: -webkit-calc(~"100vh - 50px");
+        height: calc(~"100vh - 50px");
+        overflow: auto;
+        background: #ffffff;
+        .address-item {
+          width: -webkit-calc(~"100vw - 28px");
+          width: calc(~"100vw - 28px");
+          height: 58px;
+          line-height: 58px;
+          border-bottom: 1px solid #F3F3F3;
+          margin: 0 14px;
+          position: relative;
+          .select-radio {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            width: 19px;
+            height: 19px;
+            border: 1px solid #C4C4C4;
+            border-radius: 50%;
+
+            &.active {
+              background: #5D97F9;
+              border-color: #5D97F9;
+              padding-left: 2px;
+              i {
+                display: inline-block;
+                width: 6px;
+                height: 2px;
+                background: #ffffff;
+                line-height: 0;
+                font-size: 0;
+                vertical-align: bottom;
+                -webkit-transform: rotate(45deg) translateY(-30%) translateX(-10%);
+                position: absolute;
+                top: 10px;
+                &:after {
+                  content: '/';
+                  display: block;
+                  width: 10px;
+                  height: 2px;
+                  background: #ffffff;
+                  //-webkit-transform: rotate(-90deg) translateY(-50%) translateX(50%);
+                  -webkit-transform: rotate(-90deg) translateY(30%) translateX(50%);
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
 </style>

@@ -146,5 +146,136 @@
 </script>
 
 <style scoped lang="less">
+  #hall-index {
+    height: 100%;
+    background-color: #F7FBFF;
+    overflow: auto;
 
+    .redPacket-popover {
+      position: absolute;
+      top: 30%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 250px;
+      z-index: 101;
+      text-align: center;
+      .unpack {
+        width: 321px;
+        height: 195px;
+        background: url("/static/img/unpack.png");
+        background-size: cover;
+        margin: 0 auto;
+        &.active {
+          background: url("/static/img/opening.png");
+          background-size: cover;
+        }
+      }
+
+      .close-btn {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        .close-icon {
+          width: 24px;
+          height: 24px;
+          background: url("/static/img/close.png");
+          background-size: cover;
+          margin: 0 auto;
+        }
+      }
+
+    }
+
+    .msg-popover {
+      position: absolute;
+      top: 30%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 101;
+      text-align: center;
+      .msg-panel {
+        width: 70%;
+        background: #ffffff;
+        border-radius: 5px;
+        margin: 0 auto;
+        padding-top: 10px;
+        position: relative;
+        .msg-body {
+          min-height: 100px;
+          max-height: 200px;
+          overflow: auto;
+          .msg-logo {
+            width: 117px;
+            height: 79px;
+            background: url("/static/img/rocket.png");
+            background-size: cover;
+            margin: 10px auto;
+          }
+          .msg-content {
+            padding: 10px 20px;
+            color: #585F61;
+            .title {
+              font-weight: 600;
+              margin-bottom: 10px;
+              color: #000;
+            }
+          }
+        }
+        .msg-footer {
+          width: 100%;
+          height: 35px;
+          line-height: 35px;
+          border-top: 1px solid #EBEBEB;
+          .before {
+            color: #CACACA;
+            &.active {
+              color: #5D97F9;
+            }
+          }
+          .next {
+            color: #CACACA;
+            border-left: 1px solid #EBEBEB;
+            position: relative;
+            &.active {
+              color: #5D97F9;
+            }
+            .circle {
+              width: 16px;
+              height: 16px;
+              background: red;
+              border-radius: 50%;
+              position: absolute;
+              top: 3px;
+              right: 25%;
+              .num {
+                color: #ffffff;
+                font-size: 12px;
+                position: absolute;
+                top: -9px;
+                right: 3px;
+              }
+            }
+          }
+        }
+      }
+      .close-btn {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        .close-icon {
+          width: 24px;
+          height: 24px;
+          background: url("/static/img/close.png");
+          background-size: cover;
+          position: relative;
+          top: 30%;
+          margin: 0 auto;
+        }
+      }
+
+    }
+  }
 </style>
+

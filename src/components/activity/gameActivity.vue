@@ -56,6 +56,34 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  #gameActivity {
+    .box-item {
+      padding: unset;
+      .active-pic {
+        width: 100%;
+        height: 125px;
+        img {
+          width: 100%;
+          height: 100%;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          box-shadow: 0 0 20px 0 #ffffff;
+        }
+      }
+      .active-title {
+        padding: 20px 12px;
+        position: relative;
+        .more-icon {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          width: 7px;
+          height: 12px;
+          background: url("/static/img/wind01.png");
+          background-size: cover;
+        }
+      }
+    }
+  }
 </style>

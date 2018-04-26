@@ -273,6 +273,109 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #ordinaryPay {
+    .page-content {
+      .input-box {
+        width: 100%;
+        height: 60px;
+        line-height: 26px;
+        //margin-bottom: 10px;
+        padding: 17px 13px;
+        background: #ffffff;
+        box-shadow: 0 0 5px 2px #EEF7FE;
 
+        .text {
+          font-size: 18px;
+          margin-left: 12px;
+          float: left;
+        }
+
+        .margin-input {
+          margin-left: 10px;
+          float: left;
+          position: relative;
+
+          .amount {
+            float: left;
+            color: #999999;
+          }
+
+          .placeholder {
+            width: 180px;
+            position: absolute;
+            top: 0px;
+            left: 2px;
+            color: #C5C5C5;
+          }
+
+          .cursor {
+            float: left;
+            background-color: #4788c5;
+            height: 26px;
+            width: 2px;
+            margin-left: 2px;
+          }
+        }
+
+        .empty-btn {
+          width: 34px;
+          height: 34px;
+          position: absolute;
+          top: 0px;
+          right: 10px;
+        }
+      }
+
+      .des-box {
+        height: 40px;
+        line-height: 40px;
+        background: #ffffff;
+        p {
+          margin-left: 10px;
+          margin-right: 10px;
+          border-top: 1px solid #E9E9E9;
+          color: #A0A0A0;
+          padding-left: 10px;
+        }
+      }
+
+      .payer-box {
+        height: 50px;
+        //line-height: 50px;
+        margin-top: 20px;
+        background: #ffffff;
+        padding: 17px 12px;
+        .text {
+          font-size: 18px;
+          margin-left: 12px;
+          float: left;
+        }
+        .margin-input {
+          width: 250px;
+          margin-left: 10px;
+          float: left;
+          input {
+            width: 100%;
+          }
+        }
+      }
+
+      .prompt-box {
+        margin: 25px 12px;
+        .title {
+          font-size: 18px;
+          color: #B8BABC;
+          margin-bottom: 14px;
+        }
+        p {
+          margin-bottom: 10px;
+          color: #B8BABC;
+          &.text-red {
+            color: red;
+          }
+        }
+      }
+    }
+  }
 </style>

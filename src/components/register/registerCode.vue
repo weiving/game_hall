@@ -106,11 +106,11 @@
           this.$http
             .post(`${this.$api}/v1/register/invite`, params)
             .then(res => {
-              console.log('请求',11111);
+              console.log('请求', 11111);
               var resData = res.data;
               console.log("resData", resData);
               if (resData.success == true) {
-                console.log('成功',11111);
+                console.log('成功', 11111);
                 this.isShow_msg = true;
                 this.msg = resData.msg;
                 var _this = this;
@@ -118,7 +118,7 @@
                   _this.$router.push({path: '/login'})
                 }, 1000)
               } else {
-                console.log('失败',22222);
+                console.log('失败', 22222);
 
                 this.isShow_msg = true;
                 this.msg = resData.msg;
@@ -152,6 +152,234 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #registerCode {
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/img/bg.png');
+    background-size: cover;
+    position: relative;
+    z-index: 61;
 
+    .reg-head {
+      padding: 20px 13px;
+      position: relative;
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+
+      img {
+        position: absolute;
+        top: 23px;
+        left: 13px;
+        width: 11px;
+        height: 19px;
+      }
+
+      .toLogin {
+        position: absolute;
+        top: 25px;
+        right: 10px;
+        font-size: 18px;
+        color: #fff;
+      }
+    }
+
+    .reg-content {
+      width: 100vw;
+      padding: 100px 13vw 100px 13vw;
+      color: #ABB8BF;
+
+      .reg-item {
+        width: 74vw;
+        height: 40px;
+        background: #fff;
+        border-radius: 40px;
+        position: relative;
+        padding: 12px 18px;
+        margin-bottom: 20px;
+
+        input {
+          width: -webkit-calc(~"74vw - 84px");
+          width: -moz-calc(~"74vw - 84px");
+          width: calc(~"74vw - 84px");
+          height: 19px;
+          margin-left: 16px;
+          float: left;
+          font-size: 16px;
+        }
+
+        input:focus {
+          -webkit-box-shadow: 0 0 5px #fff;
+          -moz-box-shadow: 0 0 5px #fff;
+          box-shadow: 0 0 5px #fff;
+          border-color: #fff;
+          background: #fff;
+        }
+
+        .username-icon {
+          display: block;
+          width: 19px;
+          height: 19px;
+          background-image: url("/static/img/ico_account.png");
+          background-size: cover;
+          float: left;
+        }
+
+        .password-icon {
+          display: block;
+          width: 19px;
+          height: 19px;
+          background-image: url("/static/img/ico_password.png");
+          background-size: cover;
+          float: left;
+        }
+
+        .password {
+          width: -webkit-calc(~"74vw - 93px");
+          width: -moz-calc(~"74vw - 93px");
+          width: calc(~"74vw - 93px");
+        }
+
+        .close-icon {
+          display: block;
+          width: 17px;
+          height: 12px;
+          background-image: url("/static/img/ico_ice_up_2.png");
+          background-size: cover;
+          float: left;
+          margin-top: 2px;
+          margin-left: 5px;
+        }
+
+        .open-icon {
+          display: block;
+          width: 17px;
+          height: 12px;
+          background-image: url("/static/img/ico_ice_down_2.png");
+          background-size: cover;
+          float: left;
+          margin-top: 2px;
+          margin-left: 5px;
+        }
+
+        .phone-icon {
+          display: block;
+          width: 19px;
+          height: 19px;
+          background-image: url("/static/img/ico_phone_2.png");
+          background-size: cover;
+          float: left;
+        }
+
+        .phoneCode-icon {
+          display: block;
+          width: 19px;
+          height: 19px;
+          background-image: url("/static/img/ico_protect.png");
+          background-size: cover;
+          float: left;
+        }
+
+        .phoneCode {
+          width: -webkit-calc(~"74vw - 170px");
+          width: -moz-calc(~"74vw - 170px");
+          width: calc(~"74vw - 170px");
+          float: left;
+        }
+
+        .phoneCode-info {
+          width: 110px;
+          position: absolute;
+          top: 8px;
+          right: 10px;
+
+          .line {
+            display: block;
+            width: 1px;
+            height: 24px;
+            background: #ABB8BF;
+          }
+
+          .getCode {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: #6197F8;
+          }
+
+          .disabled {
+            color: #ABB8BF;
+          }
+        }
+
+        .code-icon {
+          display: block;
+          width: 19px;
+          height: 19px;
+          background-image: url("/static/img/ico_protect.png");
+          background-size: cover;
+          float: left;
+        }
+
+        .code {
+          width: -webkit-calc(~"74vw - 150px");
+          width: -moz-calc(~"74vw - 150px");
+          width: calc(~"74vw - 150px");
+          float: left;
+        }
+
+        .identify-code {
+          margin-top: -10px;
+          margin-left: 18px;
+          height: 40px;
+          line-height: 40px;
+          float: left;
+          img {
+            width: 60px;
+            height: 35px;
+          }
+        }
+
+      }
+
+      .error-msg {
+        position: absolute;
+        top: 40px;
+        left: 12vw;
+        height: 39px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 11px 15px;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 16px;
+        text-align: center;
+        z-index: 10;
+      }
+
+      .reg-btn {
+        width: 74vw;
+        height: 40px;
+        background: #55AAFF;
+        border-radius: 40px;
+        padding: 12px 18px;
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 45px;
+      }
+    }
+
+    .reg-footer {
+      width: 100vw;
+      text-align: center;
+      font-size: 14px;
+      color: #fff;
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+    }
+
+  }
 </style>

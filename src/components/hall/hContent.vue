@@ -132,7 +132,186 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #hContent {
+    margin-top: 25px;
+    .hall-content {
+      width: 94%;
+      margin-left: 3%;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 1px 5px #F4F9FE;
+      padding: 10px 10px 0 10px;
 
+      .hall-header {
+        height: 80px;
+        border-bottom: 1px solid #F5F5F5;
+        position: relative;
 
+        img {
+          width: 65px;
+          height: 65px;
+          float: left;
+        }
+
+        .header-game-info {
+          height: 65px;
+          margin-left: 15px;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+
+          .game-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+          }
+
+          .game-online {
+            margin-bottom: 10px;
+            color: #B2B2B2;
+          }
+
+          .game-des {
+            color: #B2B2B2;
+          }
+        }
+
+        .jump-btn {
+          position: absolute;
+          top: 10px;
+          right: 5px;
+          .play-game {
+            height: 40px;
+            line-height: 40px;
+            background-color: #fff;
+            border: 1px solid #278CF5;
+            color: #278CF5;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 1px 6px;
+          }
+        }
+
+      }
+
+      .hall-body {
+        width: 100%;
+        height: 240px;
+        border-bottom: 1px solid #F5F5F5;
+
+        .item-game {
+          width: 22%;
+          height: 110px;
+          margin-top: 10px;
+          margin-right: 4%;
+          float: left;
+          text-align: center;
+
+          &:nth-child(4n) {
+            margin-right: 0;
+          }
+
+          img {
+            width: 65px;
+            height: 65px;
+            background-size: cover;
+          }
+
+          .play-online {
+            margin-top: 5px;
+            font-size: 10px;
+            color: rgb(178, 178, 178);
+          }
+
+          .title {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+      }
+
+      .hall-footer {
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+      }
+    }
+
+    .sub-content {
+      width: 94%;
+      margin-top: 15px;
+      margin-bottom: 55px;
+      margin-left: 3%;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 1px 5px #F4F9FE;
+      padding: 15px 10px;
+      font-size: 10px;
+
+      .swiper-container {
+        height: 160px;
+        width: 100%;
+        .item {
+          position: relative;
+          padding-left: 20px;
+          .item-title {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            color: #278CF5;
+            position: relative;
+            &:before {
+              content: '';
+              width: 10px;
+              height: 10px;
+              display: block;
+              background: #278CF5;
+              border-radius: 50%;
+              position: absolute;
+              top: 10px;
+              left: -20px;
+            }
+          }
+          .item-content {
+            width: 100%;
+            min-height: 20px;
+            max-height: 40px;
+            line-height: 20px;
+            position: relative;
+            .text {
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              overflow: hidden;
+            }
+
+            &:after {
+              content: '';
+              width: 2px;
+              height: 100%;
+              display: block;
+              background: #278CF5;
+              position: absolute;
+              top: 0px;
+              left: -16px;
+            }
+          }
+          .item-time {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #b2b2b2;
+          }
+        }
+
+      }
+
+    }
+
+  }
 </style>

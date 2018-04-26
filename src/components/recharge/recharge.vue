@@ -145,6 +145,129 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  /*充值*/
+  #recharge {
+    .page-content {
+      font-size: 16px;
+      user-select: none;
+      .input-box {
+        width: 100%;
+        height: 60px;
+        line-height: 26px;
+        //margin-bottom: 10px;
+        padding: 17px 13px;
+        background: #ffffff;
+        box-shadow: 0 0 5px 2px #EEF7FE;
+
+        .text {
+          margin-left: 12px;
+          float: left;
+        }
+
+        .margin-input {
+          margin-left: 10px;
+          float: left;
+          position: relative;
+
+          .amount {
+            float: left;
+            color: #999999;
+          }
+
+          .placeholder {
+            width: 120px;
+            position: absolute;
+            top: 0px;
+            left: 2px;
+            color: #C5C5C5;
+          }
+
+          .cursor {
+            float: left;
+            background-color: #4788c5;
+            height: 26px;
+            width: 2px;
+            margin-left: 2px;
+          }
+        }
+
+        .empty-btn {
+          width: 34px;
+          height: 34px;
+          position: absolute;
+          top: 0px;
+          right: 10px;
+        }
+      }
+      .payment-wrap {
+        .payment-title {
+          padding: 10px 20px;
+          color: #C5C5C5;
+          //box-shadow: 0 0 2px 1px #EEF7FE;
+        }
+        .payment-list {
+          background: #ffffff;
+          box-shadow: 0 0 2px 2px #EEF7FE;
+          padding: 0 20px;
+
+          .payment-item {
+            height: 60px;
+            width: 100%;
+            border-bottom: 1px solid #EBEBEB;
+            position: relative;
+            padding-top: 16px;
+            padding-left: 35px;
+            img {
+              width: 40px;
+              height: 40px;
+              position: absolute;
+              top: 10px;
+              left: -10px;
+            }
+
+            .payment {
+
+              .des {
+                margin-top: 6px;
+                font-size: 12px;
+                color: #999999;
+              }
+            }
+
+            &.active {
+              .selected {
+                width: 14px;
+                height: 11px;
+                background: url("/static/img/dict.png");
+                background-size: cover;
+                position: absolute;
+                top: 25px;
+                right: 20px;
+              }
+            }
+
+            &:last-child {
+              border: none;
+            }
+          }
+
+          .no-pay {
+            height: 60px;
+            line-height: 60px;
+            width: 100%;
+            position: relative;
+          }
+        }
+        //margin-top: 20px;
+        //background: #ffffff;
+        //box-shadow: 0 0 5px 2px #EEF7FE;
+      }
+
+      .default-btn {
+        margin-top: 37px;
+      }
+    }
+  }
 
 </style>

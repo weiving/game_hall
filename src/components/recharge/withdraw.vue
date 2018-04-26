@@ -321,6 +321,179 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #withdraw {
+    .withdraw-bank {
+      width: 100%;
+      height: 60px;
+      background: #ffffff;
+      box-shadow: 2px 0 20px 5px #EDF6FE;
+      .bank-logo {
+        width: 20%;
+        height: 60px;
+        float: left;
+        .logo-icon {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          //background: #D61518;
+          position: relative;
+          top: 50%;
+          margin: -18px auto;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .bankInfo {
+        width: 65%;
+        height: 60px;
+        float: left;
+        .bankName {
+          margin-top: 15px;
+          display: inline-block;
+        }
+        .bankCardCode {
+          margin-top: 15px;
+          display: inline-block;
+          color: #959595;
+        }
+        .username {
+          margin-top: 8px;
+          color: #959595;
+        }
+      }
+      .select-more {
+        width: 15%;
+        height: 60px;
+        float: left;
+        .more-icon {
+          width: 7px;
+          height: 12px;
+          background: url("/static/img/wind01.png");
+          background-size: cover;
+          position: relative;
+          top: 50%;
+          margin: -6px auto;
+        }
+      }
+    }
 
+    .unBankCard {
+      height: 60px;
+      line-height: 60px;
+      background: #ffffff;
+      box-shadow: 2px 0 20px 5px #EDF6FE;
+      padding-left: 20px;
+      .toBind {
+        color: #5D97F9;
+      }
+    }
+    .withdraw-money {
+      width: 100%;
+      height: 170px;
+      background: #ffffff;
+      margin-top: 20px;
+      .balance {
+        height: 40px;
+        line-height: 40px;
+        padding-left: 15px;
+        padding-right: 20px;
+        .text {
+          float: left;
+        }
+        .number {
+          float: left;
+        }
+        .all-btn {
+          float: right;
+          color: #5D97F9;
+        }
+      }
+      .input-box {
+        width: 100%;
+        height: 80px;
+        line-height: 46px;
+        //margin-bottom: 10px;
+        padding: 17px 13px;
+        font-size: 18px;
+
+        .text {
+          font-size: 18px;
+          margin-left: 12px;
+          float: left;
+        }
+
+        .margin-input {
+          margin-left: 10px;
+          float: left;
+          position: relative;
+
+          .amount {
+            float: left;
+            color: #999999;
+          }
+
+          .placeholder {
+            width: 250px;
+            position: absolute;
+            top: 0px;
+            left: 2px;
+            color: #D2D2D2;
+          }
+
+          .cursor {
+            float: left;
+            background-color: #4788c5;
+            height: 26px;
+            width: 2px;
+            margin-top: 10px;
+            margin-left: 2px;
+          }
+        }
+
+        .empty-btn {
+          width: 34px;
+          height: 34px;
+          position: absolute;
+          top: 0px;
+          right: 10px;
+        }
+      }
+      .input-pas {
+        height: 50px;
+        line-height: 50px;
+        margin: 0 15px;
+        border-top: 1px solid #E9E9E9;
+        font-size: 18px;
+        .label {
+          width: 25%;
+          float: left;
+        }
+        .fun-password {
+          width: 75%;
+          height: 50px;
+          float: left;
+        }
+      }
+    }
+
+    .prompt-box {
+      margin: 25px 12px;
+      .title {
+        font-size: 18px;
+        color: #B8BABC;
+        margin-bottom: 14px;
+      }
+      p {
+        margin-bottom: 10px;
+        color: #B8BABC;
+        &.text-red {
+          color: red;
+        }
+      }
+    }
+
+  }
 </style>

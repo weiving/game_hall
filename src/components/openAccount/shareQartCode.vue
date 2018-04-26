@@ -43,6 +43,20 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  /*分享二维码*/
+  #shareQartCode {
+
+    .page-content {
+      background-color: #141414;
+      .code-wrap {
+        text-align: center;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+  }
 
 </style>

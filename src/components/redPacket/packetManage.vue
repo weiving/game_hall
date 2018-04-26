@@ -252,6 +252,79 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #packetManage {
 
+    .query-popover {
+      .popover-row {
+        padding-left: 5px;
+        .title {
+          font-weight: normal;
+        }
+      }
+
+      .toReceive, .hasFailure, .all {
+        position: relative;
+        height: 20px;
+        line-height: 20px;
+        margin-left: 24px;
+        display: inline-block;
+        label {
+          display: block;
+          height: 20px;
+          width: 55px;
+          line-height: 20px;
+          cursor: pointer;
+        }
+        input {
+          z-index: 3;
+          display: block;
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -24px;
+          margin: auto;
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+        .user-defined {
+          z-index: 2;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -24px;
+          margin: auto;
+          width: 24px;
+          height: 24px;
+          border: 1px solid #BEBEBE;
+          border-radius: 50%;
+          cursor: pointer;
+
+          span.circle {
+            display: block;
+            width: 16px;
+            height: 16px;
+            margin-top: 3px;
+            margin-left: 3px;
+            background-color: transparent;
+            border-radius: 50%;
+          }
+
+          &.active {
+            border-color: #FF7F00;
+            span {
+              background-color: #FF7F00;
+            }
+          }
+        }
+      }
+      .all {
+        label {
+          width: 40px;
+        }
+      }
+    }
+  }
 </style>

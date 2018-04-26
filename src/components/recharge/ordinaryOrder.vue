@@ -160,6 +160,120 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #ordinaryOrder {
 
+    .payee-item {
+      margin: 18px auto;
+      border-radius: 10px;
+      font-size: 14px;
+      //width: -webkit-calc(~"100vw - 20px");
+      //width: calc(~"100vw - 20px");
+      width: 353px;
+      height: 176px;
+      background: url("/static/img/bankbg.png");
+      background-size: cover;
+      position: relative;
+      color: #ffffff;
+      .bank-logo {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        width: 50px;
+        height: 50px;
+        background: #ffffff;
+        border-radius: 50%;
+        img {
+          width: 100%;
+        }
+      }
+      .payee-info {
+        padding: 25px 0 0 70px;
+        .row {
+          height: 18px;
+          line-height: 18px;
+          width: 270px;
+          margin-bottom: 7px;
+          overflow: hidden;
+          clear: both;
+          .label {
+            float: left;
+          }
+          .bankCard {
+            float: left;
+          }
+        }
+      }
+    }
+
+    .other-item {
+      margin: 18px auto;
+      border-radius: 10px;
+      font-size: 14px;
+      //width: -webkit-calc(~"100vw - 20px");
+      //width: calc(~"100vw - 20px");
+      width: 353px;
+      height: 176px;
+      background: url("/static/img/bankbg.png");
+      background-size: cover;
+      position: relative;
+      color: #ffffff;
+
+      .qrCode {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+      .payee-info {
+        padding: 50px 0 0 100px;
+        .row {
+          height: 18px;
+          line-height: 18px;
+          width: 270px;
+          margin-bottom: 7px;
+          overflow: hidden;
+          clear: both;
+          .label {
+            float: left;
+          }
+          .bankCard {
+            float: left;
+          }
+        }
+      }
+    }
+    .order-title {
+      width: 100%;
+      margin-top: 10px;
+      padding: 15px 12px;
+      color: #C3C5C8;
+      box-shadow: 0px -3px 5px #EFF7FE inset;
+    }
+    .order-content {
+      width: 100%;
+      background: #ffffff;
+      padding: 0 20px;
+      .order-item {
+        height: 50px;
+        line-height: 50px;
+        clear: both;
+        border-bottom: 1px solid #EBEBEB;
+        .label-name {
+          float: left;
+        }
+        .order-val {
+          color: #C3C5C8;
+          float: left;
+        }
+        .text-red {
+          color: red;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
 </style>

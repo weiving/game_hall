@@ -7,89 +7,77 @@
       <div class="title">报表查询</div>
       <div class="page-head-btn" @click="togglePopover">筛选</div>
     </div>
-    <div class="page-content">
+    <div class="page-nav">
       <ul class="nav-tabs record-nav">
         <li class="col-xs-6" v-for="(item,index) in reportType">
           <a :class="{'active':defaultType==item}" @click="toggleType(item)">{{reportName[index]}}</a>
         </li>
       </ul>
-      <div class="tabs-content">
-        <div class="recordType" v-if="defaultType=='gameReport'">
-          <div class="record-list">
-            <div class="row" v-for="(item,index) in gameReportList">
-              <div class="row-title">用户账号 <span class="number">{{item.user_name}}</span></div>
-              <div class="row-content" @click="enter_detail(item.user_id,defaultType)">
-                <div class="col-xs-4 text-left">
-                  <div class="col-data text-orange">{{parseFloat(item.bet).toFixed(2)}}</div>
-                  <div class="col-name">总下注额</div>
-                </div>
-                <div class="col-xs-3 text-center">
-                  <div class="col-data">{{parseFloat(item.game_rebate).toFixed(2)}}</div>
-                  <div class="col-name">游戏返水</div>
-                </div>
-                <div class="col-xs-4 text-right">
-                  <div class="col-data text-red">{{parseFloat(item.waste).toFixed(2)}}</div>
-                  <div class="col-name">实际盈亏</div>
-                </div>
-                <div class="col-xs-1">
-                  <div class="text-detail">
-                    <i class="more-detail"></i>
-                  </div>
+    </div>
+    <div class="page-content">
+      <div class="tabs-content" v-if="defaultType=='gameReport'">
+        <div class="box-item" v-if="gameReportList==null || gameReportList.length==0">
+          <p>暂无数据</p>
+        </div>
+        <cube-scroll class="record-list" ref="scroll" v-else
+                     :data="gameReportList"
+                     :options="options"
+                     @pulling-down="onPullingDown"
+                     @pulling-up="onPullingUp">
+          <div class="row" v-for="(item,index) in gameReportList">
+            <div class="row-title">用户账号 <span class="number">{{item.user_name}}</span></div>
+            <div class="row-content" @click="enter_detail(item.user_id,defaultType)">
+              <div class="col-xs-4 text-left">
+                <div class="col-data text-orange">{{parseFloat(item.bet).toFixed(2)}}</div>
+                <div class="col-name">总下注额</div>
+              </div>
+              <div class="col-xs-3 text-center">
+                <div class="col-data">{{parseFloat(item.game_rebate).toFixed(2)}}</div>
+                <div class="col-name">游戏返水</div>
+              </div>
+              <div class="col-xs-4 text-right">
+                <div class="col-data text-red">{{parseFloat(item.waste).toFixed(2)}}</div>
+                <div class="col-name">实际盈亏</div>
+              </div>
+              <div class="col-xs-1">
+                <div class="text-detail">
+                  <i class="more-detail"></i>
                 </div>
               </div>
             </div>
           </div>
-          <div class="box-item" v-if="gameReportList==null">
-            <p>暂无数据</p>
-          </div>
-          <div class="pagination-wrap" v-if="pages>=1">
-            <pagination
-              :page-index="currentPage"
-              :pages="pages"
-              :total="total"
-              :page-size="pageSize"
-              @change="pageChange">
-            </pagination>
-          </div>
+        </cube-scroll>
+      </div>
+      <div class="tabs-content" v-if="defaultType=='personalReport'">
+        <div class="box-item" v-if="personalReportList==null ||personalReportList.length==0">
+          <p>暂无数据</p>
         </div>
-        <div class="recordType" v-if="defaultType=='personalReport'">
-          <div class="record-list">
-            <div class="row" v-for="(item,index) in personalReportList">
-              <div class="row-title">用户账号 <span class="number">{{item.user_name}}</span></div>
-              <div class="row-content" @click="enter_detail(item.user_id,defaultType)">
-                <div class="col-xs-4 text-left">
-                  <div class="col-data text-orange">{{parseFloat(item.bet).toFixed(2)}}</div>
-                  <div class="col-name">总下注额</div>
-                </div>
-                <div class="col-xs-3 text-center">
-                  <div class="col-data">{{parseFloat(item.game_rebate).toFixed(2)}}</div>
-                  <div class="col-name">游戏返水</div>
-                </div>
-                <div class="col-xs-4 text-right">
-                  <div class="col-data text-red">{{parseFloat(item.waste).toFixed(2)}}</div>
-                  <div class="col-name">实际盈亏</div>
-                </div>
-                <div class="col-xs-1">
-                  <div class="text-detail">
-                    <i class="more-detail"></i>
-                  </div>
+        <cube-scroll class="record-list" ref="scroll" :data="personalReportList" :options="options"
+                     @pulling-down="onPullingDown"
+                     @pulling-up="onPullingUp" v-else>
+          <div class="row" v-for="(item,index) in personalReportList">
+            <div class="row-title">用户账号 <span class="number">{{item.user_name}}</span></div>
+            <div class="row-content" @click="enter_detail(item.user_id,defaultType)">
+              <div class="col-xs-4 text-left">
+                <div class="col-data text-orange">{{parseFloat(item.bet).toFixed(2)}}</div>
+                <div class="col-name">总下注额</div>
+              </div>
+              <div class="col-xs-3 text-center">
+                <div class="col-data">{{parseFloat(item.game_rebate).toFixed(2)}}</div>
+                <div class="col-name">游戏返水</div>
+              </div>
+              <div class="col-xs-4 text-right">
+                <div class="col-data text-red">{{parseFloat(item.waste).toFixed(2)}}</div>
+                <div class="col-name">实际盈亏</div>
+              </div>
+              <div class="col-xs-1">
+                <div class="text-detail">
+                  <i class="more-detail"></i>
                 </div>
               </div>
             </div>
           </div>
-          <div class="box-item" v-if="personalReportList==null">
-            <p>暂无数据</p>
-          </div>
-          <div class="pagination-wrap" v-if="pages>=1">
-            <pagination
-              :page-index="currentPage"
-              :pages="pages"
-              :total="total"
-              :page-size="pageSize"
-              @change="pageChange">
-            </pagination>
-          </div>
-        </div>
+        </cube-scroll>
       </div>
     </div>
     <transition name="slideDown">
@@ -131,15 +119,11 @@
 
 <script>
   import {setLocalStorage, getLocalStorage, formatDate} from "../../../static/js/util";
-  import pagination from '../common/pagination'
 
   export default {
     name: "report-record",
     data() {
       return {
-        // reportName: ["游戏报表", "个人报表", "平台报表"],
-        // reportType: ['gameReport', 'personalReport', 'platformReport'],
-
         reportName: ["游戏报表", "个人报表"],
         reportType: ['gameReport', 'personalReport'],
         defaultType: 'gameReport',
@@ -155,20 +139,32 @@
         username: getLocalStorage('username'),
         gameReportList: [],
         personalReportList: [],
-        platformReportList: [],
 
         currentPage: 1,
-        pages: 0,
         pageSize: 5,
-        total: 0,
 
         selectType: 'gameReport',
         isFilter: false,
+        options: {
+          pullDownRefresh: {
+            threshold: 90,
+            stop: 40,
+            txt: '刷新成功'
+          },
+          pullUpLoad: {
+            thresholds: 0,
+            txt: {
+              more: '加载更多',
+              noMore: '没有更多数据了'
+            }
+          }
+        },
 
       }
     },
-    created() {
-      this.getGameReportList();
+    mounted() {
+      // this.getGameReportList();
+      this.getDataList();
     },
     methods: {
       enter_detail(id, type) {
@@ -184,30 +180,17 @@
       toggleType(type) {
         this.defaultType = type;
         this.currentPage = 1;
-        this.pages = 0;
         this.pageSize = 5;
-        this.total = 0;
         this.isFilter = false;
-        if (type == "personalReport") {
-          this.getPersonalReportList();
-        } else {
-          this.getGameReportList();
-        }
+        this.gameReportList = [];
+        this.personalReportList = [];
+        this.getDataList();
       },
       togglePopover() {
         this.isShowPopover = !this.isShowPopover;
       },
       toComponent(component) {
         this.$root.Bus.$emit('toggleComponent', component)
-      },
-      //从pageu组件传递过来的当前page
-      pageChange(page) {
-        this.currentPage = page;
-        if (this.defaultType == "personalReport") {
-          this.getPersonalReportList();
-        } else {
-          this.getGameReportList();
-        }
       },
 
       getTime() {
@@ -230,7 +213,7 @@
         return date
       },
 
-      getGameReportList() {
+      getDataList() {
         var minDay = this.getTime('').minDay;
         var maxDay = this.getTime('').maxDay;
 
@@ -241,82 +224,42 @@
           page_index: this.currentPage,
           page_size: this.pageSize,
           operator_id: this.user_id
-        }
+        };
         params.append('args', JSON.stringify(obj));
+
+        var url = '';
+        if (this.defaultType == 'personalReport') {
+          url = `${this.$api}/v1/report/r/user/${this.user_id}/${this.username}?session=${this.session}`;
+        } else {
+          url = `${this.$api}/v1/report/r/game/${this.user_id}/${this.username}?session=${this.session}`;
+        }
         this.$http
-          .post(`${this.$api}/v1/report/r/game/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .post(url, params)
           .then(res => {
             var resData = res.data;
-            if (resData.success == true) {
-              this.gameReportList = resData.data.list;
-              this.currentPage = parseInt(resData.data.page_index);
-              this.pages = parseInt(resData.data.pages);
-              this.pageSize = parseInt(resData.data.page_size);
-              this.total = parseInt(resData.data.total);
-            } else {
-
-            }
+            this.response(resData);
           })
       },
 
-      getPersonalReportList() {
-        var minDay = this.getTime('').minDay;
-        var maxDay = this.getTime('').maxDay;
-
-        var params = new URLSearchParams();
-        var obj = {
-          start_time: minDay,
-          end_time: maxDay,
-          page_index: this.currentPage,
-          page_size: this.pageSize,
-          operator_id: this.user_id
-        }
-        params.append('args', JSON.stringify(obj));
-        this.$http
-          .post(`${this.$api}/v1/report/r/user/${this.user_id}/${this.username}?session=${this.session}`, params)
-          .then(res => {
-            var resData = res.data;
-            if (resData.success == true) {
-              this.personalReportList = resData.data.list;
-              this.currentPage = parseInt(resData.data.page_index);
-              this.pages = parseInt(resData.data.pages);
-              this.pageSize = parseInt(resData.data.page_size);
-              this.total = parseInt(resData.data.total);
+      response(resData) {
+        if (resData.success == true) {
+          const list = resData.data.list;
+          if (list != undefined && list != null && list != '') {
+            if (this.defaultType == 'personalReport') {
+              this.personalReportList = this.personalReportList.concat(list);
             } else {
-
+              this.gameReportList = this.gameReportList.concat(list);
             }
-          })
-      },
+            this.currentPage = parseInt(resData.data.page_index);
+          } else {
+            if (this.personalReportList.length != 0 || this.gameReportList.length != 0) {
+              this.currentPage = this.currentPage - 1;
+              this.$refs.scroll.forceUpdate()
+            }
+          }
+        }
 
-      // getPlatformReportList() {
-      //   var minDay = this.getTime('').minDay;
-      //   var maxDay = this.getTime('').maxDay;
-      //
-      //   var params = new URLSearchParams();
-      //   var obj = {
-      //     start_time: minDay,
-      //     end_time: maxDay,
-      //     page_index: this.currentPage,
-      //     page_size: this.pageSize,
-      //     operator_id: this.user_id
-      //   }
-      //   params.append('args', JSON.stringify(obj));
-      //   this.$http
-      //     .post(`${this.$api}/v1/report/r/platform/${this.user_id}/${this.username}?session=${this.session}`, params)
-      //     .then(res => {
-      //       var resData = res.data;
-      //       console.log('平台', resData);
-      //       if (resData.success == true) {
-      //         this.platformReportList = resData.data.list;
-      //         this.currentPage = parseInt(resData.data.page_index);
-      //         this.pages = parseInt(resData.data.pages);
-      //         this.pageSize = parseInt(resData.data.page_size);
-      //         this.total = parseInt(resData.data.total);
-      //       } else {
-      //
-      //       }
-      //     })
-      // },
+      },
 
       //选择报表类型
       selectReportType(type) {
@@ -334,25 +277,31 @@
       filter() {
         this.isFilter = true;
         this.currentPage = 1;
-        if (this.selectType == "personalReport") {
-          this.getPersonalReportList();
-          this.isShowPopover = false;
-          this.defaultType = this.selectType;
-        } else {
-          this.getGameReportList();
-          this.isShowPopover = false;
-          this.defaultType = this.selectType;
-        }
-
+        this.gameReportList = [];
+        this.personalReportList = [];
+        this.isShowPopover = false;
+        this.defaultType = this.selectType;
+        this.getDataList();
       },
-    },
-    components: {
-      pagination
-    },
 
+      //下拉刷新
+      onPullingDown() {
+        setTimeout(() => {
+          this.$refs.scroll.forceUpdate()
+        }, 1000)
+      },
+
+      //上拉加载
+      onPullingUp() {
+        setTimeout(() => {
+          this.currentPage = this.currentPage + 1;
+          this.getDataList();
+        }, 1000)
+      }
+    }
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

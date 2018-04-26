@@ -170,6 +170,56 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  #teamStatistics {
+    .page-content {
+      //background: #ffffff;
+      .row-data {
+        margin-top: 20px;
+        .game-title {
+          width: 100%;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+        }
+        .row {
+          height: 85px;
+          background-color: #ffffff;
+          border-bottom: solid 1px #F2F2F2;
+          &:last-child {
+            border-bottom: none;
+          }
+          .item {
+            height: 100%;
+            text-align: center;
+            border-right: solid 1px #F2F2F2;
+            &:last-child {
+              border-right: none;
+            }
+            .number {
+              margin-top: 18px;
+            }
+            .label {
+              margin-top: 15px;
+              color: #A9A9A9;
+            }
+          }
+        }
+      }
 
+      .row-charts {
+        margin-top: 20px;
+      }
+
+    }
+    .gameList {
+      width: 50%;
+      height: 37px;
+      line-height: 37px;
+      padding-left: 15px;
+      border: solid 1px #D7D7D7;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  }
 </style>

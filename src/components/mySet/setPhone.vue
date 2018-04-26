@@ -172,6 +172,44 @@
 </script>
 
 <style scoped lang="less">
+  #setPhone {
+    .page-content {
+      .row {
+        width: 100vw;
+        height: 60px;
+        line-height: 60px;
+        background: #fff;
+        border-bottom: 1px solid #EBEBEB;
+        position: relative;
 
+        &.last {
+          border: none;
+          box-shadow: 0 5px 8px #F0F8FF;
+        }
 
+        input {
+          width: -webkit-calc(~"100vw - 30px");
+          width: calc(~"100vw - 30px");
+          height: 40px;
+          line-height: 40px;
+          margin-left: 15px;
+          margin-right: 15px;
+        }
+
+        .phone {
+          width: -webkit-calc(~"100vw - 130px");;
+          width: calc(~"100vw - 130px");
+        }
+
+        .getBtn {
+          position: absolute;
+          top: 0;
+          right: 10px;
+          color: #5D97F9;
+        }
+      }
+
+    }
+
+  }
 </style>

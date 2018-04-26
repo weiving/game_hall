@@ -93,6 +93,29 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  #dailyWagesDetail {
+    .record-title {
+      height: 54px;
+      color: #CCCFD2;
+      font-size: 16px;
+      text-align: center;
+      padding-top: 30px;
+    }
+    .record-opt {
+      background: #ffffff;
+      margin-top: 15px;
+      .opt-item {
+        height: 50px;
+        line-height: 50px;
+        margin: 0 10px;
+        border-bottom: solid 1px #E4E4E4;
+        text-align: center;
+        color: #5D97F9;
+        &.last {
+          border: none;
+        }
+      }
+    }
+  }
 </style>
