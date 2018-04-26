@@ -7,7 +7,7 @@ const vueLoaderConfig = require('./vue-loader.conf')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
-
+var TransformModulesPlugin = require('webpack-transform-modules-plugin')
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
@@ -26,6 +26,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'static': resolve('static'),
+      'cube-ui': 'cube-ui/lib'
     }
   },
   module: {
@@ -78,4 +79,7 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
+  plugins: [
+    new TransformModulesPlugin()
+  ]
 }

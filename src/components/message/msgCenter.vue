@@ -1,9 +1,6 @@
 <template>
   <div id="msgCenter" class="page-wrap">
     <div class="page-head">
-      <!--<router-link to="/" class="toReturn">-->
-      <!--<img src="/static/img/left.png" alt="">-->
-      <!--</router-link>-->
       <div class="title">消息中心</div>
     </div>
     <div class="page-content">
@@ -50,7 +47,7 @@
           .post(`${this.$api}/v1/notice/r/find_notice_type_list/${this.user_id}/${this.user_name}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
-            console.log(resData)
+            // console.log(resData)
             this.noticeTypeList = resData.data;
           })
       },

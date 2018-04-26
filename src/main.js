@@ -10,13 +10,12 @@ import VueAxios from 'vue-axios'
 
 
 import {DateTime} from 'vue-ydui/dist/lib.rem/datetime'
-// import Cube from 'cube-ui'
+import Cube from 'cube-ui'
 
 
 import confJson from 'static/conf_pack.json'
 import address from 'static/address'
 
-// import 'swiper/dist/css/swiper.css'
 import "vue-ydui/dist/ydui.base.css"
 import 'static/css/hall.less'
 
@@ -34,7 +33,7 @@ Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 Vue.component(DateTime.name, DateTime);
-// Vue.use(Cube);
+Vue.use(Cube);
 
 
 
