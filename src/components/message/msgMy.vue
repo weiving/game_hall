@@ -56,6 +56,21 @@
         pages: 1,
         pageSize: 5,//每页显示条数据
         total: 0,//总记录数
+
+        options: {
+          pullDownRefresh: {
+            threshold: 90,
+            stop: 40,
+            txt: '刷新成功'
+          },
+          pullUpLoad: {
+            thresholds: 0,
+            txt: {
+              more: '加载更多',
+              noMore: '没有更多数据了'
+            }
+          }
+        }
       }
     },
     created() {
@@ -118,6 +133,7 @@
         this.currentPage = page;
         this.initMsg();
       },
+
     },
     components: {
       pagination
