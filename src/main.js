@@ -10,7 +10,7 @@ import VueAxios from 'vue-axios'
 
 
 import {DateTime} from 'vue-ydui/dist/lib.rem/datetime'
-
+// import Cube from 'cube-ui'
 
 
 import confJson from 'static/conf_pack.json'
@@ -34,6 +34,8 @@ Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 Vue.component(DateTime.name, DateTime);
+// Vue.use(Cube);
+
 
 
 var Bus = new Vue();
