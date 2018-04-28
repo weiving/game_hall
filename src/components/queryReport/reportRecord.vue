@@ -96,13 +96,15 @@
             <div class="title">游戏时间</div>
             <div class="row-content clearfix">
               <div class="time-btn">
-                <yd-datetime v-model="start_date" :yearFormat="yearFormat" :month-format="monthFormat"
-                             :day-format="dayFormat" type="date" slot="right"></yd-datetime>
+                <input type="text" v-model="start_date" @click="showDatePicker_start">
+                <!--<yd-datetime v-model="start_date" :yearFormat="yearFormat" :month-format="monthFormat"-->
+                <!--:day-format="dayFormat" type="date" slot="right"></yd-datetime>-->
               </div>
               <div class="time-line"></div>
               <div class="time-btn">
-                <yd-datetime v-model="end_date" :yearFormat="yearFormat" :month-format="monthFormat"
-                             :day-format="dayFormat" type="date" slot="right"></yd-datetime>
+                <input type="text" v-model="end_date" @click="showDatePicker_end">
+                <!--<yd-datetime v-model="end_date" :yearFormat="yearFormat" :month-format="monthFormat"-->
+                <!--:day-format="dayFormat" type="date" slot="right"></yd-datetime>-->
               </div>
             </div>
           </div>
@@ -130,9 +132,9 @@
         isShowPopover: false,
         start_date: '2018-01-01',
         end_date: '2018-01-01',
-        yearFormat: '<span>{value}<i style="font-size: 12px;margin-left: 1px;">年</i></span>',
-        monthFormat: '<span>{value}<i style="font-size: 12px;margin-left: 1px;">月</i></span>',
-        dayFormat: '<span>{value}<i style="font-size: 12px;margin-left: 1px;">日</i></span>',
+        // yearFormat: '<span>{value}<i style="font-size: 12px;margin-left: 1px;">年</i></span>',
+        // monthFormat: '<span>{value}<i style="font-size: 12px;margin-left: 1px;">月</i></span>',
+        // dayFormat: '<span>{value}<i style="font-size: 12px;margin-left: 1px;">日</i></span>',
 
         session: getLocalStorage('session'),
         user_id: getLocalStorage('user_id'),
@@ -237,6 +239,7 @@
           .post(url, params)
           .then(res => {
             var resData = res.data;
+            console.log('返回数据', resData);
             this.response(resData);
           })
       },
@@ -297,6 +300,99 @@
           this.currentPage = this.currentPage + 1;
           this.getDataList();
         }, 1000)
+      },
+
+      showDatePicker_start() {
+        if (!this.datePicker_start) {
+          this.datePicker_start = this.$createDatePicker({
+            title: '查询时间',
+            min: new Date(2018, 0, 1),
+            max: new Date(2028, 11, 31),
+            value: new Date(),
+            onSelect: this.selectHandle_start,
+            onCancel: this.cancelHandle
+          })
+        }
+        this.datePicker_start.show()
+      },
+      showDatePicker_end() {
+        if (!this.datePicker_end) {
+          this.datePicker_end = this.$createDatePicker({
+            title: '查询时间',
+            min: new Date(2018, 0, 1),
+            max: new Date(2028, 11, 31),
+            value: new Date(),
+            onSelect: this.selectHandle_end,
+            onCancel: this.cancelHandle
+          })
+        }
+        this.datePicker_end.show()
+      },
+
+      selectHandle_start(date, selectedVal, selectedText) {
+        // this.$createDialog({
+        //   type: 'warn',
+        //   content: `Selected Item: <br/> - date: ${date} <br/> - value: ${selectedVal.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+        //   icon: 'cubeic-alert'
+        // }).show()
+        var month = parseInt(selectedVal[1]);
+        var day = parseInt(selectedVal[2]);
+        if (month < 10) {
+          month = '0' + month;
+        }
+        if (day < 10) {
+          day = '0' + day;
+        }
+        this.start_date = selectedVal[0] + '-' + month + '-' + day;
+      },
+      selectHandle_end(date, selectedVal, selectedText) {
+        var startTime = Date.parse(this.start_date);
+        var endTime = Date.parse(date);
+        if (startTime < endTime) {
+          console.log('时间选择正确')
+          var month = parseInt(selectedVal[1]);
+          var day = parseInt(selectedVal[2]);
+          if (month < 10) {
+            month = '0' + month;
+          }
+          if (day < 10) {
+            day = '0' + day;
+          }
+          this.end_date = selectedVal[0] + '-' + month + '-' + day;
+        } else {
+          console.log('时间选择错误')
+          this.$createToast({
+            type: 'error',
+            txt: '结束时间要大于开始时间',
+            time: 1000
+          }).show()
+        }
+
+
+      },
+
+      // selectHandle(date, selectedVal, selectedText) {
+      //   // this.$createDialog({
+      //   //   type: 'warn',
+      //   //   content: `Selected Item: <br/> - date: ${date} <br/> - value: ${selectedVal.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+      //   //   icon: 'cubeic-alert'
+      //   // }).show()
+      //   var mouth = parseInt(selectedVal[1]);
+      //   var day = parseInt(selectedVal[2]);
+      //   if (mouth < 10) {
+      //     mouth = '0' + mouth;
+      //   }
+      //   if (day < 10) {
+      //     day = '0' + day;
+      //   }
+      //   this.start_date = selectedVal[0] + '-' + mouth + '-' + day;
+      // },
+      cancelHandle() {
+        // this.$createToast({
+        //   type: 'correct',
+        //   txt: 'Picker canceled',
+        //   time: 1000
+        // }).show()
       }
     }
   }
