@@ -45,7 +45,7 @@
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
+            .post(`/api/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
             .then(res => {
               var resData=res.data;
               if (resData.success == true) {
@@ -76,7 +76,7 @@
           var user_id = getLocalStorage("user_id");
           var username = getLocalStorage("username");
           this.$http
-            .post(`${this.$api}/v1/userdata/w/bind_qq/${user_id}/${username}?session=${session}`, params)
+            .post(`/api/v1/userdata/w/bind_qq/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData=res.data;
               if (resData.success == true) {

@@ -242,7 +242,7 @@
           params.append('deposit_user', this.payer);
 
           this.$http
-            .post(`${this.$api}/v1/pay/w/create_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
+            .post(`/api/v1/pay/w/create_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
               // console.log('提交订单', resData);

@@ -65,7 +65,8 @@
     methods: {
       getOnlineNum: function () {
         this.$http
-          .post(`${this.$api}/v1/pubsub/r/online`)
+          // .post(`${this.$api}/v1/pubsub/r/online`)
+          .post('/api/v1/pubsub/r/online')
           .then(res => {
             var resData = res.data;
             if (resData.success == 1) {
@@ -99,7 +100,8 @@
           var params = new URLSearchParams();
           params.append('device', 1);
           this.$http
-            .post(`${this.$api}/v1/notice/r/get_login_index_notice/${user_id}/${user_name}?session=${session}`, params)
+            // .post(`${this.$api}/v1/notice/r/get_login_index_notice/${user_id}/${user_name}?session=${session}`, params)
+            .post('/api/v1/notice/r/get_login_index_notice/${user_id}/${user_name}?session=${session}', params)
             .then(res => {
               var resData = res.data;
               // console.log('弹窗', resData);

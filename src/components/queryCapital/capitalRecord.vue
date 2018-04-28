@@ -294,13 +294,13 @@
         params.append('page_size', parseInt(this.pageSize));
         var url = '';
         if (this.defaultType == 'withdrawal') {
-          url = `${this.$api}/v1/draw/r/find_draw_order_list/${this.user_id}/${this.username}?session=${this.session}`;
+          url = `/api/v1/draw/r/find_draw_order_list/${this.user_id}/${this.username}?session=${this.session}`;
         } else if (this.defaultType == 'transfer') {
 
         } else if (this.defaultType == 'inOrOut') {
 
         } else {
-          url = `${this.$api}/v1/pay/r/find_pay_order_list/${this.user_id}/${this.username}?session=${this.session}`;
+          url = `/api/v1/pay/r/find_pay_order_list/${this.user_id}/${this.username}?session=${this.session}`;
           //该方法返回页码有误
         }
         if (url != '') {

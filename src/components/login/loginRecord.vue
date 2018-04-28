@@ -61,7 +61,8 @@
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/user/login_log?session=${session}`)
+          // .post(`${this.$api}/user/login_log?session=${session}`)
+            .post('/api/user/login_log?session=${session}')
             .then(res => {
               if (res.data.success == 1) {
                 console.log(res.data)

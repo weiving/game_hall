@@ -276,7 +276,7 @@
         } else if (this.defaultType == 'agentRecord') {
 
         } else {
-          url = `${this.$api}/v1/record/r/bill/${this.user_id}/${this.username}?session=${this.session}`;
+          url = `/api/v1/record/r/bill/${this.user_id}/${this.username}?session=${this.session}`;
         }
         if (url != '') {
           this.$http

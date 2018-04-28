@@ -90,7 +90,8 @@
         const that = this;
         if (this.user_id == undefined || this.user_id == '') {
           this.$http
-            .post(`${this.$api}/v1/notice/r/get_scroll_notice/1/1?session=${this.session}`, params)
+            // .post(`${this.$api}/v1/notice/r/get_scroll_notice/1/1?session=${this.session}`, params)
+            .post('/api/v1/notice/r/get_scroll_notice/1/1?session=${this.session}', params)
             .then(res => {
               var resData = res.data;
               this.scrollNoticeList = resData.data;
@@ -100,7 +101,8 @@
             })
         } else {
           this.$http
-            .post(`${this.$api}/v1/notice/r/get_login_scroll_notice/${this.user_id}/${this.user_name}?session=${this.session}`, params)
+            // .post(`${this.$api}/v1/notice/r/get_login_scroll_notice/${this.user_id}/${this.user_name}?session=${this.session}`, params)
+            .post('/api/v1/notice/r/get_login_scroll_notice/${this.user_id}/${this.user_name}?session=${this.session}', params)
             .then(res => {
               var resData = res.data;
               this.scrollNoticeList = resData.data;

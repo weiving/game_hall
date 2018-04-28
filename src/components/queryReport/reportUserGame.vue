@@ -86,7 +86,7 @@
         }
         params.append('args', JSON.stringify(obj));
         this.$http
-          .post(`${this.$api}/v1/report/r/game_daily/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .post(`/api/v1/report/r/game_daily/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             // console.log('游戏单个', resData);

@@ -20,11 +20,11 @@ import "vue-ydui/dist/ydui.base.css"
 import 'static/css/hall.less'
 
 
-const url = 'http://192.168.50.154:8333';
+// const url = 'http://192.168.50.154:8333';
 // const url = 'http://192.168.50.124:8333';
 
 
-Vue.prototype.$api = `${url}`;
+// Vue.prototype.$api = `${url}`;
 Vue.prototype.$confJson = confJson;
 Vue.prototype.$address = address;
 

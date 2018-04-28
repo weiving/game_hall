@@ -121,7 +121,7 @@
 
       getSecret() {
         this.$http
-          .post(`${this.$api}/v1/userdata/w/generate_gsecret/${this.user_id}/${this.username}?session=${this.session}`)
+          .post(`/api/v1/userdata/w/generate_gsecret/${this.user_id}/${this.username}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success === true) {
@@ -137,7 +137,7 @@
           // params.append('gsecret', this.gsecret);
           params.append('gcode', this.val);
           this.$http
-            .post(`${this.$api}/v1/userdata/w/set_gsecret/${this.user_id}/${this.username}?session=${this.session}`, params)
+            .post(`/api/v1/userdata/w/set_gsecret/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success === true) {

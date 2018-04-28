@@ -128,7 +128,7 @@
         params.append('order_no', this.order_no);
         var that = this;
         this.$http
-          .post(`${this.$api}/v1/pay/w/revoke_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .post(`/api/v1/pay/w/revoke_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             console.log('撤销', resData);

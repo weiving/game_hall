@@ -91,7 +91,7 @@
       },
       vcodeFn() {
         this.$http
-          .get(`${this.$api}/v1/vcode.png`)
+          .get(`/api/v1/vcode.png`)
           .then(res => {
             this.cookie_vcode = res.headers.vcode;
           })
@@ -114,7 +114,7 @@
       //       var params = new URLSearchParams();
       //       params.append("phone", this.phone);
       //       this.$http
-      //         .post(`${this.$api}/v1/text_msg`, params)
+      //         .post(`/api/v1/text_msg`, params)
       //         .then(res => {
       //           console.log("res", res);
       //           if (res.data.success == 1) {
@@ -181,7 +181,7 @@
           params.append("vcode", this.code);
 
           this.$http
-            .post(`${this.$api}/v1/register/account?vcode=${this.cookie_vcode}`, params)
+            .post(`/api/v1/register/account?vcode=${this.cookie_vcode}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {

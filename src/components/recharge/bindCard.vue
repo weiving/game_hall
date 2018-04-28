@@ -169,7 +169,7 @@
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
+            .post(`/api/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {
@@ -191,7 +191,7 @@
         var username = getLocalStorage('username');
 
         this.$http
-          .post(`${this.$api}/v1/bank/r/find_bank_list/${user_id}/${username}?session=${session}`)
+          .post(`/api/v1/bank/r/find_bank_list/${user_id}/${username}?session=${session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {
@@ -293,7 +293,7 @@
           params.append('is_lock', 0);
 
           this.$http
-            .post(`${this.$api}/v1/bank/w/add_user_bank/${user_id}/${username}?session=${session}`, params)
+            .post(`/api/v1/bank/w/add_user_bank/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {

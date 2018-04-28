@@ -73,7 +73,7 @@
           var user_id = getLocalStorage("user_id");
           var username = getLocalStorage("username");
           this.$http
-            .post(`${this.$api}/v1/userdata/w/reset_password/${user_id}/${username}?session=${session}`, params)
+            .post(`/api/v1/userdata/w/reset_password/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {

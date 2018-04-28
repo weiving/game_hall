@@ -69,7 +69,7 @@
         var params = new URLSearchParams();
         params.append('packetManageDetailId', this.packetManageDetailId)
         this.$http
-          .post(`${this.$api}/aa/bb`, params)
+          .post(`/api/aa/bb`, params)
           .then(res => {
             if (res.data.success == 1) {
 

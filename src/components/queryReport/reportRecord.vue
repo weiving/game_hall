@@ -231,9 +231,9 @@
 
         var url = '';
         if (this.defaultType == 'personalReport') {
-          url = `${this.$api}/v1/report/r/user/${this.user_id}/${this.username}?session=${this.session}`;
+          url = `/api/v1/report/r/user/${this.user_id}/${this.username}?session=${this.session}`;
         } else {
-          url = `${this.$api}/v1/report/r/game/${this.user_id}/${this.username}?session=${this.session}`;
+          url = `/api/v1/report/r/game/${this.user_id}/${this.username}?session=${this.session}`;
         }
         this.$http
           .post(url, params)

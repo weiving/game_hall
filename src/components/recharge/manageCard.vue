@@ -91,7 +91,7 @@
     methods: {
       getBankCardList() {
         this.$http
-          .post(`${this.$api}/v1/bank/r/find_user_bank_list/${this.user_id}/${this.username}?session=${this.session}`)
+          .post(`/api/v1/bank/r/find_user_bank_list/${this.user_id}/${this.username}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {
@@ -113,7 +113,7 @@
         var params = new URLSearchParams();
         params.append('uid', this.selectCardUid);
         this.$http
-          .post(`${this.$api}/v1/bank/w/set_user_bank_default/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .post(`/api/v1/bank/w/set_user_bank_default/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             this.isShowOpt = false;
@@ -138,7 +138,7 @@
         var params = new URLSearchParams();
         params.append('uid', this.selectCardUid);
         this.$http
-          .post(`${this.$api}/v1/bank/w/lock_user_bank/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .post(`/api/v1/bank/w/lock_user_bank/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             this.isShowOpt = false;
@@ -168,7 +168,7 @@
         params.append('funds_password', this.funds_password);
         params.append('uid', this.selectCardUid);
         this.$http
-          .post(`${this.$api}/v1/bank/w/del_user_bank/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .post(`/api/v1/bank/w/del_user_bank/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             this.isShowFundsPwd = false;

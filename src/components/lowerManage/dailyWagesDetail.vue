@@ -77,7 +77,7 @@
         var params = new URLSearchParams();
         params.append('dailyWagesDetailId', this.dailyWagesDetailId)
         this.$http
-          .post(`${this.$api}/aa/bb`, params)
+          .post('/api/aa/bb', params)
           .then(res => {
             if (res.data.success == 1) {
 

@@ -169,7 +169,7 @@
         var username = getLocalStorage("username");
         var session = getLocalStorage("session");
         this.$http
-          .post(`${this.$api}/v1/wallet/r/get_user_balance/${user_id}/${username}?session=${session}`)
+          .post(`/api/v1/wallet/r/get_user_balance/${user_id}/${username}?session=${session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {

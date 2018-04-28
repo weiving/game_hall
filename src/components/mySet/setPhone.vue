@@ -53,7 +53,7 @@
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
+            .post(`/api/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
             .then(res => {
               var resData = res.data;
               console.log('手机号', resData);
@@ -79,7 +79,7 @@
           var params = new URLSearchParams();
           params.append("phone", this.phone);
           this.$http
-            .post(`${this.$api}/v1/text_msg`, params)
+            .post(`/api/v1/text_msg`, params)
             .then(res => {
               var resData = res.data;
               console.log('验证码', resData.msg);
@@ -132,7 +132,7 @@
           params.append("code", this.code);
 
           this.$http
-            .post(`${this.$api}/v1/userdata/w/bind_phone/${user_id}/${username}?session=${session}`, params)
+            .post(`/api/v1/userdata/w/bind_phone/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {

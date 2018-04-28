@@ -150,7 +150,7 @@
         var params = new URLSearchParams();
         params.append('args', '{}');
         this.$http
-          .post(`${this.$api}/v1/game/r/list/${this.user_id}/{${this.username}?session=${this.session}`, params)
+          .post(`/api/v1/game/r/list/${this.user_id}/{${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             console.log('游戏列表', resData);

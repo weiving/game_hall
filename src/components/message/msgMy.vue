@@ -89,7 +89,7 @@
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/v1/userdata/r/user_info/${this.user_id}/${this.username}?session=${this.session}`)
+            .post(`/api/v1/userdata/r/user_info/${this.user_id}/${this.username}?session=${this.session}`)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {

@@ -308,7 +308,8 @@
         } else if (this.defaultType == 'lowerWithdrawals') {
 
         } else {
-          url = `${this.$api}/v1/user/r/get_children/${this.user_id}/${this.username}?session=${this.session}`;
+          // url = `${this.$api}/v1/user/r/get_children/${this.user_id}/${this.username}?session=${this.session}`;
+          url = `/api/v1/user/r/get_children/${this.user_id}/${this.username}?session=${this.session}`;
         }
         if (url != "") {
           this.$http

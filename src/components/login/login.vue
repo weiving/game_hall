@@ -103,7 +103,8 @@
           params.append('account', this.username);
           params.append('password', this.password);
           this.$http
-            .post(`${this.$api}/v1/login/account`, params)
+            // .post(`${this.$api}/v1/login/account`, params)
+            .post('/api/v1/login/account', params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {

@@ -46,7 +46,7 @@
         params.append('notice_id', notice_id);
 
         this.$http
-          .post(`${this.$api}/v1/notice/r/get_notice_info/${user_id}/${user_name}`, params)
+          .post(`/api/v1/notice/r/get_notice_info/${user_id}/${user_name}`, params)
           .then(res => {
             console.log('公告详情', res.data);
             if (res.data.success == true) {

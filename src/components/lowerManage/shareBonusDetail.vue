@@ -85,7 +85,8 @@
         var params = new URLSearchParams();
         params.append('shareBonusDetailId', this.shareBonusDetailId)
         this.$http
-          .post(`${this.$api}/aa/bb`, params)
+          // .post(`${this.$api}/aa/bb`, params)
+          .post(`/api/aa/bb`, params)
           .then(res => {
             if (res.data.success == 1) {
 

@@ -60,13 +60,13 @@
 
         this.$http
         //公告列表
-        //.post(`${this.$api}/v1/notice/r/find_notice_list/${user_id}/${user_name}`, params)
+        //.post(`/api/v1/notice/r/find_notice_list/${user_id}/${user_name}`, params)
 
         //首页公告-登陆
-        //  .post(`${this.$api}/v1/notice/r/get_login_index_notice/${user_id}/${user_name}`)
+        //  .post(`/api/v1/notice/r/get_login_index_notice/${user_id}/${user_name}`)
 
         //首页公告-无需登陆
-          .post(`${this.$api}/v1/notice/r/get_index_notice/1/1`)
+          .post(`/api/v1/notice/r/get_index_notice/1/1`)
           .then(res => {
             // console.log('公告列表', res.data);
             if (res.data.success == true) {

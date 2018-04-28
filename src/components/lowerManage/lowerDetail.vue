@@ -78,7 +78,7 @@
         var params = new URLSearchParams();
         params.append('lowerDetailId', this.lowerDetailId)
         this.$http
-          .post(`${this.$api}/aa/bb`, params)
+          .post('/api/aa/bb', params)
           .then(res => {
             if (res.data.success == 1) {
 

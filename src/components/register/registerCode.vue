@@ -104,7 +104,7 @@
           params.append("spread_code", this.spread_code);
 
           this.$http
-            .post(`${this.$api}/v1/register/invite`, params)
+            .post(`/api/v1/register/invite`, params)
             .then(res => {
               console.log('请求', 11111);
               var resData = res.data;

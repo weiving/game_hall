@@ -50,7 +50,7 @@
       },
       getBankCardList() {
         this.$http
-          .post(`${this.$api}/v1/bank/r/find_user_bank_list/${this.user_id}/${this.username}?session=${this.session}`)
+          .post(`/api/v1/bank/r/find_user_bank_list/${this.user_id}/${this.username}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {

@@ -150,7 +150,7 @@
           this.$router.push({path: '/login'})
         } else {
           this.$http
-            .post(`${this.$api}/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
+            .post(`/api/v1/userdata/r/user_info/${user_id}/${username}?session=${session}`)
             .then(res => {
               var resData = res.data;
               // console.log('用户',resData)
@@ -189,7 +189,7 @@
         var user_id = getLocalStorage("user_id");
         var username = getLocalStorage("username");
         this.$http
-          .post(`${this.$api}/v1/bank/r/get_user_bank_count/${user_id}/${username}?session=${session}`)
+          .post(`/api/v1/bank/r/get_user_bank_count/${user_id}/${username}?session=${session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {
@@ -204,7 +204,7 @@
         var user_id = getLocalStorage("user_id");
         var username = getLocalStorage("username");
         this.$http
-          .post(`${this.$api}/v1/userdata/w/logout/${user_id}/${username}?session=${session}`)
+          .post(`/api/v1/userdata/w/logout/${user_id}/${username}?session=${session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {

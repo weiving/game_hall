@@ -233,7 +233,7 @@
         if (this.capitalType == 'recharge') {
           params.append('order_no', this.capitalDetailId)
           this.$http
-            .post(`${this.$api}/v1/pay/r/get_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
+            .post(`/api/v1/pay/r/get_pay_order/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
               // console.log('11',resData)
@@ -246,7 +246,7 @@
         } else if (this.capitalType == 'withdrawal') {
           params.append('order_no', this.capitalDetailId)
           this.$http
-            .post(`${this.$api}/v1/draw/r/get_draw_order/${this.user_id}/${this.username}?session=${this.session}`, params)
+            .post(`/api/v1/draw/r/get_draw_order/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {

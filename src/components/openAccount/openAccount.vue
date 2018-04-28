@@ -330,7 +330,7 @@
         var params = new URLSearchParams();
         params.append('args', '{}');
         this.$http
-          .post(`${this.$api}/v1/platform/r/list/${user_id}/${username}?session=${session}`, params)
+          .post(`/api/v1/platform/r/list/${user_id}/${username}?session=${session}`, params)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {
@@ -358,7 +358,7 @@
           var params = new URLSearchParams();
           params.append('args', '{}');
           this.$http
-            .post(`${this.$api}/v1/game/r/list/${user_id}/${username}?session=${session}`, params)
+            .post(`/api/v1/game/r/list/${user_id}/${username}?session=${session}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {
@@ -431,7 +431,7 @@
 
           var that = this;
           this.$http
-            .post(`${this.$api}/v1/user/w/add/${this.user_id}/${this.username}?session=${this.session}`, params)
+            .post(`/api/v1/user/w/add/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
               if (resData.success == true) {
@@ -477,7 +477,7 @@
           var params = new URLSearchParams();
           params.append('args', JSON.stringify(obj));
           this.$http
-            .post(`${this.$api}/v1/user/w/gen_spread_code/${this.user_id}/${this.username}?session=${this.session}`, params)
+            .post(`/api/v1/user/w/gen_spread_code/${this.user_id}/${this.username}?session=${this.session}`, params)
             .then(res => {
               var resData = res.data;
               console.log("推广码", resData);
@@ -506,7 +506,7 @@
         params.append('args', JSON.stringify(obj));
 
         this.$http
-          .post(`${this.$api}/v1/user/r/get_spread_code_list/${this.user_id}/${this.username}?session=${this.session}`, params)
+          .post(`/api/v1/user/r/get_spread_code_list/${this.user_id}/${this.username}?session=${this.session}`, params)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {

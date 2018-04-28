@@ -67,7 +67,7 @@
     methods: {
       getPayAccountList() {
         this.$http
-          .post(`${this.$api}/v1/pay/r/find_pay_account_list/${this.user_id}/${this.username}?session=${this.session}`)
+          .post(`/api/v1/pay/r/find_pay_account_list/${this.user_id}/${this.username}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
             if (resData.success == true) {
@@ -97,7 +97,7 @@
       toNext() {
         var that = this;
         this.$http
-          .post(`${this.$api}/v1/pay/r/get_unpaid_order/${this.user_id}/${this.username}?session=${this.session}`)
+          .post(`/api/v1/pay/r/get_unpaid_order/${this.user_id}/${this.username}?session=${this.session}`)
           .then(res => {
             var resData = res.data;
             // console.log('是否有未支付的订单', resData);
